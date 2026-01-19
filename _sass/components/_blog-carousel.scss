@@ -1,89 +1,309 @@
-// Blog carousel component styles
-@import '../variables';
-@import '../mixins';
-
 // ============================================================================
-// BLOG CAROUSEL
+// BLOG CAROUSEL COMPONENT
+// Design System v1.0 - Homepage blog post carousel
 // ============================================================================
 
 .blog-carousel {
-  padding: $spacing_10 0;
-  background-color: $color_bg_secondary;
-
-  @include respond-to-lg {
-    padding: $spacing_12 0;
+  padding: $spacing-8 0;
+  
+  @include md {
+    padding: $spacing-12 0;
   }
-
+  
+  // ----------------------------------------------------------------------------
+  // Carousel Header
+  // ----------------------------------------------------------------------------
   &__header {
-    text-align: center;
-    margin-bottom: $spacing_8;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-8;
+    
+    @include md {
+      margin-bottom: $spacing-10;
+    }
   }
-
+  
   &__title {
-    @include heading-2;
-    margin-bottom: $spacing_4;
-    color: $color_text_primary;
+    font-family: $font-family-heading;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0;
+    
+    @include md {
+      font-size: $font-size-4xl;
+    }
   }
-
-  &__subtitle {
-    font-size: $font_size_lg;
-    line-height: $line_height_relaxed;
-    color: $color_text_secondary;
+  
+  &__view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-link;
+    text-decoration: none;
+    transition: $transition-colors;
+    
+    svg {
+      width: $icon-size-md;
+      height: $icon-size-md;
+      transition: transform $duration-base $ease-out;
+    }
+    
+    @include hover {
+      color: $color-text-link-hover;
+      
+      svg {
+        transform: translateX(4px);
+      }
+    }
   }
-
+  
+  // ----------------------------------------------------------------------------
+  // Carousel Grid
+  // ----------------------------------------------------------------------------
   &__grid {
-    @include responsive-grid(1, 2, 3, $spacing_6);
-    margin-bottom: $spacing_8;
+    display: grid;
+    gap: $spacing-6;
+    
+    // Mobile: 1 column with horizontal scroll
+    grid-template-columns: 1fr;
+    
+    // Small screens: 1 column, no scroll
+    @include sm {
+      grid-template-columns: 1fr;
+    }
+    
+    // Tablet: 2 columns
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-8;
+    }
+    
+    // Desktop: 3 columns
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+      gap: $spacing-8;
+    }
   }
-
-  &__item {
-    // Grid items automatically sized by grid
+  
+  // ----------------------------------------------------------------------------
+  // Horizontal Scroll Variant (Mobile)
+  // ----------------------------------------------------------------------------
+  &--scroll {
+    .blog-carousel__grid {
+      // Mobile only: enable horizontal scroll
+      @media (max-width: $breakpoint-md - 1px) {
+        display: flex;
+        gap: $spacing-4;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: $color-border-default transparent;
+        
+        // Hide scrollbar on mobile for cleaner look
+        &::-webkit-scrollbar {
+          height: 4px;
+        }
+        
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background-color: $color-border-default;
+          border-radius: $radius-full;
+        }
+        
+        // Ensure cards are minimum width
+        > * {
+          scroll-snap-align: start;
+          flex: 0 0 280px;
+          
+          @include sm {
+            flex: 0 0 320px;
+          }
+        }
+      }
+    }
   }
-
-  &__footer {
-    display: flex;
+  
+  // ----------------------------------------------------------------------------
+  // Carousel Navigation (Optional Arrows)
+  // ----------------------------------------------------------------------------
+  &__nav {
+    display: none; // Hidden by default, show with JS
+    align-items: center;
+    gap: $spacing-3;
+    margin-top: $spacing-8;
     justify-content: center;
-    margin-top: $spacing_8;
+    
+    @include md {
+      margin-top: $spacing-10;
+    }
+    
+    &.is-visible {
+      display: flex;
+    }
   }
-
-  // Empty state
-  &__empty {
-    padding: $spacing_10 0;
+  
+  &__nav-button {
+    @include button-base;
+    @include button-icon;
+    @include button-ghost;
+    
+    svg {
+      width: $icon-size-lg;
+      height: $icon-size-lg;
+    }
+    
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+  
+  // Pagination dots
+  &__pagination {
     display: flex;
-    justify-content: center;
+    gap: $spacing-2;
+  }
+  
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: $radius-full;
+    background-color: $color-border-default;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: $transition-colors;
+    
+    &:hover {
+      background-color: $color-border-strong;
+    }
+    
+    &.is-active {
+      background-color: $color-primary-500;
+      width: 24px;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Featured Post Section (Above Carousel)
+  // ----------------------------------------------------------------------------
+  &__featured {
+    margin-bottom: $spacing-12;
+    
+    @include lg {
+      margin-bottom: $spacing-16;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Loading State
+  // ----------------------------------------------------------------------------
+  &__skeleton {
+    display: grid;
+    gap: $spacing-6;
+    grid-template-columns: 1fr;
+    
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-8;
+    }
+    
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  &__skeleton-card {
+    background-color: $color-bg-secondary;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    
+    &-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(
+        90deg,
+        $color-neutral-200 0%,
+        $color-neutral-100 50%,
+        $color-neutral-200 100%
+      );
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s ease-in-out infinite;
+    }
+    
+    &-content {
+      padding: $card-padding-md;
+      
+      &-line {
+        height: 16px;
+        background: linear-gradient(
+          90deg,
+          $color-neutral-200 0%,
+          $color-neutral-100 50%,
+          $color-neutral-200 100%
+        );
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s ease-in-out infinite;
+        border-radius: $radius-sm;
+        margin-bottom: $spacing-3;
+        
+        &:nth-child(1) {
+          width: 60%;
+        }
+        
+        &:nth-child(2) {
+          width: 100%;
+        }
+        
+        &:nth-child(3) {
+          width: 80%;
+        }
+      }
+    }
   }
 }
 
-// ============================================================================
-// EMPTY STATE
-// ============================================================================
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
 
-.empty-state {
+// ----------------------------------------------------------------------------
+// Empty State
+// ----------------------------------------------------------------------------
+.blog-carousel__empty {
   text-align: center;
-  max-width: 400px;
-  padding: $spacing_8 $spacing_4;
-
-  &__icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto $spacing_5;
-    color: $color_gray_300;
+  padding: $spacing-16 $spacing-4;
+  color: $color-text-tertiary;
+  
+  &-icon {
+    width: $icon-size-3xl;
+    height: $icon-size-3xl;
+    margin: 0 auto $spacing-4;
+    color: $color-neutral-300;
   }
-
-  &__title {
-    font-size: $font_size_2xl;
-    font-weight: $font_weight_semibold;
-    color: $color_text_primary;
-    margin-bottom: $spacing_3;
+  
+  &-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-2;
   }
-
-  &__message {
-    font-size: $font_size_lg;
-    color: $color_text_secondary;
-    line-height: $line_height_relaxed;
-    margin-bottom: $spacing_6;
+  
+  &-description {
+    font-size: $font-size-base;
+    color: $color-text-tertiary;
   }
 }

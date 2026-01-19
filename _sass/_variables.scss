@@ -1,149 +1,501 @@
-// Design Tokens & Variables
+// ============================================================================
+// DESIGN TOKENS & VARIABLES
+// GitHub Page Portfolio - Design System v1.0
+// ============================================================================
 // Mobile-first responsive design system
+// Based on: design-system.md specification
 
 // ============================================================================
-// COLORS - Warm, friendly palette
+// 1. COLOR SYSTEM
 // ============================================================================
 
-// Primary colors
-$color_primary: #2563eb;           // Vibrant blue
-$color_primary_light: #3b82f6;     // Lighter blue
-$color_primary_dark: #1e40af;      // Darker blue
+// ----------------------------------------------------------------------------
+// Primary Colors (Blue Palette) - Professional, trustworthy
+// ----------------------------------------------------------------------------
+$color-primary-50:  #f0f9ff;
+$color-primary-100: #e0f2fe;
+$color-primary-200: #bae6fd;
+$color-primary-300: #7dd3fc;
+$color-primary-400: #38bdf8;
+$color-primary-500: #0ea5e9;   // Main brand color
+$color-primary-600: #0284c7;   // Hover states
+$color-primary-700: #0369a1;   // Deep blue
+$color-primary-800: #075985;
+$color-primary-900: #0c4a6e;
 
-// Secondary colors
-$color_secondary: #f59e0b;         // Warm amber
-$color_secondary_light: #fbbf24;   // Lighter amber
-$color_secondary_dark: #d97706;    // Darker amber
+// ----------------------------------------------------------------------------
+// Neutral Colors (Gray Scale) - Sophisticated minimalism
+// ----------------------------------------------------------------------------
+$color-neutral-0:   #ffffff;   // Pure white
+$color-neutral-50:  #fafafa;   // Page background
+$color-neutral-100: #f5f5f5;   // Card backgrounds
+$color-neutral-200: #e5e5e5;   // Border gray
+$color-neutral-300: #d4d4d4;   // Subtle borders
+$color-neutral-400: #a3a3a3;   // Disabled text
+$color-neutral-500: #737373;   // Secondary text
+$color-neutral-600: #525252;   // Body text
+$color-neutral-700: #404040;   // Headings
+$color-neutral-800: #262626;   // Strong emphasis
+$color-neutral-900: #171717;   // Maximum contrast
+$color-neutral-950: #0a0a0a;   // Near black
 
-// Neutral colors
-$color_gray_50: #f9fafb;
-$color_gray_100: #f3f4f6;
-$color_gray_200: #e5e7eb;
-$color_gray_300: #d1d5db;
-$color_gray_400: #9ca3af;
-$color_gray_500: #6b7280;
-$color_gray_600: #4b5563;
-$color_gray_700: #374151;
-$color_gray_800: #1f2937;
-$color_gray_900: #111827;
+// ----------------------------------------------------------------------------
+// Semantic Colors (Feedback)
+// ----------------------------------------------------------------------------
+$color-success-50:  #f0fdf4;
+$color-success-500: #22c55e;
+$color-success-600: #16a34a;
 
-// Semantic colors
-$color_success: #10b981;
-$color_warning: #f59e0b;
-$color_error: #ef4444;
-$color_info: #3b82f6;
+$color-warning-50:  #fffbeb;
+$color-warning-500: #f59e0b;
+$color-warning-600: #d97706;
+
+$color-error-50:    #fef2f2;
+$color-error-500:   #ef4444;
+$color-error-600:   #dc2626;
+
+$color-info-50:     #eff6ff;
+$color-info-500:    #3b82f6;
+$color-info-600:    #2563eb;
+
+// ----------------------------------------------------------------------------
+// Semantic Aliases (Context-based naming)
+// ----------------------------------------------------------------------------
 
 // Text colors
-$color_text_primary: $color_gray_900;
-$color_text_secondary: $color_gray_600;
-$color_text_muted: $color_gray_500;
-$color_text_inverse: #ffffff;
+$color-text-primary:    $color-neutral-900;
+$color-text-secondary:  $color-neutral-600;
+$color-text-tertiary:   $color-neutral-500;
+$color-text-disabled:   $color-neutral-400;
+$color-text-inverse:    $color-neutral-0;
+$color-text-link:       $color-primary-600;
+$color-text-link-hover: $color-primary-700;
 
 // Background colors
-$color_bg_primary: #ffffff;
-$color_bg_secondary: $color_gray_50;
-$color_bg_tertiary: $color_gray_100;
+$color-bg-page:      $color-neutral-50;
+$color-bg-surface:   $color-neutral-0;
+$color-bg-secondary: $color-neutral-100;
+$color-bg-tertiary:  $color-neutral-200;
+$color-bg-overlay:   rgba(0, 0, 0, 0.5);
+
+// Border colors
+$color-border-light:   $color-neutral-200;
+$color-border-default: $color-neutral-300;
+$color-border-strong:  $color-neutral-400;
+$color-border-focus:   $color-primary-500;
 
 // ============================================================================
-// TYPOGRAPHY
+// 2. TYPOGRAPHY
 // ============================================================================
 
-// Font families
-$font_family_base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-$font_family_heading: "Georgia", "Times New Roman", serif;
-$font_family_mono: "Monaco", "Courier New", monospace;
+// ----------------------------------------------------------------------------
+// Font Families
+// ----------------------------------------------------------------------------
+$font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 
+                   Roboto, 'Helvetica Neue', Arial, sans-serif;
 
-// Font sizes (mobile-first)
-$font_size_xs: 0.75rem;      // 12px
-$font_size_sm: 0.875rem;     // 14px
-$font_size_base: 1rem;       // 16px
-$font_size_lg: 1.125rem;     // 18px
-$font_size_xl: 1.25rem;      // 20px
-$font_size_2xl: 1.5rem;      // 24px
-$font_size_3xl: 1.875rem;    // 30px
-$font_size_4xl: 2.25rem;     // 36px
-$font_size_5xl: 3rem;        // 48px
+$font-family-heading: 'Merriweather', 'Georgia', 'Times New Roman', 
+                      Times, serif;
 
-// Font weights
-$font_weight_normal: 400;
-$font_weight_medium: 500;
-$font_weight_semibold: 600;
-$font_weight_bold: 700;
+$font-family-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 
+                   'Courier New', monospace;
 
-// Line heights
-$line_height_tight: 1.25;
-$line_height_normal: 1.5;
-$line_height_relaxed: 1.75;
+// ----------------------------------------------------------------------------
+// Font Sizes (Fluid Typography with clamp)
+// Mobile → Desktop responsive scaling
+// ----------------------------------------------------------------------------
+$font-size-xs:   clamp(0.75rem,  0.7rem + 0.25vw,  0.8125rem);  // 12-13px
+$font-size-sm:   clamp(0.875rem, 0.8rem + 0.375vw, 0.9375rem);  // 14-15px
+$font-size-base: 1rem;                                           // 16px
+$font-size-lg:   clamp(1.125rem, 1rem + 0.625vw,   1.25rem);    // 18-20px
+$font-size-xl:   clamp(1.25rem,  1.1rem + 0.75vw,  1.5rem);     // 20-24px
+$font-size-2xl:  clamp(1.5rem,   1.3rem + 1vw,     1.875rem);   // 24-30px
+$font-size-3xl:  clamp(1.875rem, 1.5rem + 1.875vw, 2.25rem);    // 30-36px
+$font-size-4xl:  clamp(2.25rem,  1.8rem + 2.25vw,  3rem);       // 36-48px
+$font-size-5xl:  clamp(3rem,     2.25rem + 3.75vw, 3.75rem);    // 48-60px
+$font-size-6xl:  clamp(3.75rem,  2.75rem + 5vw,    4.5rem);     // 60-72px
 
-// ============================================================================
-// SPACING (based on 8px grid)
-// ============================================================================
+// ----------------------------------------------------------------------------
+// Font Weights
+// ----------------------------------------------------------------------------
+$font-weight-light:     300;
+$font-weight-normal:    400;
+$font-weight-medium:    500;
+$font-weight-semibold:  600;
+$font-weight-bold:      700;
+$font-weight-extrabold: 800;
 
-$spacing_1: 0.25rem;   // 4px
-$spacing_2: 0.5rem;    // 8px
-$spacing_3: 0.75rem;   // 12px
-$spacing_4: 1rem;      // 16px
-$spacing_5: 1.5rem;    // 24px
-$spacing_6: 2rem;      // 32px
-$spacing_8: 3rem;      // 48px
-$spacing_10: 4rem;     // 64px
-$spacing_12: 6rem;     // 96px
-$spacing_16: 8rem;     // 128px
+// ----------------------------------------------------------------------------
+// Line Heights
+// ----------------------------------------------------------------------------
+$line-height-tight:   1.25;    // Large headings
+$line-height-snug:    1.375;   // Subheadings
+$line-height-normal:  1.5;     // Body text
+$line-height-relaxed: 1.625;   // Long-form content
+$line-height-loose:   2;       // Captions, labels
 
-// ============================================================================
-// BREAKPOINTS (mobile-first)
-// ============================================================================
-
-$breakpoint_sm: 640px;    // Small devices (landscape phones)
-$breakpoint_md: 768px;    // Medium devices (tablets)
-$breakpoint_lg: 1024px;   // Large devices (desktops)
-$breakpoint_xl: 1280px;   // Extra large devices (large desktops)
-$breakpoint_2xl: 1536px;  // 2X large devices
-
-// ============================================================================
-// LAYOUT
-// ============================================================================
-
-$container_max_width: 1200px;
-$container_padding_mobile: $spacing_4;      // 16px
-$container_padding_tablet: $spacing_6;      // 32px
-$container_padding_desktop: $spacing_8;     // 48px
+// ----------------------------------------------------------------------------
+// Letter Spacing
+// ----------------------------------------------------------------------------
+$letter-spacing-tighter: -0.05em;
+$letter-spacing-tight:   -0.025em;
+$letter-spacing-normal:  0;
+$letter-spacing-wide:    0.025em;
+$letter-spacing-wider:   0.05em;
+$letter-spacing-widest:  0.1em;
 
 // ============================================================================
-// BORDER RADIUS
+// 3. SPACING SYSTEM
+// ============================================================================
+// Base unit: 4px (0.25rem)
+// Primary scale: 8px grid (multiples of 2)
+
+$spacing-0:    0;
+$spacing-px:   1px;
+$spacing-0-5:  0.125rem;   // 2px
+$spacing-1:    0.25rem;    // 4px
+$spacing-2:    0.5rem;     // 8px
+$spacing-3:    0.75rem;    // 12px
+$spacing-4:    1rem;       // 16px
+$spacing-5:    1.25rem;    // 20px
+$spacing-6:    1.5rem;     // 24px
+$spacing-7:    1.75rem;    // 28px
+$spacing-8:    2rem;       // 32px
+$spacing-10:   2.5rem;     // 40px
+$spacing-12:   3rem;       // 48px
+$spacing-14:   3.5rem;     // 56px
+$spacing-16:   4rem;       // 64px
+$spacing-20:   5rem;       // 80px
+$spacing-24:   6rem;       // 96px
+$spacing-32:   8rem;       // 128px
+$spacing-40:   10rem;      // 160px
+$spacing-48:   12rem;      // 192px
+$spacing-64:   16rem;      // 256px
+
+// ============================================================================
+// 4. SIZING SYSTEM
 // ============================================================================
 
-$border_radius_sm: 0.25rem;   // 4px
-$border_radius_md: 0.5rem;    // 8px
-$border_radius_lg: 0.75rem;   // 12px
-$border_radius_xl: 1rem;      // 16px
-$border_radius_full: 9999px;  // Fully rounded
+// ----------------------------------------------------------------------------
+// General Sizes
+// ----------------------------------------------------------------------------
+$size-1:   0.25rem;    // 4px
+$size-2:   0.5rem;     // 8px
+$size-3:   0.75rem;    // 12px
+$size-4:   1rem;       // 16px
+$size-5:   1.25rem;    // 20px
+$size-6:   1.5rem;     // 24px
+$size-8:   2rem;       // 32px
+$size-10:  2.5rem;     // 40px
+$size-12:  3rem;       // 48px
+$size-16:  4rem;       // 64px
+$size-20:  5rem;       // 80px
+$size-24:  6rem;       // 96px
+$size-32:  8rem;       // 128px
+$size-40:  10rem;      // 160px
+$size-48:  12rem;      // 192px
+$size-64:  16rem;      // 256px
+
+// ----------------------------------------------------------------------------
+// Icon Sizes
+// ----------------------------------------------------------------------------
+$icon-size-xs:   0.75rem;   // 12px
+$icon-size-sm:   1rem;       // 16px
+$icon-size-md:   1.25rem;    // 20px
+$icon-size-lg:   1.5rem;     // 24px
+$icon-size-xl:   2rem;       // 32px
+$icon-size-2xl:  2.5rem;     // 40px
+$icon-size-3xl:  3rem;       // 48px
+
+// ----------------------------------------------------------------------------
+// Avatar Sizes
+// ----------------------------------------------------------------------------
+$avatar-size-xs:  1.5rem;    // 24px
+$avatar-size-sm:  2rem;      // 32px
+$avatar-size-md:  2.5rem;    // 40px
+$avatar-size-lg:  3rem;      // 48px
+$avatar-size-xl:  4rem;      // 64px
+$avatar-size-2xl: 6rem;      // 96px
+$avatar-size-3xl: 8rem;      // 128px
 
 // ============================================================================
-// SHADOWS
+// 5. BORDER RADIUS
 // ============================================================================
 
-$shadow_sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-$shadow_md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-$shadow_lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-$shadow_xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+$radius-none:  0;
+$radius-sm:    0.25rem;    // 4px
+$radius-md:    0.375rem;   // 6px
+$radius-lg:    0.5rem;     // 8px
+$radius-xl:    0.75rem;    // 12px
+$radius-2xl:   1rem;       // 16px
+$radius-3xl:   1.5rem;     // 24px
+$radius-full:  9999px;     // Fully rounded
 
 // ============================================================================
-// TRANSITIONS
+// 6. SHADOWS (ELEVATION)
 // ============================================================================
 
-$transition_fast: 150ms ease-in-out;
-$transition_base: 300ms ease-in-out;
-$transition_slow: 500ms ease-in-out;
+$shadow-xs:  0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-sm:  0 1px 3px 0 rgba(0, 0, 0, 0.1), 
+             0 1px 2px -1px rgba(0, 0, 0, 0.1);
+$shadow-md:  0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+             0 2px 4px -2px rgba(0, 0, 0, 0.1);
+$shadow-lg:  0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+             0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$shadow-xl:  0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+             0 8px 10px -6px rgba(0, 0, 0, 0.1);
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+// Focus ring (accessibility)
+$shadow-focus: 0 0 0 3px rgba(14, 165, 233, 0.3);
 
 // ============================================================================
-// Z-INDEX
+// 7. ANIMATION & TRANSITIONS
 // ============================================================================
 
-$z_index_dropdown: 1000;
-$z_index_sticky: 1020;
-$z_index_fixed: 1030;
-$z_index_modal_backdrop: 1040;
-$z_index_modal: 1050;
-$z_index_popover: 1060;
-$z_index_tooltip: 1070;
+// ----------------------------------------------------------------------------
+// Duration
+// ----------------------------------------------------------------------------
+$duration-instant:  0ms;
+$duration-fast:     150ms;
+$duration-base:     250ms;
+$duration-moderate: 350ms;
+$duration-slow:     500ms;
+$duration-slower:   750ms;
+
+// ----------------------------------------------------------------------------
+// Easing Functions
+// ----------------------------------------------------------------------------
+$ease-linear:   linear;
+$ease-in:       cubic-bezier(0.4, 0, 1, 1);
+$ease-out:      cubic-bezier(0, 0, 0.2, 1);
+$ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+$ease-bounce:   cubic-bezier(0.68, -0.55, 0.265, 1.55);
+$ease-elastic:  cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+// ----------------------------------------------------------------------------
+// Common Transitions
+// ----------------------------------------------------------------------------
+$transition-default:   all $duration-base $ease-in-out;
+$transition-colors:    color $duration-fast $ease-out,
+                       background-color $duration-fast $ease-out,
+                       border-color $duration-fast $ease-out;
+$transition-transform: transform $duration-moderate $ease-out;
+
+// ============================================================================
+// 8. BREAKPOINTS (MOBILE-FIRST)
+// ============================================================================
+
+$breakpoint-sm:   640px;    // Small devices (large phones)
+$breakpoint-md:   768px;    // Medium devices (tablets)
+$breakpoint-lg:   1024px;   // Large devices (laptops)
+$breakpoint-xl:   1280px;   // Extra large (desktops)
+$breakpoint-2xl:  1536px;   // 2X large (wide monitors)
+
+// ============================================================================
+// 9. Z-INDEX SCALE
+// ============================================================================
+
+$z-index-base:       0;
+$z-index-dropdown:   1000;
+$z-index-sticky:     1020;
+$z-index-fixed:      1030;
+$z-index-overlay:    1040;
+$z-index-modal:      1050;
+$z-index-popover:    1060;
+$z-index-tooltip:    1070;
+
+// ============================================================================
+// 10. LAYOUT
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// Container Widths
+// ----------------------------------------------------------------------------
+$container-sm:   640px;
+$container-md:   768px;
+$container-lg:   1024px;
+$container-xl:   1280px;
+$container-2xl:  1536px;
+
+// Max width for content (optimal line length for reading)
+$container-max-width: $container-xl;
+$content-max-width:   720px;   // 65-75 characters for blog posts
+
+// ----------------------------------------------------------------------------
+// Container Padding (Responsive)
+// ----------------------------------------------------------------------------
+$container-padding-mobile:  $spacing-4;   // 16px
+$container-padding-tablet:  $spacing-6;   // 24px
+$container-padding-desktop: $spacing-8;   // 32px
+
+// ----------------------------------------------------------------------------
+// Grid System
+// ----------------------------------------------------------------------------
+$grid-gap-sm:  $spacing-4;   // 16px
+$grid-gap-md:  $spacing-6;   // 24px
+$grid-gap-lg:  $spacing-8;   // 32px
+
+// ============================================================================
+// 11. COMPONENT-SPECIFIC TOKENS
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// Buttons
+// ----------------------------------------------------------------------------
+$button-height-sm:  2rem;      // 32px
+$button-height-md:  2.5rem;    // 40px
+$button-height-lg:  3rem;      // 48px
+$button-height-xl:  3.5rem;    // 56px
+
+$button-padding-x-sm:  1rem;     // 16px
+$button-padding-x-md:  1.5rem;   // 24px
+$button-padding-x-lg:  2rem;     // 32px
+$button-padding-x-xl:  2.5rem;   // 40px
+
+$button-icon-sm:  2rem;       // 32×32px
+$button-icon-md:  2.5rem;     // 40×40px
+$button-icon-lg:  3rem;       // 48×48px
+
+// ----------------------------------------------------------------------------
+// Form Inputs
+// ----------------------------------------------------------------------------
+$input-height-sm:  2rem;      // 32px
+$input-height-md:  2.5rem;    // 40px
+$input-height-lg:  3rem;      // 48px
+
+$input-padding-x-sm:  0.75rem;   // 12px
+$input-padding-x-md:  1rem;      // 16px
+$input-padding-x-lg:  1.25rem;   // 20px
+
+$input-border-width:  1px;
+
+// ----------------------------------------------------------------------------
+// Cards
+// ----------------------------------------------------------------------------
+$card-padding-sm:  $spacing-4;    // 16px
+$card-padding-md:  $spacing-6;    // 24px
+$card-padding-lg:  $spacing-8;    // 32px
+$card-min-height:  12rem;         // 192px
+
+// ----------------------------------------------------------------------------
+// Navigation
+// ----------------------------------------------------------------------------
+$header-height-mobile:   3.5rem;    // 56px
+$header-height-desktop:  4rem;      // 64px
+$nav-item-spacing:       $spacing-6;   // 24px
+$nav-item-padding:       $spacing-2;   // 8px
+
+// ============================================================================
+// 12. BACKWARD COMPATIBILITY ALIASES
+// ============================================================================
+// Legacy variable names (for existing codebase compatibility)
+// TODO: Refactor existing code to use new token names
+
+// Primary colors (old names)
+$color_primary:       $color-primary-500;
+$color_primary_light: $color-primary-400;
+$color_primary_dark:  $color-primary-600;
+
+// Gray colors (old names)
+$color_gray_50:  $color-neutral-50;
+$color_gray_100: $color-neutral-100;
+$color_gray_200: $color-neutral-200;
+$color_gray_300: $color-neutral-300;
+$color_gray_400: $color-neutral-400;
+$color_gray_500: $color-neutral-500;
+$color_gray_600: $color-neutral-600;
+$color_gray_700: $color-neutral-700;
+$color_gray_800: $color-neutral-800;
+$color_gray_900: $color-neutral-900;
+
+// Semantic colors (old names)
+$color_success: $color-success-500;
+$color_warning: $color-warning-500;
+$color_error:   $color-error-500;
+$color_info:    $color-info-500;
+
+// Text colors (old names)
+$color_text_primary:   $color-text-primary;
+$color_text_secondary: $color-text-secondary;
+$color_text_muted:     $color-text-tertiary;
+$color_text_inverse:   $color-text-inverse;
+
+// Background colors (old names)
+$color_bg_primary:   $color-bg-surface;
+$color_bg_secondary: $color-bg-secondary;
+$color_bg_tertiary:  $color-bg-tertiary;
+
+// Font sizes (old names - non-fluid)
+$font_size_xs:   0.75rem;
+$font_size_sm:   0.875rem;
+$font_size_base: 1rem;
+$font_size_lg:   1.125rem;
+$font_size_xl:   1.25rem;
+$font_size_2xl:  1.5rem;
+$font_size_3xl:  1.875rem;
+$font_size_4xl:  2.25rem;
+$font_size_5xl:  3rem;
+
+// Font weights (old names)
+$font_weight_normal:   $font-weight-normal;
+$font_weight_medium:   $font-weight-medium;
+$font_weight_semibold: $font-weight-semibold;
+$font_weight_bold:     $font-weight-bold;
+
+// Line heights (old names)
+$line_height_tight:   $line-height-tight;
+$line_height_normal:  $line-height-normal;
+$line_height_relaxed: $line-height-relaxed;
+
+// Spacing (old names)
+$spacing_1:  $spacing-1;
+$spacing_2:  $spacing-2;
+$spacing_3:  $spacing-3;
+$spacing_4:  $spacing-4;
+$spacing_5:  $spacing-5;
+$spacing_6:  $spacing-6;
+$spacing_8:  $spacing-8;
+$spacing_10: $spacing-10;
+$spacing_12: $spacing-12;
+$spacing_16: $spacing-16;
+
+// Border radius (old names)
+$border_radius_sm:   $radius-sm;
+$border_radius_md:   $radius-md;
+$border_radius_lg:   $radius-lg;
+$border_radius_xl:   $radius-xl;
+$border_radius_full: $radius-full;
+
+// Shadows (old names)
+$shadow_sm: $shadow-sm;
+$shadow_md: $shadow-md;
+$shadow_lg: $shadow-lg;
+$shadow_xl: $shadow-xl;
+
+// Transitions (old names)
+$transition_fast: $duration-fast ease-in-out;
+$transition_base: $duration-base ease-in-out;
+$transition_slow: $duration-slow ease-in-out;
+
+// Z-index (old names)
+$z_index_dropdown:       $z-index-dropdown;
+$z_index_sticky:         $z-index-sticky;
+$z_index_fixed:          $z-index-fixed;
+$z_index_modal_backdrop: $z-index-overlay;
+$z_index_modal:          $z-index-modal;
+$z_index_popover:        $z-index-popover;
+$z_index_tooltip:        $z-index-tooltip;
+
+// Breakpoints (old names)
+$breakpoint_sm:  $breakpoint-sm;
+$breakpoint_md:  $breakpoint-md;
+$breakpoint_lg:  $breakpoint-lg;
+$breakpoint_xl:  $breakpoint-xl;
+$breakpoint_2xl: $breakpoint-2xl;
+
+// Container (old names)
+$container_max_width:         $container-max-width;
+$container_padding_mobile:    $container-padding-mobile;
+$container_padding_tablet:    $container-padding-tablet;
+$container_padding_desktop:   $container-padding-desktop;

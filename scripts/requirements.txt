@@ -1,7 +1,7 @@
-contentful==1.13.3
+contentful==1.13.1
 python-frontmatter==1.0.0
-PyYAML==6.0
-requests==2.31.0
+PyYAML>=6.0.1
+requests>=2.31.0
 pytest
 pytest-cov
 python-dotenv

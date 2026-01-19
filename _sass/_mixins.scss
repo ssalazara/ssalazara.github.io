@@ -1,214 +1,151 @@
-// Mixins for responsive design and common patterns
-@import 'variables';
-
 // ============================================================================
-// MEDIA QUERY MIXINS (mobile-first)
+// DESIGN SYSTEM MIXINS
+// GitHub Page Portfolio - Design System v1.0
 // ============================================================================
 
-@mixin respond-to-sm {
-  @media (min-width: $breakpoint_sm) {
+// ============================================================================
+// 1. RESPONSIVE BREAKPOINT MIXINS (MOBILE-FIRST)
+// ============================================================================
+
+// Small devices and up (≥640px)
+@mixin sm {
+  @media (min-width: $breakpoint-sm) {
     @content;
   }
 }
 
-@mixin respond-to-md {
-  @media (min-width: $breakpoint_md) {
+// Medium devices and up (≥768px)
+@mixin md {
+  @media (min-width: $breakpoint-md) {
     @content;
   }
 }
 
-@mixin respond-to-lg {
-  @media (min-width: $breakpoint_lg) {
+// Large devices and up (≥1024px)
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
     @content;
   }
 }
 
-@mixin respond-to-xl {
-  @media (min-width: $breakpoint_xl) {
+// Extra large devices and up (≥1280px)
+@mixin xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+// 2X large devices and up (≥1536px)
+@mixin 2xl {
+  @media (min-width: $breakpoint-2xl) {
+    @content;
+  }
+}
+
+// Custom breakpoint (use sparingly)
+@mixin breakpoint($min-width) {
+  @media (min-width: $min-width) {
+    @content;
+  }
+}
+
+// Max-width breakpoint (desktop-first, use rarely)
+@mixin max-width($max-width) {
+  @media (max-width: $max-width - 1px) {
+    @content;
+  }
+}
+
+// Range breakpoint
+@mixin between($min-width, $max-width) {
+  @media (min-width: $min-width) and (max-width: $max-width - 1px) {
     @content;
   }
 }
 
 // ============================================================================
-// CONTAINER MIXIN
+// 2. CONTAINER MIXINS
 // ============================================================================
 
+// Standard container with responsive padding
 @mixin container {
   width: 100%;
-  max-width: $container_max_width;
+  max-width: $container-max-width;
   margin-left: auto;
   margin-right: auto;
-  padding-left: $container_padding_mobile;
-  padding-right: $container_padding_mobile;
-
-  @include respond-to-md {
-    padding-left: $container_padding_tablet;
-    padding-right: $container_padding_tablet;
-  }
-
-  @include respond-to-lg {
-    padding-left: $container_padding_desktop;
-    padding-right: $container_padding_desktop;
-  }
-}
-
-// ============================================================================
-// GRID MIXINS
-// ============================================================================
-
-@mixin grid($columns: 1, $gap: $spacing_6) {
-  display: grid;
-  grid-template-columns: repeat($columns, 1fr);
-  gap: $gap;
-}
-
-@mixin responsive-grid($mobile: 1, $tablet: 2, $desktop: 3, $gap: $spacing_6) {
-  display: grid;
-  grid-template-columns: repeat($mobile, 1fr);
-  gap: $gap;
-
-  @include respond-to-md {
-    grid-template-columns: repeat($tablet, 1fr);
-  }
-
-  @include respond-to-lg {
-    grid-template-columns: repeat($desktop, 1fr);
-  }
-}
-
-// ============================================================================
-// TYPOGRAPHY MIXINS
-// ============================================================================
-
-@mixin heading-base {
-  font-family: $font_family_heading;
-  font-weight: $font_weight_bold;
-  line-height: $line_height_tight;
-  color: $color_text_primary;
-  margin-bottom: $spacing_4;
-}
-
-@mixin heading-1 {
-  @include heading-base;
-  font-size: $font_size_3xl;
+  padding-left: $container-padding-mobile;
+  padding-right: $container-padding-mobile;
   
-  @include respond-to-md {
-    font-size: $font_size_4xl;
+  @include md {
+    padding-left: $container-padding-tablet;
+    padding-right: $container-padding-tablet;
   }
   
-  @include respond-to-lg {
-    font-size: $font_size_5xl;
+  @include lg {
+    padding-left: $container-padding-desktop;
+    padding-right: $container-padding-desktop;
   }
 }
 
-@mixin heading-2 {
-  @include heading-base;
-  font-size: $font_size_2xl;
+// Container with custom max-width
+@mixin container-width($max-width) {
+  width: 100%;
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container-padding-mobile;
+  padding-right: $container-padding-mobile;
   
-  @include respond-to-md {
-    font-size: $font_size_3xl;
+  @include md {
+    padding-left: $container-padding-tablet;
+    padding-right: $container-padding-tablet;
   }
-}
-
-@mixin heading-3 {
-  @include heading-base;
-  font-size: $font_size_xl;
   
-  @include respond-to-md {
-    font-size: $font_size_2xl;
+  @include lg {
+    padding-left: $container-padding-desktop;
+    padding-right: $container-padding-desktop;
   }
 }
 
-@mixin body-text {
-  font-family: $font_family_base;
-  font-size: $font_size_base;
-  line-height: $line_height_normal;
-  color: $color_text_primary;
-}
-
-// ============================================================================
-// BUTTON MIXINS
-// ============================================================================
-
-@mixin button-base {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: $spacing_2;
-  padding: $spacing_3 $spacing_5;
-  font-family: $font_family_base;
-  font-size: $font_size_base;
-  font-weight: $font_weight_medium;
-  line-height: 1;
-  text-decoration: none;
-  border: none;
-  border-radius: $border_radius_md;
-  cursor: pointer;
-  transition: all $transition_base;
-  white-space: nowrap;
-
-  &:focus {
-    outline: 2px solid $color_primary;
-    outline-offset: 2px;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
-@mixin button-primary {
-  @include button-base;
-  background-color: $color_primary;
-  color: $color_text_inverse;
-
-  &:hover:not(:disabled) {
-    background-color: $color_primary_dark;
-    transform: translateY(-1px);
-    box-shadow: $shadow_md;
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-}
-
-@mixin button-secondary {
-  @include button-base;
-  background-color: transparent;
-  color: $color_primary;
-  border: 2px solid $color_primary;
-
-  &:hover:not(:disabled) {
-    background-color: $color_primary;
-    color: $color_text_inverse;
-  }
+// Narrow container for long-form content (optimal reading line length)
+@mixin container-narrow {
+  @include container-width($content-max-width);
 }
 
 // ============================================================================
-// CARD MIXINS
+// 3. TYPOGRAPHY MIXINS
 // ============================================================================
 
-@mixin card-base {
-  background-color: $color_bg_primary;
-  border-radius: $border_radius_lg;
+// Fluid typography scale
+@mixin fluid-type($min-size, $max-size, $min-width: $breakpoint-sm, $max-width: $breakpoint-xl) {
+  font-size: clamp(
+    #{$min-size},
+    calc(#{$min-size} + (#{strip-unit($max-size)} - #{strip-unit($min-size)}) * ((100vw - #{$min-width}) / (#{strip-unit($max-width)} - #{strip-unit($min-width)}))),
+    #{$max-size}
+  );
+}
+
+// Strip unit from value (helper for fluid-type)
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// Truncate text with ellipsis
+@mixin truncate {
   overflow: hidden;
-  box-shadow: $shadow_sm;
-  transition: all $transition_base;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-@mixin card-hover {
-  &:hover {
-    box-shadow: $shadow_lg;
-    transform: translateY(-4px);
-  }
+// Multi-line truncate (requires line-clamp support)
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-// ============================================================================
-// UTILITY MIXINS
-// ============================================================================
-
+// Screen reader only text (accessible but visually hidden)
 @mixin sr-only {
   position: absolute;
   width: 1px;
@@ -221,22 +158,495 @@
   border-width: 0;
 }
 
-@mixin truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+// Remove sr-only styles
+@mixin not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
 }
 
+// ============================================================================
+// 4. LAYOUT MIXINS
+// ============================================================================
+
+// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Grid utilities
+@mixin grid-auto-fit($min-width) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $grid-gap-md;
+}
+
+@mixin grid-auto-fill($min-width) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+  gap: $grid-gap-md;
+}
+
+// Aspect ratio box
 @mixin aspect-ratio($width, $height) {
   aspect-ratio: $width / $height;
   
-  @supports not (aspect-ratio: 16 / 9) {
+  // Fallback for older browsers
+  @supports not (aspect-ratio: 1 / 1) {
     position: relative;
+    padding-bottom: calc(($height / $width) * 100%);
     
-    &::before {
-      content: '';
-      display: block;
-      padding-bottom: ($height / $width) * 100%;
+    > * {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
   }
 }
+
+// ============================================================================
+// 5. INTERACTION MIXINS
+// ============================================================================
+
+// Hover state (respects user preferences)
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// Focus visible (keyboard navigation)
+@mixin focus-visible {
+  &:focus-visible {
+    outline: none;
+    box-shadow: $shadow-focus;
+    @content;
+  }
+}
+
+// Focus ring with custom color
+@mixin focus-ring($color: $color-border-focus, $width: 3px, $offset: 2px) {
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 $width rgba($color, 0.3);
+    outline-offset: $offset;
+    @content;
+  }
+}
+
+// Disabled state
+@mixin disabled {
+  &:disabled,
+  &[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.5;
+    @content;
+  }
+}
+
+// ============================================================================
+// 6. VISUAL EFFECT MIXINS
+// ============================================================================
+
+// Smooth transition
+@mixin transition($properties: all, $duration: $duration-base, $easing: $ease-in-out) {
+  transition: $properties $duration $easing;
+}
+
+// Hardware-accelerated transform
+@mixin hardware-accelerate {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+// Card elevation (shadow + hover effect)
+@mixin card-elevation($default: $shadow-sm, $hover: $shadow-md) {
+  box-shadow: $default;
+  transition: box-shadow $duration-base $ease-out,
+              transform $duration-base $ease-out;
+  
+  @include hover {
+    box-shadow: $hover;
+    transform: translateY(-2px);
+  }
+}
+
+// Overlay (modal backdrop)
+@mixin overlay($color: $color-bg-overlay, $z-index: $z-index-overlay) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $color;
+  z-index: $z-index;
+}
+
+// Glass morphism effect
+@mixin glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+// ============================================================================
+// 7. BUTTON MIXINS
+// ============================================================================
+
+// Base button styles
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-family-base;
+  font-weight: $font-weight-semibold;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: none;
+  cursor: pointer;
+  transition: $transition-colors;
+  
+  @include focus-visible;
+  @include disabled;
+}
+
+// Button size variants
+@mixin button-sm {
+  height: $button-height-sm;
+  padding: 0 $button-padding-x-sm;
+  font-size: $font-size-sm;
+  border-radius: $radius-md;
+}
+
+@mixin button-md {
+  height: $button-height-md;
+  padding: 0 $button-padding-x-md;
+  font-size: $font-size-base;
+  border-radius: $radius-md;
+}
+
+@mixin button-lg {
+  height: $button-height-lg;
+  padding: 0 $button-padding-x-lg;
+  font-size: $font-size-lg;
+  border-radius: $radius-lg;
+}
+
+// Button color variants
+@mixin button-primary {
+  background-color: $color-primary-500;
+  color: $color-text-inverse;
+  
+  @include hover {
+    background-color: $color-primary-600;
+  }
+  
+  &:active {
+    background-color: $color-primary-700;
+  }
+}
+
+@mixin button-secondary {
+  background-color: transparent;
+  border: 2px solid $color-border-default;
+  color: $color-text-primary;
+  
+  @include hover {
+    border-color: $color-border-strong;
+    background-color: $color-bg-secondary;
+  }
+}
+
+@mixin button-ghost {
+  background-color: transparent;
+  color: $color-text-secondary;
+  
+  @include hover {
+    background-color: $color-bg-secondary;
+    color: $color-text-primary;
+  }
+}
+
+// Icon-only button
+@mixin button-icon($size: $button-icon-md) {
+  width: $size;
+  height: $size;
+  padding: 0;
+  border-radius: $radius-full;
+}
+
+// ============================================================================
+// 8. FORM INPUT MIXINS
+// ============================================================================
+
+// Base input styles
+@mixin input-base {
+  display: block;
+  width: 100%;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $color-text-primary;
+  background-color: $color-bg-surface;
+  border: $input-border-width solid $color-border-default;
+  appearance: none;
+  transition: $transition-colors;
+  
+  &::placeholder {
+    color: $color-text-tertiary;
+  }
+  
+  @include hover {
+    border-color: $color-border-strong;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $color-border-focus;
+    box-shadow: $shadow-focus;
+  }
+  
+  @include disabled {
+    background-color: $color-bg-secondary;
+    color: $color-text-disabled;
+  }
+}
+
+// Input size variants
+@mixin input-sm {
+  height: $input-height-sm;
+  padding: 0 $input-padding-x-sm;
+  font-size: $font-size-sm;
+  border-radius: $radius-md;
+}
+
+@mixin input-md {
+  height: $input-height-md;
+  padding: 0 $input-padding-x-md;
+  font-size: $font-size-base;
+  border-radius: $radius-md;
+}
+
+@mixin input-lg {
+  height: $input-height-lg;
+  padding: 0 $input-padding-x-lg;
+  font-size: $font-size-lg;
+  border-radius: $radius-lg;
+}
+
+// Input validation states
+@mixin input-error {
+  border-color: $color-error-500;
+  
+  &:focus {
+    border-color: $color-error-500;
+    box-shadow: 0 0 0 3px rgba($color-error-500, 0.2);
+  }
+}
+
+@mixin input-success {
+  border-color: $color-success-500;
+  
+  &:focus {
+    border-color: $color-success-500;
+    box-shadow: 0 0 0 3px rgba($color-success-500, 0.2);
+  }
+}
+
+// ============================================================================
+// 9. CARD MIXINS
+// ============================================================================
+
+// Base card styles
+@mixin card {
+  padding: $card-padding-md;
+  background-color: $color-bg-surface;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+}
+
+// Interactive card (with hover effect)
+@mixin card-interactive {
+  @include card;
+  @include card-elevation;
+  cursor: pointer;
+  transition: box-shadow $duration-base $ease-out,
+              transform $duration-base $ease-out;
+}
+
+// ============================================================================
+// 10. ACCESSIBILITY MIXINS
+// ============================================================================
+
+// Reduce motion for users who prefer it
+@mixin reduce-motion {
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// High contrast mode adjustments
+@mixin high-contrast {
+  @media (prefers-contrast: high) {
+    border-width: 2px;
+    @content;
+  }
+}
+
+// Dark mode (prefers-color-scheme)
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+// Skip link (for keyboard navigation)
+@mixin skip-link {
+  @include sr-only;
+  
+  &:focus {
+    @include not-sr-only;
+    position: fixed;
+    top: $spacing-4;
+    left: $spacing-4;
+    z-index: $z-index-tooltip;
+    padding: $spacing-3 $spacing-4;
+    background-color: $color-bg-surface;
+    color: $color-text-primary;
+    border-radius: $radius-md;
+    box-shadow: $shadow-lg;
+  }
+}
+
+// ============================================================================
+// 11. UTILITY MIXINS
+// ============================================================================
+
+// Reset list styles
+@mixin list-reset {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// Reset button styles
+@mixin button-reset {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  appearance: none;
+}
+
+// Reset link styles
+@mixin link-reset {
+  color: inherit;
+  text-decoration: none;
+}
+
+// Clearfix (for float layouts, rarely needed)
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// ============================================================================
+// 12. PRINT STYLES
+// ============================================================================
+
+@mixin print-only {
+  @media print {
+    @content;
+  }
+}
+
+@mixin hide-on-print {
+  @media print {
+    display: none !important;
+  }
+}
+
+// ============================================================================
+// USAGE EXAMPLES
+// ============================================================================
+
+// Example 1: Responsive container
+// .container {
+//   @include container;
+// }
+
+// Example 2: Mobile-first responsive layout
+// .grid {
+//   display: grid;
+//   grid-template-columns: 1fr;
+//   gap: $spacing-4;
+//   
+//   @include md {
+//     grid-template-columns: repeat(2, 1fr);
+//     gap: $spacing-6;
+//   }
+//   
+//   @include lg {
+//     grid-template-columns: repeat(3, 1fr);
+//     gap: $spacing-8;
+//   }
+// }
+
+// Example 3: Primary button
+// .btn-primary {
+//   @include button-base;
+//   @include button-md;
+//   @include button-primary;
+// }
+
+// Example 4: Text input
+// .input {
+//   @include input-base;
+//   @include input-md;
+// }
+
+// Example 5: Card with hover effect
+// .card {
+//   @include card-interactive;
+// }
+
+// Example 6: Accessible skip link
+// .skip-link {
+//   @include skip-link;
+// }

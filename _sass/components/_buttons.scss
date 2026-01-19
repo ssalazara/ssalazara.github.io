@@ -1,47 +1,166 @@
-// Button component styles
-@import '../variables';
-@import '../mixins';
-
 // ============================================================================
-// BUTTON STYLES
+// BUTTON COMPONENTS
+// Design System v1.0 - Button implementations
 // ============================================================================
 
+// ----------------------------------------------------------------------------
+// Base Button Class
+// ----------------------------------------------------------------------------
 .btn {
   @include button-base;
-
-  // Button sizes
-  &--small {
-    padding: $spacing_2 $spacing_4;
-    font-size: $font_size_sm;
-  }
-
-  &--large {
-    padding: $spacing_4 $spacing_6;
-    font-size: $font_size_lg;
-  }
-
-  // Button variants
-  &--primary {
-    @include button-primary;
-  }
-
-  &--secondary {
-    @include button-secondary;
-  }
-
-  // Button icon
-  &__icon {
-    width: 1.25em;
-    height: 1.25em;
-    flex-shrink: 0;
-  }
-
-  // Full width on mobile
-  &--full-mobile {
-    width: 100%;
-
-    @include respond-to-md {
-      width: auto;
+  @include button-md;
+  
+  // Icon support
+  svg {
+    width: $icon-size-md;
+    height: $icon-size-md;
+    
+    &:first-child:not(:last-child) {
+      margin-right: $spacing-2;
     }
+    
+    &:last-child:not(:first-child) {
+      margin-left: $spacing-2;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Button Sizes
+// ----------------------------------------------------------------------------
+.btn-sm {
+  @include button-sm;
+  
+  svg {
+    width: $icon-size-sm;
+    height: $icon-size-sm;
+  }
+}
+
+.btn-md {
+  @include button-md;
+}
+
+.btn-lg {
+  @include button-lg;
+  
+  svg {
+    width: $icon-size-lg;
+    height: $icon-size-lg;
+  }
+}
+
+.btn-xl {
+  height: $button-height-xl;
+  padding: 0 $button-padding-x-xl;
+  font-size: $font-size-xl;
+  border-radius: $radius-lg;
+}
+
+// ----------------------------------------------------------------------------
+// Button Variants
+// ----------------------------------------------------------------------------
+
+// Primary button (main CTAs)
+.btn-primary {
+  @include button-primary;
+}
+
+// Secondary button (alternative actions)
+.btn-secondary {
+  @include button-secondary;
+}
+
+// Ghost button (subtle actions)
+.btn-ghost {
+  @include button-ghost;
+}
+
+// Danger button (destructive actions)
+.btn-danger {
+  background-color: $color-error-500;
+  color: $color-text-inverse;
+  
+  @include hover {
+    background-color: $color-error-600;
+  }
+  
+  &:active {
+    background-color: $color-error-600;
+  }
+}
+
+// Success button (positive actions)
+.btn-success {
+  background-color: $color-success-500;
+  color: $color-text-inverse;
+  
+  @include hover {
+    background-color: $color-success-600;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Icon-Only Buttons
+// ----------------------------------------------------------------------------
+.btn-icon {
+  @include button-icon;
+}
+
+.btn-icon-sm {
+  @include button-icon($button-icon-sm);
+}
+
+.btn-icon-lg {
+  @include button-icon($button-icon-lg);
+}
+
+// ----------------------------------------------------------------------------
+// Full Width Button
+// ----------------------------------------------------------------------------
+.btn-block {
+  width: 100%;
+  display: flex;
+}
+
+// ----------------------------------------------------------------------------
+// Button Group
+// ----------------------------------------------------------------------------
+.btn-group {
+  display: inline-flex;
+  gap: $spacing-2;
+  
+  &.btn-group-vertical {
+    flex-direction: column;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Loading State
+// ----------------------------------------------------------------------------
+.btn-loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1rem;
+    height: 1rem;
+    margin-top: -0.5rem;
+    margin-left: -0.5rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: $radius-full;
+    animation: btn-spin 0.6s linear infinite;
+  }
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
   }
 }

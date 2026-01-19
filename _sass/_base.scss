@@ -22,8 +22,11 @@ html {
 }
 
 body {
-  @include body-text;
-  background-color: $color_bg_primary;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $color-text-primary;
+  background-color: $color-bg-page;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -33,19 +36,37 @@ body {
 // ============================================================================
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-heading;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $color-text-primary;
   margin-top: 0;
+  margin-bottom: $spacing-4;
 }
 
 h1 {
-  @include heading-1;
+  font-size: $font-size-4xl;
+  
+  @include md {
+    font-size: $font-size-5xl;
+  }
 }
 
 h2 {
-  @include heading-2;
+  font-size: $font-size-3xl;
+  
+  @include md {
+    font-size: $font-size-4xl;
+  }
 }
 
 h3 {
-  @include heading-3;
+  font-size: $font-size-2xl;
+  line-height: $line-height-snug;
+  
+  @include md {
+    font-size: $font-size-3xl;
+  }
 }
 
 p {
@@ -57,17 +78,18 @@ p {
 }
 
 a {
-  color: $color_primary;
+  color: $color-text-link;
   text-decoration: none;
-  transition: color $transition_fast;
+  transition: $transition-colors;
 
   &:hover {
-    color: $color_primary_dark;
+    color: $color-text-link-hover;
     text-decoration: underline;
   }
 
-  &:focus {
-    outline: 2px solid $color_primary;
+  &:focus-visible {
+    outline: none;
+    box-shadow: $shadow-focus;
     outline-offset: 2px;
   }
 }
@@ -104,23 +126,13 @@ img {
 
 // Skip to main content link
 .skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: $color_primary;
-  color: $color_text_inverse;
-  padding: $spacing_2 $spacing_4;
-  text-decoration: none;
-  z-index: 100;
-
-  &:focus {
-    top: 0;
-  }
+  @include skip-link;
 }
 
 // Focus visible (keyboard navigation)
 :focus-visible {
-  outline: 2px solid $color_primary;
+  outline: none;
+  box-shadow: $shadow-focus;
   outline-offset: 2px;
 }
 

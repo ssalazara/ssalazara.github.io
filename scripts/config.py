@@ -23,8 +23,14 @@ CONTENTFUL_ACCESS_TOKEN: str = os.getenv('CONTENTFUL_ACCESS_TOKEN', '')
 CONTENTFUL_PREVIEW_TOKEN: str = os.getenv('CONTENTFUL_PREVIEW_TOKEN', '')
 CONTENTFUL_MODE: str = os.getenv('CONTENTFUL_MODE', 'production')
 
-# Supported locales
-SUPPORTED_LOCALES: list[str] = ['en', 'es']
+# Supported locales (must match Contentful locale codes exactly)
+SUPPORTED_LOCALES: list[str] = ['en-US', 'es']
+
+# Locale mapping: Contentful code → Jekyll folder name
+LOCALE_MAPPING: dict[str, str] = {
+    'en-US': 'en',  # Map en-US to en for Jekyll folders
+    'es': 'es'      # Spanish stays the same
+}
 
 # Content type IDs
 CONTENT_TYPE_BLOG_POST: str = 'blogTemplate'
@@ -140,6 +146,25 @@ def get_active_token() -> str:
         if not CONTENTFUL_ACCESS_TOKEN:
             raise EnvironmentError("CONTENTFUL_ACCESS_TOKEN not set")
         return CONTENTFUL_ACCESS_TOKEN
+
+
+def get_jekyll_locale(contentful_locale: str) -> str:
+    """
+    Map Contentful locale code to Jekyll folder name.
+    
+    Args:
+        contentful_locale: Locale code from Contentful (e.g., 'en-US')
+    
+    Returns:
+        Jekyll folder name (e.g., 'en')
+    
+    Examples:
+        >>> get_jekyll_locale('en-US')
+        'en'
+        >>> get_jekyll_locale('es')
+        'es'
+    """
+    return LOCALE_MAPPING.get(contentful_locale, contentful_locale)
 
 
 # ============================================================================

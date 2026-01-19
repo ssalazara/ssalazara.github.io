@@ -1,160 +1,398 @@
-// Blog archive page styles
-@import '../variables';
-@import '../mixins';
-
 // ============================================================================
-// BLOG ARCHIVE
+// BLOG ARCHIVE LAYOUT
+// Design System v1.0 - Blog listing/archive page
 // ============================================================================
 
 .blog-archive {
   min-height: 100vh;
-  background-color: $color_bg_primary;
-
+  padding: $spacing-12 0;
+  
+  @include md {
+    padding: $spacing-16 0;
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Archive Header
+  // ----------------------------------------------------------------------------
   &__header {
-    padding: $spacing_8 0 $spacing_6 0;
-    background-color: $color_bg_secondary;
-    border-bottom: 1px solid $color_gray_200;
-
-    @include respond-to-lg {
-      padding: $spacing_10 0 $spacing_8 0;
-    }
-  }
-
-  &__title {
-    @include heading-1;
-    margin-bottom: $spacing_3;
-  }
-
-  &__subtitle {
-    font-size: $font_size_lg;
-    color: $color_text_secondary;
-  }
-
-  &__content {
-    padding: $spacing_8 0;
-
-    @include respond-to-lg {
-      padding: $spacing_10 0;
-    }
-  }
-
-  &__grid {
-    @include responsive-grid(1, 2, 3, $spacing_6);
-  }
-
-  &__item {
-    // Grid items automatically sized
-  }
-
-  &__pagination {
-    margin-top: $spacing_8;
-    padding-top: $spacing_8;
-    border-top: 1px solid $color_gray_200;
+    @include container;
     text-align: center;
+    margin-bottom: $spacing-12;
+    
+    @include md {
+      margin-bottom: $spacing-16;
+    }
   }
-
-  &__empty {
-    padding: $spacing_12 0;
+  
+  &__title {
+    font-family: $font-family-heading;
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-4;
+    
+    @include md {
+      font-size: $font-size-5xl;
+    }
+  }
+  
+  &__description {
+    font-size: $font-size-lg;
+    line-height: $line-height-relaxed;
+    color: $color-text-secondary;
+    max-width: 600px;
+    margin: 0 auto;
+    
+    @include md {
+      font-size: $font-size-xl;
+    }
+  }
+  
+  // Post count
+  &__count {
+    display: inline-block;
+    margin-top: $spacing-4;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-tertiary;
+    background-color: $color-bg-secondary;
+    border-radius: $radius-full;
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Filter/Search Bar
+  // ----------------------------------------------------------------------------
+  &__controls {
+    @include container;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: $spacing-4;
+    margin-bottom: $spacing-12;
+    
+    @include md {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
-
-  &__additional {
-    padding: $spacing_8 0;
-    border-top: 1px solid $color_gray_200;
+  
+  // Search input
+  &__search {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+    
+    input {
+      @include input-base;
+      @include input-md;
+      padding-left: $spacing-10;
+      
+      &::placeholder {
+        color: $color-text-tertiary;
+      }
+    }
+    
+    &-icon {
+      position: absolute;
+      left: $spacing-3;
+      top: 50%;
+      transform: translateY(-50%);
+      width: $icon-size-md;
+      height: $icon-size-md;
+      color: $color-text-tertiary;
+      pointer-events: none;
+    }
   }
-}
-
-// ============================================================================
-// BREADCRUMB
-// ============================================================================
-
-.breadcrumb {
-  margin-bottom: $spacing_5;
-
-  &__list {
+  
+  // Filter buttons
+  &__filters {
     display: flex;
-    align-items: center;
-    list-style: none;
-    gap: $spacing_2;
+    gap: $spacing-2;
     flex-wrap: wrap;
   }
-
-  &__item {
+  
+  &__filter-btn {
+    @include button-base;
+    @include button-sm;
+    @include button-ghost;
+    
+    &.is-active {
+      @include button-primary;
+    }
+  }
+  
+  // Sort dropdown
+  &__sort {
+    position: relative;
+    
+    select {
+      @include input-base;
+      @include input-md;
+      padding-right: $spacing-8;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='%23525252'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right $spacing-3 center;
+      background-size: $icon-size-md;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Post Grid
+  // ----------------------------------------------------------------------------
+  &__grid {
+    @include container;
+    display: grid;
+    gap: $spacing-8;
+    margin-bottom: $spacing-12;
+    
+    // Mobile: 1 column
+    grid-template-columns: 1fr;
+    
+    // Tablet: 2 columns
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    // Desktop: 3 columns
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Sidebar Layout (Optional)
+  // ----------------------------------------------------------------------------
+  &--with-sidebar {
+    .blog-archive__container {
+      @include container;
+      display: grid;
+      gap: $spacing-12;
+      
+      // Mobile: 1 column
+      grid-template-columns: 1fr;
+      
+      // Desktop: main + sidebar
+      @include lg {
+        grid-template-columns: 1fr 300px;
+      }
+    }
+    
+    .blog-archive__grid {
+      margin: 0;
+    }
+  }
+  
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-8;
+    
+    @include lg {
+      position: sticky;
+      top: calc($header-height-desktop + $spacing-6);
+      align-self: start;
+    }
+  }
+  
+  &__sidebar-section {
+    padding: $spacing-6;
+    background-color: $color-bg-secondary;
+    border-radius: $radius-lg;
+    
+    &-title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $color-text-primary;
+      margin-bottom: $spacing-4;
+    }
+  }
+  
+  // Categories list
+  &__categories {
+    @include list-reset;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+  
+  &__category-link {
     display: flex;
     align-items: center;
-    font-size: $font_size_sm;
-    color: $color_text_secondary;
-
-    &:not(:last-child)::after {
-      content: '›';
-      margin-left: $spacing_2;
-      color: $color_gray_400;
-    }
-
-    &--active {
-      color: $color_text_primary;
-      font-weight: $font_weight_medium;
-    }
-  }
-
-  &__link {
-    color: $color_primary;
+    justify-content: space-between;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-base;
+    color: $color-text-secondary;
     text-decoration: none;
-    transition: color $transition_fast;
-
-    &:hover {
-      color: $color_primary_dark;
-      text-decoration: underline;
+    border-radius: $radius-md;
+    transition: $transition-colors;
+    
+    @include hover {
+      color: $color-text-primary;
+      background-color: $color-bg-surface;
+    }
+    
+    &.is-active {
+      color: $color-primary-600;
+      background-color: $color-primary-50;
+      font-weight: $font-weight-semibold;
+    }
+    
+    &-count {
+      font-size: $font-size-sm;
+      color: $color-text-tertiary;
     }
   }
-}
-
-// ============================================================================
-// PAGINATION (for future use when > 20 posts)
-// ============================================================================
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: $spacing_2;
-  flex-wrap: wrap;
-
-  &__note {
-    font-size: $font_size_sm;
-    color: $color_text_muted;
-    font-style: italic;
+  
+  // Popular posts
+  &__popular-posts {
+    @include list-reset;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
   }
-
-  &__link {
+  
+  // ----------------------------------------------------------------------------
+  // Pagination
+  // ----------------------------------------------------------------------------
+  &__pagination {
+    @include container;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: $border_radius_md;
-    border: 1px solid $color_gray_300;
-    color: $color_text_primary;
-    text-decoration: none;
-    transition: all $transition_fast;
-
-    &:hover {
-      background-color: $color_primary;
-      border-color: $color_primary;
-      color: $color_text_inverse;
+    gap: $spacing-2;
+    margin-top: $spacing-12;
+  }
+  
+  &__page-btn {
+    @include button-base;
+    min-width: $button-height-md;
+    height: $button-height-md;
+    padding: 0 $spacing-3;
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    background-color: transparent;
+    border-radius: $radius-md;
+    
+    @include hover {
+      color: $color-text-primary;
+      background-color: $color-bg-secondary;
     }
-
-    &--active {
-      background-color: $color_primary;
-      border-color: $color_primary;
-      color: $color_text_inverse;
+    
+    &.is-active {
+      color: $color-text-inverse;
+      background-color: $color-primary-500;
+      font-weight: $font-weight-semibold;
     }
-
-    &--disabled {
-      opacity: 0.5;
+    
+    &:disabled {
+      opacity: 0.3;
       cursor: not-allowed;
-      pointer-events: none;
+    }
+    
+    // Prev/Next buttons
+    &--prev,
+    &--next {
+      padding: 0 $spacing-4;
+      
+      svg {
+        width: $icon-size-sm;
+        height: $icon-size-sm;
+      }
+    }
+  }
+  
+  &__page-ellipsis {
+    color: $color-text-tertiary;
+    padding: 0 $spacing-2;
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Empty State
+  // ----------------------------------------------------------------------------
+  &__empty {
+    @include container;
+    text-align: center;
+    padding: $spacing-16 $spacing-4;
+    
+    &-icon {
+      width: $icon-size-3xl;
+      height: $icon-size-3xl;
+      margin: 0 auto $spacing-6;
+      color: $color-neutral-300;
+    }
+    
+    &-title {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: $color-text-secondary;
+      margin-bottom: $spacing-3;
+    }
+    
+    &-description {
+      font-size: $font-size-lg;
+      color: $color-text-tertiary;
+      margin-bottom: $spacing-6;
+    }
+    
+    &-actions {
+      display: flex;
+      gap: $spacing-3;
+      justify-content: center;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Loading State
+  // ----------------------------------------------------------------------------
+  &__loading {
+    @include container;
+    display: grid;
+    gap: $spacing-8;
+    grid-template-columns: 1fr;
+    
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Tag Cloud
+  // ----------------------------------------------------------------------------
+  &__tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+  }
+  
+  &__tag {
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background-color: $color-bg-surface;
+    border: 1px solid $color-border-light;
+    border-radius: $radius-full;
+    text-decoration: none;
+    transition: $transition-colors;
+    
+    @include hover {
+      color: $color-primary-600;
+      border-color: $color-primary-500;
+      background-color: $color-primary-50;
+    }
+    
+    &.is-active {
+      color: $color-primary-700;
+      border-color: $color-primary-500;
+      background-color: $color-primary-100;
+      font-weight: $font-weight-semibold;
     }
   }
 }

@@ -1,31 +1,290 @@
-// Homepage layout styles
-@import '../variables';
-@import '../mixins';
-
 // ============================================================================
-// HOME PAGE
+// HOMEPAGE LAYOUT
+// Design System v1.0 - Blog-first homepage
 // ============================================================================
 
 .home-page {
   min-height: 100vh;
-
-  // Profile section
-  .profile-section {
-    background-color: $color_bg_primary;
-    border-bottom: 1px solid $color_gray_200;
+  
+  // ----------------------------------------------------------------------------
+  // Hero Section (Profile Card)
+  // ----------------------------------------------------------------------------
+  &__hero {
+    padding: $spacing-12 0;
+    background: linear-gradient(
+      180deg,
+      $color-neutral-50 0%,
+      $color-neutral-0 100%
+    );
+    
+    @include md {
+      padding: $spacing-16 0;
+    }
+    
+    @include lg {
+      padding: $spacing-20 0;
+    }
   }
-
-  // Blog carousel section
-  .blog-carousel-section {
-    // Styles defined in _blog-carousel.scss
+  
+  &__hero-container {
+    @include container;
   }
-
-  // Additional homepage content
-  .home-content {
-    padding: $spacing_8 0;
-
-    @include respond-to-lg {
-      padding: $spacing_10 0;
+  
+  // ----------------------------------------------------------------------------
+  // Blog Section (Primary Content)
+  // ----------------------------------------------------------------------------
+  &__blog-section {
+    padding: $spacing-12 0;
+    background-color: $color-bg-surface;
+    
+    @include md {
+      padding: $spacing-16 0;
+    }
+  }
+  
+  &__blog-container {
+    @include container;
+  }
+  
+  // Section header
+  &__section-header {
+    text-align: center;
+    margin-bottom: $spacing-12;
+    
+    @include md {
+      margin-bottom: $spacing-16;
+    }
+  }
+  
+  &__section-title {
+    font-family: $font-family-heading;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-4;
+    
+    @include md {
+      font-size: $font-size-4xl;
+    }
+    
+    @include lg {
+      font-size: $font-size-5xl;
+    }
+  }
+  
+  &__section-description {
+    font-size: $font-size-lg;
+    color: $color-text-secondary;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: $line-height-relaxed;
+    
+    @include md {
+      font-size: $font-size-xl;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Featured Post (Above Carousel)
+  // ----------------------------------------------------------------------------
+  &__featured {
+    margin-bottom: $spacing-16;
+    
+    @include lg {
+      margin-bottom: $spacing-20;
+    }
+  }
+  
+  &__featured-label {
+    display: inline-block;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-primary-700;
+    background-color: $color-primary-100;
+    border-radius: $radius-full;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+    margin-bottom: $spacing-4;
+  }
+  
+  // ----------------------------------------------------------------------------
+  // About/Skills Section (Optional)
+  // ----------------------------------------------------------------------------
+  &__about {
+    padding: $spacing-12 0;
+    background-color: $color-bg-page;
+    
+    @include md {
+      padding: $spacing-16 0;
+    }
+  }
+  
+  &__about-container {
+    @include container;
+  }
+  
+  &__about-grid {
+    display: grid;
+    gap: $spacing-8;
+    
+    // Mobile: 1 column
+    grid-template-columns: 1fr;
+    
+    // Desktop: 2 columns
+    @include lg {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-12;
+    }
+  }
+  
+  &__about-content {
+    h2 {
+      margin-bottom: $spacing-4;
+    }
+    
+    p {
+      font-size: $font-size-lg;
+      line-height: $line-height-relaxed;
+      color: $color-text-secondary;
+      margin-bottom: $spacing-4;
+    }
+  }
+  
+  &__skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-3;
+    margin-top: $spacing-6;
+  }
+  
+  &__skill-tag {
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background-color: $color-bg-secondary;
+    border: 1px solid $color-border-light;
+    border-radius: $radius-full;
+    transition: $transition-colors;
+    
+    @include hover {
+      color: $color-primary-600;
+      border-color: $color-primary-500;
+      background-color: $color-primary-50;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // CTA Section
+  // ----------------------------------------------------------------------------
+  &__cta {
+    padding: $spacing-16 0;
+    background: linear-gradient(
+      135deg,
+      $color-primary-600 0%,
+      $color-primary-500 100%
+    );
+    color: $color-text-inverse;
+    text-align: center;
+    
+    @include md {
+      padding: $spacing-20 0;
+    }
+  }
+  
+  &__cta-container {
+    @include container;
+    max-width: $container-md;
+  }
+  
+  &__cta-title {
+    font-family: $font-family-heading;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-4;
+    
+    @include md {
+      font-size: $font-size-4xl;
+    }
+  }
+  
+  &__cta-description {
+    font-size: $font-size-lg;
+    line-height: $line-height-relaxed;
+    margin-bottom: $spacing-8;
+    opacity: 0.9;
+    
+    @include md {
+      font-size: $font-size-xl;
+    }
+  }
+  
+  &__cta-buttons {
+    display: flex;
+    gap: $spacing-4;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    .btn {
+      min-width: 160px;
+    }
+    
+    .btn-secondary {
+      background-color: $color-text-inverse;
+      color: $color-primary-600;
+      border-color: transparent;
+      
+      @include hover {
+        background-color: $color-neutral-100;
+      }
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Stats Section (Optional)
+  // ----------------------------------------------------------------------------
+  &__stats {
+    display: grid;
+    gap: $spacing-8;
+    padding: $spacing-12 0;
+    
+    // Mobile: 1 column
+    grid-template-columns: 1fr;
+    
+    // Tablet: 2 columns
+    @include sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    // Desktop: 4 columns
+    @include lg {
+      grid-template-columns: repeat(4, 1fr);
+      gap: $spacing-12;
+    }
+  }
+  
+  &__stat {
+    text-align: center;
+    
+    &-value {
+      display: block;
+      font-size: $font-size-4xl;
+      font-weight: $font-weight-extrabold;
+      color: $color-primary-600;
+      line-height: 1;
+      margin-bottom: $spacing-3;
+      
+      @include md {
+        font-size: $font-size-5xl;
+      }
+    }
+    
+    &-label {
+      display: block;
+      font-size: $font-size-base;
+      color: $color-text-secondary;
+      font-weight: $font-weight-medium;
     }
   }
 }

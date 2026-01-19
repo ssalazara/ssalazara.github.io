@@ -5,7 +5,7 @@ description: >-
   Personal portfolio and blog by Simon Salazar.
   Exploring software engineering, product development, and technology.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://simonsalazar.github.io" # the base hostname & protocol for your site
+url: "https://ssalazara.github.io" # the base hostname & protocol for your site
 twitter_username: simonsalazar
 github_username:  simonsalazar
 linkedin_username: simonsalazar

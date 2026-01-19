@@ -1,245 +1,289 @@
-// Header component styles
-@import '../variables';
-@import '../mixins';
-
 // ============================================================================
-// SITE HEADER
+// HEADER & NAVIGATION COMPONENT
+// Design System v1.0 - Global site header
 // ============================================================================
 
-.site-header {
-  background-color: $color_bg_primary;
-  border-bottom: 1px solid $color_gray_200;
+.header {
   position: sticky;
   top: 0;
-  z-index: $z_index_sticky;
-  box-shadow: $shadow_sm;
-}
-
-.site-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: $spacing_4;
-  padding-bottom: $spacing_4;
-  position: relative;
-
-  &__brand {
-    flex-shrink: 0;
-    z-index: 2;
+  z-index: $z-index-sticky;
+  background-color: $color-bg-surface;
+  border-bottom: 1px solid $color-border-light;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $duration-base $ease-out;
+  
+  // Enhanced shadow on scroll
+  &.is-scrolled {
+    box-shadow: $shadow-md;
   }
-
-  &__logo {
-    text-decoration: none;
-    color: $color_text_primary;
-    font-size: $font_size_xl;
-    font-weight: $font_weight_bold;
-    transition: color $transition_fast;
-
-    &:hover {
-      color: $color_primary;
-      text-decoration: none;
-    }
-  }
-
-  &__logo-text {
-    display: inline-block;
-  }
-
-  // Mobile menu toggle button
-  &__toggle {
+  
+  // ----------------------------------------------------------------------------
+  // Header Container
+  // ----------------------------------------------------------------------------
+  &__container {
+    @include container;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    z-index: 2;
-
-    @include respond-to-md {
-      display: none;
-    }
-
-    &:focus {
-      outline: 2px solid $color_primary;
-      outline-offset: 2px;
+    justify-content: space-between;
+    height: $header-height-mobile;
+    
+    @include md {
+      height: $header-height-desktop;
     }
   }
-
-  // Navigation menu
-  &__menu {
-    display: none;
-    flex-direction: column;
-    gap: $spacing_4;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: $color_bg_primary;
-    border-bottom: 1px solid $color_gray_200;
-    padding: $spacing_5 $container_padding_mobile;
-    box-shadow: $shadow_md;
-
-    &.is-open {
-      display: flex;
-    }
-
-    @include respond-to-md {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      position: static;
-      border-bottom: none;
-      padding: 0;
-      box-shadow: none;
-      gap: $spacing_6;
-      flex: 1;
-      justify-content: flex-end;
-    }
-  }
-
-  &__lang {
-    @include respond-to-md {
-      margin-left: $spacing_4;
-    }
-  }
-}
-
-// ============================================================================
-// HAMBURGER MENU ICON
-// ============================================================================
-
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 24px;
-  height: 18px;
-
-  &__line {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: $color_text_primary;
-    transition: all $transition_base;
-    border-radius: $border_radius_sm;
-  }
-
-  // Animated state when menu is open
-  .site-nav__toggle[aria-expanded="true"] & {
-    .hamburger__line:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger__line:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger__line:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-  }
-}
-
-// ============================================================================
-// NAV MENU
-// ============================================================================
-
-.nav-menu {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: $spacing_3;
-  width: 100%;
-
-  @include respond-to-md {
-    flex-direction: row;
-    gap: $spacing_5;
-    width: auto;
-  }
-
-  &__item {
-    // No additional styles
-  }
-
-  &__link {
-    display: block;
-    padding: $spacing_2 0;
-    font-size: $font_size_base;
-    font-weight: $font_weight_medium;
-    color: $color_text_primary;
+  
+  // ----------------------------------------------------------------------------
+  // Logo/Brand
+  // ----------------------------------------------------------------------------
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    font-family: $font-family-heading;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
     text-decoration: none;
-    transition: color $transition_fast;
-    position: relative;
-
-    @include respond-to-md {
-      padding: $spacing_2;
+    transition: $transition-colors;
+    
+    @include hover {
+      color: $color-primary-600;
     }
-
-    &:hover {
-      color: $color_primary;
-      text-decoration: none;
-    }
-
-    &:focus {
-      outline: 2px solid $color_primary;
-      outline-offset: 2px;
-    }
-
-    // Active state
-    &--active {
-      color: $color_primary;
-      font-weight: $font_weight_semibold;
-
-      @include respond-to-md {
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: -4px;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background-color: $color_primary;
-        }
+    
+    img {
+      height: 32px;
+      width: auto;
+      
+      @include md {
+        height: 40px;
       }
     }
   }
+  
+  // ----------------------------------------------------------------------------
+  // Navigation Menu
+  // ----------------------------------------------------------------------------
+  &__nav {
+    display: none;
+    
+    @include md {
+      display: flex;
+      align-items: center;
+      gap: $nav-item-spacing;
+    }
+  }
+  
+  &__nav-list {
+    @include list-reset;
+    display: flex;
+    align-items: center;
+    gap: $nav-item-spacing;
+  }
+  
+  &__nav-item {
+    // Navigation items
+  }
+  
+  &__nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding: $nav-item-padding $spacing-3;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    text-decoration: none;
+    border-radius: $radius-md;
+    transition: $transition-colors;
+    position: relative;
+    
+    @include hover {
+      color: $color-text-primary;
+      background-color: $color-bg-secondary;
+    }
+    
+    @include focus-visible;
+    
+    // Active state
+    &.is-active {
+      color: $color-primary-600;
+      font-weight: $font-weight-semibold;
+      
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: $spacing-3;
+        right: $spacing-3;
+        height: 2px;
+        background-color: $color-primary-500;
+      }
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Mobile Menu Toggle
+  // ----------------------------------------------------------------------------
+  &__menu-toggle {
+    @include button-reset;
+    @include button-icon;
+    display: flex;
+    color: $color-text-primary;
+    
+    @include md {
+      display: none;
+    }
+    
+    svg {
+      width: $icon-size-lg;
+      height: $icon-size-lg;
+    }
+    
+    // Hamburger icon animation
+    &[aria-expanded="true"] {
+      .header__menu-icon-open {
+        display: none;
+      }
+      .header__menu-icon-close {
+        display: block;
+      }
+    }
+    
+    .header__menu-icon-close {
+      display: none;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Mobile Menu (Off-Canvas)
+  // ----------------------------------------------------------------------------
+  &__mobile-menu {
+    position: fixed;
+    top: $header-height-mobile;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $color-bg-surface;
+    z-index: $z-index-fixed;
+    padding: $spacing-6 $container-padding-mobile;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform $duration-moderate $ease-out;
+    
+    &.is-open {
+      transform: translateX(0);
+    }
+    
+    @include md {
+      display: none;
+    }
+  }
+  
+  &__mobile-nav {
+    @include list-reset;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+  
+  &__mobile-nav-link {
+    display: block;
+    padding: $spacing-4;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    text-decoration: none;
+    border-radius: $radius-md;
+    transition: $transition-colors;
+    
+    @include hover {
+      color: $color-text-primary;
+      background-color: $color-bg-secondary;
+    }
+    
+    &.is-active {
+      color: $color-primary-600;
+      background-color: $color-primary-50;
+      font-weight: $font-weight-semibold;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Header Actions (CTA, Language Switcher, etc.)
+  // ----------------------------------------------------------------------------
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+  
+  // Language switcher
+  &__lang-switcher {
+    display: flex;
+    gap: $spacing-1;
+    padding: $spacing-1;
+    background-color: $color-bg-secondary;
+    border-radius: $radius-md;
+  }
+  
+  &__lang-btn {
+    @include button-reset;
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    border-radius: $radius-sm;
+    transition: $transition-colors;
+    
+    @include hover {
+      color: $color-text-primary;
+      background-color: $color-bg-surface;
+    }
+    
+    &.is-active {
+      color: $color-text-inverse;
+      background-color: $color-primary-500;
+      font-weight: $font-weight-semibold;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Announcement Bar (Optional)
+  // ----------------------------------------------------------------------------
+  &__announcement {
+    background-color: $color-primary-500;
+    color: $color-text-inverse;
+    padding: $spacing-2 0;
+    text-align: center;
+    font-size: $font-size-sm;
+    
+    &-close {
+      @include button-reset;
+      @include button-icon($button-icon-sm);
+      color: $color-text-inverse;
+      position: absolute;
+      right: $spacing-4;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
 }
 
-// ============================================================================
-// LANGUAGE SWITCHER
-// ============================================================================
-
-.language-switcher {
-  display: flex;
-  align-items: center;
-  gap: $spacing_2;
-  font-size: $font_size_sm;
-  font-weight: $font_weight_medium;
-
-  &__current {
-    color: $color_text_primary;
+// ----------------------------------------------------------------------------
+// Backdrop for Mobile Menu
+// ----------------------------------------------------------------------------
+.header-backdrop {
+  @include overlay($color-bg-overlay, $z-index-overlay);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $duration-moderate $ease-out,
+              visibility $duration-moderate $ease-out;
+  
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
   }
-
-  &__separator {
-    color: $color_gray_400;
-  }
-
-  &__link {
-    color: $color_text_muted;
-    text-decoration: none;
-    transition: color $transition_fast;
-
-    &:hover {
-      color: $color_primary;
-      text-decoration: underline;
-    }
-
-    &:focus {
-      outline: 2px solid $color_primary;
-      outline-offset: 2px;
-    }
+  
+  @include md {
+    display: none;
   }
 }

@@ -1,18 +1,15 @@
-# Jekyll build artifacts
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
+# ============================================================================
+# SECRETS & ENVIRONMENT
+# ============================================================================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
 
-# Ruby/Bundle
-.bundle/
-vendor/
-Gemfile.lock
-
-# Python
-*.pyc
-*.pyo
-*.pyd
+# ============================================================================
+# PYTHON
+# ============================================================================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -39,72 +36,97 @@ MANIFEST
 
 # Virtual environments
 venv/
-ENV/
 env/
-.venv
+ENV/
+env.bak/
+venv.bak/
 
-# Environment variables and secrets
-.env
-.env.local
-.env.*.local
-*.env
-.contentfulrc.json
-
-# OS files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-Desktop.ini
-
-# IDE and editor files
-.vscode/
+# PyCharm
 .idea/
-*.swp
-*.swo
-*~
-.project
-.settings/
-*.sublime-project
-*.sublime-workspace
 
-# Logs
-*.log
-logs/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-contentful-import-error-log-*.json
+# VSCode
+.vscode/
 
-# Node modules (if using npm/yarn)
-node_modules/
-.npm
-
-# Testing
+# Pytest
 .pytest_cache/
 .coverage
 htmlcov/
-.tox/
-.nox/
-coverage.xml
-*.cover
-.hypothesis/
 
-# Temporary files
-tmp/
-temp/
-*.tmp
-*.bak
-*.backup
+# ============================================================================
+# JEKYLL
+# ============================================================================
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
 
-# macOS
+# ============================================================================
+# RUBY
+# ============================================================================
+*.gem
+.bundle/
+vendor/bundle/
+Gemfile.lock
+
+# ============================================================================
+# NODE.JS / NPM (for Storybook)
+# ============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ============================================================================
+# STORYBOOK
+# ============================================================================
+storybook-static/
+.storybook/build/
+
+# ============================================================================
+# GENERATED CONTENT (from Contentful)
+# ============================================================================
+_posts/
+_data/profile-*.yml
+_data/navigation-*.yml
+_data/footer-*.yml
+
+# Keep example files
+!_data/*.example
+
+# ============================================================================
+# MACOS
+# ============================================================================
+.DS_Store
 .AppleDouble
 .LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
-# Windows
+# ============================================================================
+# WINDOWS
+# ============================================================================
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
 $RECYCLE.BIN/
 *.cab
 *.msi
@@ -112,3 +134,45 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 *.lnk
+
+# ============================================================================
+# LINUX
+# ============================================================================
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ============================================================================
+# EDITORS
+# ============================================================================
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+*.swp
+*.swo
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+
+# ============================================================================
+# MISC
+# ============================================================================
+*.log
+*.tmp
+*.bak
+*.orig

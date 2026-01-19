@@ -1,6 +1,13 @@
 # Simon Salazar - Personal Portfolio & Blog
 
-A blog-first personal portfolio built with Jekyll, Contentful CMS, and GitHub Pages. Features a warm, friendly design with multi-language support (English/Spanish).
+A blog-first personal portfolio built with Jekyll, Contentful CMS, and GitHub Pages. Features a sophisticated, minimalist design system with multi-language support (English/Spanish).
+
+## 📖 Documentation
+
+**Quick Start:**
+- 🎨 **Design System:** See [`DOCUMENTATION-INDEX.md`](DOCUMENTATION-INDEX.md) for all design documentation
+- 📚 **Storybook:** See [`STORYBOOK-QUICK-START.md`](STORYBOOK-QUICK-START.md) to run component library
+- 🏗️ **Architecture:** See [`_bmad-output/project-context.md`](_bmad-output/project-context.md) for critical implementation rules
 
 ## 🎯 Project Status
 
@@ -241,21 +248,59 @@ Generated site will be in `_site/` directory.
 
 ## 🎨 Design System
 
-**Color Palette:**
-- Primary: Vibrant blue (#2563eb)
-- Secondary: Warm amber (#f59e0b)
-- Text: Dark gray (#111827) on white background
-- "Warm, friendly, approachable" aesthetic
+**Professional, Minimalist Blue & Gray Palette:**
+- Primary: Professional blue (#0ea5e9) - Trustworthy, sophisticated
+- Neutral: 12-shade gray scale (#ffffff → #171717) - Depth and hierarchy
+- All colors WCAG 2.1 AA compliant for accessibility
+- Full specification: [`design-system.md`](_bmad-output/planning-artifacts/design-system.md)
 
-**Responsive Breakpoints:**
-- Mobile: < 768px
+**Responsive Design (Mobile-First):**
+- Mobile: < 640px
 - Tablet: 768px - 1023px
 - Desktop: ≥ 1024px
+- Wide: ≥ 1280px
+- Fluid typography with `clamp()` for automatic scaling
 
-**Typography:**
-- Headings: Georgia (serif) - classic, readable
-- Body: System font stack (sans-serif) - fast loading
-- Code: Monaco, Courier New (monospace)
+**Typography System:**
+- Base: Inter (UI elements) - Modern sans-serif
+- Headings: Merriweather (editorial) - Serif for elegance
+- Code: JetBrains Mono (code blocks) - Developer-friendly
+- 10 fluid font sizes (12px → 72px)
+- 300+ design tokens defined in `_sass/_variables.scss`
+
+**Design Resources:**
+- 📘 Full Spec: [`design-system.md`](_bmad-output/planning-artifacts/design-system.md)
+- 📗 Implementation Guide: [`design-system-implementation-guide.md`](_bmad-output/planning-artifacts/design-system-implementation-guide.md)
+- 📊 Token Reference: [`design-tokens-reference.md`](_bmad-output/planning-artifacts/design-tokens-reference.md)
+
+## 📚 Storybook (Component Library)
+
+**Interactive component library for design system development:**
+
+```bash
+# Install dependencies (first time only)
+npm install
+
+# Run Storybook locally
+npm run dev
+
+# Opens at http://localhost:6006
+```
+
+**Features:**
+- ✅ 21+ interactive component stories
+- ✅ Live prop controls (modify components in real-time)
+- ✅ Accessibility testing (WCAG 2.1 built-in)
+- ✅ Responsive preview (mobile, tablet, desktop)
+- ✅ Design token visualization
+
+**What's Included:**
+- Foundation: Colors, Typography
+- Components: Buttons, Cards, Forms
+- Full documentation with examples
+
+**Quick Start:** [`STORYBOOK-QUICK-START.md`](STORYBOOK-QUICK-START.md)  
+**Full Guide:** [`STORYBOOK-SETUP.md`](STORYBOOK-SETUP.md)
 
 ## ✨ Features (Epic 4 Complete)
 
@@ -413,13 +458,17 @@ Python script monitors and logs build performance:
 - Schema.org structured data
 - Lighthouse CI integration
 
-## 📚 Documentation
+## 📚 Complete Documentation
 
-See `_bmad-output/planning-artifacts/` for detailed documentation:
-- `architecture.md` - Complete architecture decisions
-- `prd.md` - Product requirements document
-- `epics.md` - Epic and story breakdown
-- `technical-specification-20260118.md` - Technical spec
+**See [`DOCUMENTATION-INDEX.md`](DOCUMENTATION-INDEX.md) for complete documentation index** (19 essential documents)
+
+**Key Documents:**
+- **Design System:** `_bmad-output/planning-artifacts/design-system.md`
+- **Architecture:** `_bmad-output/planning-artifacts/architecture.md`
+- **PRD:** `_bmad-output/planning-artifacts/prd.md`
+- **Project Context:** `_bmad-output/project-context.md` (critical implementation rules)
+- **Contentful Setup:** `_bmad-output/CONTENTFUL-GITHUB-SETUP-GUIDE.md`
+- **Storybook:** `STORYBOOK-SETUP.md`
 
 ## 📄 License
 

@@ -1,152 +1,259 @@
-// Profile card component styles
-@import '../variables';
-@import '../mixins';
-
 // ============================================================================
-// PROFILE CARD
+// PROFILE CARD COMPONENT
+// Design System v1.0 - Homepage hero profile section
 // ============================================================================
 
 .profile-card {
-  padding: $spacing_6 0;
-
-  @include respond-to-lg {
-    padding: $spacing_10 0;
+  display: grid;
+  gap: $spacing-8;
+  padding: $spacing-8 0;
+  
+  // Mobile: stacked layout
+  grid-template-columns: 1fr;
+  text-align: center;
+  
+  // Tablet and up: side-by-side layout
+  @include md {
+    grid-template-columns: 200px 1fr;
+    gap: $spacing-10;
+    text-align: left;
   }
-
-  &__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: $spacing_6;
-
-    @include respond-to-md {
-      flex-direction: row;
-      text-align: left;
-      gap: $spacing_8;
-    }
+  
+  // Desktop: centered with max width
+  @include lg {
+    max-width: 800px;
+    margin: 0 auto;
+    gap: $spacing-12;
   }
-
-  &__photo {
-    flex-shrink: 0;
-  }
-
-  &__avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: $border_radius_full;
-    object-fit: cover;
-    border: 4px solid $color_gray_100;
-    box-shadow: $shadow_lg;
-
-    @include respond-to-md {
-      width: 200px;
-      height: 200px;
-    }
-  }
-
-  &__content {
-    flex: 1;
-    max-width: 600px;
-  }
-
-  &__name {
-    @include heading-1;
-    margin-bottom: $spacing_2;
-    color: $color_text_primary;
-  }
-
-  &__title {
-    font-size: $font_size_xl;
-    font-weight: $font_weight_medium;
-    color: $color_primary;
-    margin-bottom: $spacing_4;
-
-    @include respond-to-md {
-      font-size: $font_size_2xl;
-    }
-  }
-
-  &__bio {
-    font-size: $font_size_lg;
-    line-height: $line_height_relaxed;
-    color: $color_text_secondary;
-    margin-bottom: $spacing_5;
-  }
-
-  &__social {
-    margin-bottom: $spacing_5;
-  }
-
-  &__cta {
+  
+  // ----------------------------------------------------------------------------
+  // Profile Image
+  // ----------------------------------------------------------------------------
+  &__image-wrapper {
     display: flex;
     justify-content: center;
-
-    @include respond-to-md {
+    align-items: flex-start;
+    
+    @include md {
       justify-content: flex-start;
     }
   }
-
-  // Placeholder state
-  &--placeholder {
-    background-color: $color_bg_secondary;
-    padding: $spacing_8;
-    border-radius: $border_radius_lg;
-    text-align: center;
+  
+  &__image {
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1 / 1;
+    border-radius: $radius-2xl;
+    object-fit: cover;
+    box-shadow: $shadow-lg;
+    transition: transform $duration-moderate $ease-out,
+                box-shadow $duration-moderate $ease-out;
+    
+    @include hover {
+      transform: scale(1.02);
+      box-shadow: $shadow-xl;
+    }
+    
+    @include md {
+      max-width: 200px;
+    }
   }
-
-  &__error {
-    color: $color_text_muted;
-    font-style: italic;
+  
+  // ----------------------------------------------------------------------------
+  // Profile Content
+  // ----------------------------------------------------------------------------
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    justify-content: center;
   }
-}
-
-// ============================================================================
-// SOCIAL LINKS
-// ============================================================================
-
-.social-links {
-  list-style: none;
-  display: flex;
-  gap: $spacing_3;
-  justify-content: center;
-
-  @include respond-to-md {
-    justify-content: flex-start;
+  
+  // Name/heading
+  &__name {
+    font-family: $font-family-heading;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    color: $color-text-primary;
+    margin: 0;
+    
+    @include md {
+      font-size: $font-size-4xl;
+    }
   }
-
-  &__item {
-    // No additional styles needed
+  
+  // Title/role
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    margin: 0;
+    
+    @include md {
+      font-size: $font-size-2xl;
+    }
   }
-
-  &__link {
+  
+  // Bio/description
+  &__bio {
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+    color: $color-text-secondary;
+    max-width: 600px;
+    
+    @include md {
+      font-size: $font-size-lg;
+    }
+    
+    p {
+      margin-bottom: $spacing-3;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Social Links
+  // ----------------------------------------------------------------------------
+  &__social {
+    display: flex;
+    gap: $spacing-3;
+    justify-content: center;
+    
+    @include md {
+      justify-content: flex-start;
+    }
+  }
+  
+  &__social-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: $border_radius_full;
-    background-color: $color_gray_100;
-    color: $color_text_primary;
-    transition: all $transition_base;
+    width: $button-icon-md;
+    height: $button-icon-md;
+    color: $color-text-secondary;
+    background-color: transparent;
+    border: 2px solid $color-border-default;
+    border-radius: $radius-full;
+    transition: $transition-colors, transform $duration-base $ease-out;
     text-decoration: none;
-
-    &:hover {
-      background-color: $color_primary;
-      color: $color_text_inverse;
-      transform: translateY(-2px);
-      box-shadow: $shadow_md;
-      text-decoration: none;
+    
+    svg {
+      width: $icon-size-md;
+      height: $icon-size-md;
     }
-
-    &:focus {
-      outline: 2px solid $color_primary;
-      outline-offset: 2px;
+    
+    @include hover {
+      color: $color-primary-600;
+      border-color: $color-primary-500;
+      background-color: $color-primary-50;
+      transform: translateY(-2px);
+    }
+    
+    @include focus-visible {
+      box-shadow: $shadow-focus;
     }
   }
-}
-
-.social-icon {
-  width: 20px;
-  height: 20px;
+  
+  // ----------------------------------------------------------------------------
+  // Call-to-Action Buttons
+  // ----------------------------------------------------------------------------
+  &__actions {
+    display: flex;
+    gap: $spacing-3;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    @include md {
+      justify-content: flex-start;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Stats/Highlights (optional)
+  // ----------------------------------------------------------------------------
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: $spacing-6;
+    padding: $spacing-6;
+    background-color: $color-bg-secondary;
+    border-radius: $radius-lg;
+    
+    @include md {
+      padding: $spacing-8;
+    }
+  }
+  
+  &__stat {
+    text-align: center;
+    
+    @include md {
+      text-align: left;
+    }
+    
+    &-value {
+      display: block;
+      font-size: $font-size-3xl;
+      font-weight: $font-weight-bold;
+      color: $color-primary-600;
+      line-height: 1;
+      margin-bottom: $spacing-2;
+    }
+    
+    &-label {
+      display: block;
+      font-size: $font-size-sm;
+      color: $color-text-tertiary;
+      text-transform: uppercase;
+      letter-spacing: $letter-spacing-wide;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Variants
+  // ----------------------------------------------------------------------------
+  
+  // Minimal variant (smaller, less padding)
+  &--minimal {
+    padding: $spacing-6 0;
+    gap: $spacing-6;
+    
+    @include md {
+      grid-template-columns: 150px 1fr;
+      gap: $spacing-8;
+    }
+    
+    .profile-card__image {
+      max-width: 150px;
+    }
+    
+    .profile-card__name {
+      font-size: $font-size-2xl;
+      
+      @include md {
+        font-size: $font-size-3xl;
+      }
+    }
+  }
+  
+  // Centered variant (all content centered, no side-by-side)
+  &--centered {
+    text-align: center;
+    grid-template-columns: 1fr;
+    
+    .profile-card__image-wrapper,
+    .profile-card__social,
+    .profile-card__actions {
+      justify-content: center;
+    }
+    
+    .profile-card__bio {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 }

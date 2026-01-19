@@ -88,15 +88,21 @@
         },
         {
           "assetImageDimensions": {
-            "width": { "min": 1200, "max": 1200 },
-            "height": { "min": 630, "max": 630 }
+            "width": { "min": 600, "max": 2400 },
+            "height": { "min": 315, "max": 1260 }
           },
-          "message": "For optimal display across platforms, use exactly 1200x630px"
+          "message": "Image dimensions should be between 600x315px and 2400x1260px. Recommended: 1200x630px for optimal display"
+        },
+        {
+          "assetFileSize": {
+            "max": 8388608
+          },
+          "message": "File size must be under 8MB"
         }
       ],
       "disabled": false,
       "omitted": false,
-      "helpText": "Image shown when page is shared on social media (Facebook, LinkedIn, Twitter). Recommended: exactly 1200x630px"
+      "helpText": "Image shown when page is shared on social media. Recommended: 1200x630px (1.9:1 ratio). Accepts 600x315px to 2400x1260px. Social platforms will crop/resize as needed."
     },
     {
       "id": "noIndex",

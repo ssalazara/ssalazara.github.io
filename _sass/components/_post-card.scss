@@ -1,165 +1,233 @@
-// Post card component styles
-@import '../variables';
-@import '../mixins';
-
 // ============================================================================
-// POST CARD
+// BLOG POST CARD COMPONENT
+// Design System v1.0 - Blog post preview cards
 // ============================================================================
 
 .post-card {
-  @include card-base;
+  @include card-interactive;
   display: flex;
   flex-direction: column;
   height: 100%;
-
-  &__link {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    text-decoration: none;
-    color: inherit;
-    transition: all $transition_base;
-
-    &:hover {
-      text-decoration: none;
-      box-shadow: $shadow_lg;
-      transform: translateY(-4px);
-
-      .post-card__title {
-        color: $color_primary;
-      }
-
-      .post-card__cta {
-        color: $color_primary;
-        transform: translateX(4px);
-      }
-    }
-
-    &:focus {
-      outline: 2px solid $color_primary;
-      outline-offset: 2px;
-    }
-  }
-
+  padding: 0;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  
+  // Card image
   &__image {
-    position: relative;
     width: 100%;
-    @include aspect-ratio(16, 9);
-    background-color: $color_gray_200;
-    overflow: hidden;
-
-    &--placeholder {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background-color: $color-neutral-100;
+    
+    // Fallback for no image
+    &-placeholder {
+      @include aspect-ratio(16, 9);
+      background: linear-gradient(
+        135deg,
+        $color-primary-50 0%,
+        $color-primary-100 100%
+      );
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, $color_gray_100 0%, $color_gray_200 100%);
+      color: $color-primary-500;
+      font-size: $font-size-4xl;
     }
   }
-
-  &__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &__placeholder-content {
-    padding: $spacing_4;
-  }
-
-  &__badge {
-    position: absolute;
-    top: $spacing_3;
-    right: $spacing_3;
-    z-index: 10;
-  }
-
+  
+  // Card content
   &__content {
-    padding: $spacing_5;
+    padding: $card-padding-md;
     display: flex;
     flex-direction: column;
     flex: 1;
   }
-
+  
+  // Metadata (date, reading time, tags)
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    margin-bottom: $spacing-3;
+    font-size: $font-size-sm;
+    color: $color-text-tertiary;
+    
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: $spacing-1;
+      
+      svg {
+        width: $icon-size-sm;
+        height: $icon-size-sm;
+      }
+    }
+    
+    &-divider {
+      width: 4px;
+      height: 4px;
+      border-radius: $radius-full;
+      background-color: $color-neutral-300;
+    }
+  }
+  
+  // Card title
   &__title {
-    font-size: $font_size_xl;
-    font-weight: $font_weight_semibold;
-    line-height: $line_height_tight;
-    color: $color_text_primary;
-    margin-bottom: $spacing_3;
-    transition: color $transition_base;
+    font-family: $font-family-heading;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-snug;
+    color: $color-text-primary;
+    margin-bottom: $spacing-3;
+    
+    // Clamp to 2 lines
+    @include line-clamp(2);
+    
+    @include md {
+      font-size: $font-size-2xl;
+    }
   }
-
-  &__date {
-    display: block;
-    font-size: $font_size_sm;
-    color: $color_text_muted;
-    margin-bottom: $spacing_3;
-  }
-
+  
+  // Card excerpt/description
   &__excerpt {
-    font-size: $font_size_base;
-    line-height: $line_height_normal;
-    color: $color_text_secondary;
-    margin-bottom: $spacing_4;
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-4;
     flex: 1;
+    
+    // Clamp to 3 lines
+    @include line-clamp(3);
   }
-
+  
+  // Card footer (author, CTA)
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: $spacing-4;
+    border-top: 1px solid $color-border-light;
+    margin-top: auto;
+  }
+  
+  // Author info
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    
+    &-avatar {
+      width: $avatar-size-sm;
+      height: $avatar-size-sm;
+      border-radius: $radius-full;
+      object-fit: cover;
+    }
+    
+    &-name {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+      color: $color-text-secondary;
+    }
+  }
+  
+  // Read more link
   &__cta {
     display: inline-flex;
     align-items: center;
-    gap: $spacing_2;
-    font-size: $font_size_sm;
-    font-weight: $font_weight_medium;
-    color: $color_primary;
-    transition: all $transition_base;
+    gap: $spacing-1;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-link;
+    text-decoration: none;
+    transition: $transition-colors;
+    
+    svg {
+      width: $icon-size-sm;
+      height: $icon-size-sm;
+      transition: transform $duration-base $ease-out;
+    }
+    
+    @include hover {
+      color: $color-text-link-hover;
+      
+      svg {
+        transform: translateX(4px);
+      }
+    }
   }
-
-  &__arrow {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
+  
+  // Tags
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    margin-bottom: $spacing-3;
   }
-
-  // Error state
-  &--error {
-    @include card-base;
-    padding: $spacing_6;
-    text-align: center;
-    color: $color_text_muted;
-    background-color: $color_bg_secondary;
+  
+  &__tag {
+    display: inline-block;
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-primary-700;
+    background-color: $color-primary-50;
+    border-radius: $radius-full;
+    text-decoration: none;
+    transition: $transition-colors;
+    
+    @include hover {
+      background-color: $color-primary-100;
+      color: $color-primary-800;
+    }
   }
-}
-
-// ============================================================================
-// BADGE
-// ============================================================================
-
-.badge {
-  display: inline-block;
-  padding: $spacing_1 $spacing_3;
-  font-size: $font_size_xs;
-  font-weight: $font_weight_medium;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-radius: $border_radius_full;
-  background-color: $color_primary;
-  color: $color_text_inverse;
-  white-space: nowrap;
-
-  // Badge variants (can be extended per category)
-  &--technical {
-    background-color: $color_primary;
+  
+  // Featured post variant
+  &--featured {
+    @include md {
+      flex-direction: row;
+      
+      .post-card__image {
+        width: 40%;
+        aspect-ratio: 4 / 3;
+      }
+      
+      .post-card__content {
+        width: 60%;
+      }
+      
+      .post-card__title {
+        font-size: $font-size-3xl;
+      }
+    }
   }
-
-  &--product {
-    background-color: $color_secondary;
-  }
-
-  &--design {
-    background-color: #8b5cf6; // Purple
-  }
-
-  &--personal {
-    background-color: $color_success;
+  
+  // Compact variant (for sidebars, related posts)
+  &--compact {
+    flex-direction: row;
+    padding: $card-padding-sm;
+    
+    .post-card__image {
+      width: 100px;
+      aspect-ratio: 1 / 1;
+      border-radius: $radius-md;
+    }
+    
+    .post-card__content {
+      padding: 0 0 0 $spacing-3;
+    }
+    
+    .post-card__title {
+      font-size: $font-size-base;
+      margin-bottom: $spacing-1;
+    }
+    
+    .post-card__excerpt {
+      display: none;
+    }
+    
+    .post-card__footer {
+      display: none;
+    }
   }
 }

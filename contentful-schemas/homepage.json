@@ -33,9 +33,9 @@
         },
         {
           "regexp": {
-            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "pattern": "^/$|^[a-z0-9]+(?:-[a-z0-9]+)*$",
             "flags": null,
-            "message": "Use lowercase letters, numbers, and hyphens only (e.g., 'about-us')"
+            "message": "Use '/' for homepage, or lowercase letters, numbers, and hyphens for other pages (e.g., 'about-us')"
           }
         }
       ],

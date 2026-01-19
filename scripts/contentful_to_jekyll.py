@@ -16,7 +16,8 @@ from scripts.config import (
     CONTENTFUL_SPACE_ID,
     CONTENTFUL_MODE,
     SUPPORTED_LOCALES,
-    get_active_token
+    get_active_token,
+    get_jekyll_locale
 )
 from scripts.contentful_client.client import ContentfulClient
 
@@ -157,7 +158,7 @@ def process_locale(
     
     Args:
         client: Contentful client instance
-        locale: Locale code
+        locale: Contentful locale code (e.g., 'en-US')
         file_writer: File writer instance
         data_writer: Data writer instance
     
@@ -170,6 +171,9 @@ def process_locale(
         'failed': 0
     }
     
+    # Map Contentful locale to Jekyll folder name
+    jekyll_locale = get_jekyll_locale(locale)
+    
     # Initialize transformers for this locale
     blog_transformer = BlogPostTransformer(client, locale)
     profile_transformer = ProfileTransformer(client, locale)
@@ -181,49 +185,49 @@ def process_locale(
     blog_posts = blog_transformer.transform_all()
     stats['total_entries'] += len(blog_posts)
     
-    # Write blog posts
+    # Write blog posts (use Jekyll locale for folder name)
     if blog_posts:
         try:
-            file_writer.write_multiple_posts(blog_posts, locale)
+            file_writer.write_multiple_posts(blog_posts, jekyll_locale)
             stats['successful'] += len(blog_posts)
         except Exception as e:
             logger.error(f"❌ BLOG_POSTS_WRITE_FAILED: {str(e)}")
             stats['failed'] += len(blog_posts)
     
-    # Transform and write profile
+    # Transform and write profile (use Jekyll locale for filename)
     logger.info(f"👤 Transforming profile...")
     profiles = profile_transformer.transform_all()
     stats['total_entries'] += len(profiles)
     
     if profiles:
         try:
-            data_writer.write_data_file(profiles[0], 'profile', locale)
+            data_writer.write_data_file(profiles[0], 'profile', jekyll_locale)
             stats['successful'] += 1
         except Exception as e:
             logger.error(f"❌ PROFILE_WRITE_FAILED: {str(e)}")
             stats['failed'] += 1
     
-    # Transform and write header
+    # Transform and write header (use Jekyll locale for filename)
     logger.info(f"🔝 Transforming header...")
     headers = header_transformer.transform_all()
     stats['total_entries'] += len(headers)
     
     if headers:
         try:
-            data_writer.write_data_file(headers[0], 'header', locale)
+            data_writer.write_data_file(headers[0], 'header', jekyll_locale)
             stats['successful'] += 1
         except Exception as e:
             logger.error(f"❌ HEADER_WRITE_FAILED: {str(e)}")
             stats['failed'] += 1
     
-    # Transform and write footer
+    # Transform and write footer (use Jekyll locale for filename)
     logger.info(f"🔽 Transforming footer...")
     footers = footer_transformer.transform_all()
     stats['total_entries'] += len(footers)
     
     if footers:
         try:
-            data_writer.write_data_file(footers[0], 'footer', locale)
+            data_writer.write_data_file(footers[0], 'footer', jekyll_locale)
             stats['successful'] += 1
         except Exception as e:
             logger.error(f"❌ FOOTER_WRITE_FAILED: {str(e)}")

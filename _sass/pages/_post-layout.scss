@@ -1,402 +1,480 @@
-// Blog post layout styles - optimized for reading
-@import '../variables';
-@import '../mixins';
-
 // ============================================================================
-// POST LAYOUT
+// BLOG POST LAYOUT
+// Design System v1.0 - Single blog post reading experience
 // ============================================================================
 
 .post-layout {
-  background-color: $color_bg_primary;
-
-  // Narrow container for optimal line length
-  .container--narrow {
-    max-width: 700px; // Optimal for 60-75 characters per line
+  padding: $spacing-8 0;
+  
+  @include md {
+    padding: $spacing-12 0;
   }
-
+  
+  @include lg {
+    padding: $spacing-16 0;
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Post Header
+  // ----------------------------------------------------------------------------
   &__header {
-    padding: $spacing_8 0 $spacing_6 0;
-    background-color: $color_bg_secondary;
-    border-bottom: 1px solid $color_gray_200;
-
-    @include respond-to-lg {
-      padding: $spacing_10 0 $spacing_8 0;
+    @include container-narrow;
+    text-align: center;
+    margin-bottom: $spacing-12;
+    
+    @include md {
+      margin-bottom: $spacing-16;
     }
   }
-
-  &__title {
-    @include heading-1;
-    margin-bottom: $spacing_5;
-    line-height: $line_height_tight;
+  
+  // Category/Tag badge
+  &__category {
+    display: inline-block;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-primary-700;
+    background-color: $color-primary-100;
+    border-radius: $radius-full;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+    margin-bottom: $spacing-4;
+    text-decoration: none;
+    
+    @include hover {
+      background-color: $color-primary-200;
+      color: $color-primary-800;
+    }
   }
-
+  
+  // Post title
+  &__title {
+    font-family: $font-family-heading;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    color: $color-text-primary;
+    margin-bottom: $spacing-6;
+    
+    @include md {
+      font-size: $font-size-4xl;
+    }
+    
+    @include lg {
+      font-size: $font-size-5xl;
+    }
+  }
+  
+  // Post excerpt/summary
+  &__excerpt {
+    font-size: $font-size-lg;
+    line-height: $line-height-relaxed;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-6;
+    
+    @include md {
+      font-size: $font-size-xl;
+    }
+  }
+  
+  // Post metadata (date, author, reading time)
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+    flex-wrap: wrap;
+    font-size: $font-size-base;
+    color: $color-text-tertiary;
+  }
+  
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    
+    svg {
+      width: $icon-size-sm;
+      height: $icon-size-sm;
+    }
+  }
+  
+  &__meta-divider {
+    width: 4px;
+    height: 4px;
+    border-radius: $radius-full;
+    background-color: $color-neutral-300;
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Featured Image
+  // ----------------------------------------------------------------------------
   &__featured-image {
     width: 100%;
-    background-color: $color_gray_100;
-  }
-
-  &__content {
-    padding: $spacing_8 0;
-
-    @include respond-to-lg {
-      padding: $spacing_10 0;
+    max-width: $container-lg;
+    margin: 0 auto $spacing-12;
+    border-radius: $radius-xl;
+    overflow: hidden;
+    box-shadow: $shadow-lg;
+    
+    @include md {
+      margin-bottom: $spacing-16;
     }
-  }
-
-  &__footer {
-    padding: $spacing_8 0;
-    border-top: 2px solid $color_gray_200;
-    background-color: $color_bg_secondary;
-  }
-
-  &__related {
-    padding: $spacing_10 0;
-    background-color: $color_bg_tertiary;
-  }
-}
-
-// ============================================================================
-// POST FIGURE (Featured Image)
-// ============================================================================
-
-.post-figure {
-  margin: 0;
-  width: 100%;
-
-  &__img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  &__caption {
-    padding: $spacing_4;
-    font-size: $font_size_sm;
-    color: $color_text_secondary;
-    text-align: center;
-    font-style: italic;
-    background-color: $color_bg_secondary;
-  }
-}
-
-// ============================================================================
-// POST BYLINE
-// ============================================================================
-
-.post-byline {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: $spacing_4;
-  font-size: $font_size_sm;
-  color: $color_text_secondary;
-
-  &__item {
-    display: inline-flex;
-    align-items: center;
-    gap: $spacing_2;
-  }
-
-  &__icon {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    color: $color_gray_400;
-  }
-
-  &__category {
-    .badge {
-      font-size: $font_size_xs;
-    }
-  }
-}
-
-// ============================================================================
-// POST CONTENT - Typography Optimization
-// ============================================================================
-
-.post-content {
-  // Base typography for long-form reading
-  font-size: $font_size_lg;        // 18px - slightly larger for readability
-  line-height: $line_height_relaxed; // 1.75 - generous spacing
-  color: $color_text_primary;
-
-  // Paragraphs
-  p {
-    margin-bottom: $spacing_5;  // Generous paragraph spacing
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  // Headings within content
-  h2, h3, h4, h5, h6 {
-    font-family: $font_family_heading;
-    font-weight: $font_weight_bold;
-    color: $color_text_primary;
-    margin-bottom: $spacing_4;
-  }
-
-  h2 {
-    font-size: $font_size_2xl;  // 24px → 28px on desktop
-    margin-top: $spacing_8;     // 48px top spacing
-    padding-top: $spacing_6;     // Extra padding
-    border-top: 1px solid $color_gray_200;
-
-    @include respond-to-md {
-      font-size: 1.75rem;  // 28px
-    }
-
-    &:first-child {
-      margin-top: 0;
-      border-top: none;
-      padding-top: 0;
-    }
-  }
-
-  h3 {
-    font-size: $font_size_xl;    // 20px → 24px on desktop
-    margin-top: $spacing_6;      // 32px top spacing
-
-    @include respond-to-md {
-      font-size: $font_size_2xl;  // 24px
-    }
-  }
-
-  h4 {
-    font-size: $font_size_lg;    // 18px → 20px on desktop
-    margin-top: $spacing_5;      // 24px top spacing
-
-    @include respond-to-md {
-      font-size: $font_size_xl;  // 20px
-    }
-  }
-
-  // Links within content
-  a {
-    color: $color_primary;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
-    transition: all $transition_fast;
-
-    &:hover {
-      color: $color_primary_dark;
-      text-decoration-thickness: 2px;
-    }
-  }
-
-  // Strong and emphasis
-  strong, b {
-    font-weight: $font_weight_bold;
-    color: $color_text_primary;
-  }
-
-  em, i {
-    font-style: italic;
-  }
-
-  // Blockquotes
-  blockquote {
-    margin: $spacing_6 0;
-    padding: $spacing_5 $spacing_6;
-    background-color: $color_bg_secondary;
-    border-left: 4px solid $color_primary;
-    font-style: italic;
-    color: $color_text_secondary;
-
-    p:last-child {
-      margin-bottom: 0;
-    }
-
-    cite {
-      display: block;
-      margin-top: $spacing_3;
-      font-size: $font_size_sm;
-      font-style: normal;
-      color: $color_text_muted;
-
-      &::before {
-        content: '— ';
-      }
-    }
-  }
-
-  // Lists
-  ul, ol {
-    margin-bottom: $spacing_5;
-    padding-left: $spacing_6;
-
-    li {
-      margin-bottom: $spacing_3;
-      line-height: $line_height_relaxed;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    // Nested lists
-    ul, ol {
-      margin-top: $spacing_3;
-      margin-bottom: 0;
-    }
-  }
-
-  ul {
-    list-style-type: disc;
-  }
-
-  ol {
-    list-style-type: decimal;
-  }
-
-  // Images within content
-  img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: $spacing_6 auto;
-    border-radius: $border_radius_md;
-    box-shadow: $shadow_sm;
-  }
-
-  figure {
-    margin: $spacing_6 0;
-
+    
     img {
-      margin-bottom: $spacing_3;
+      width: 100%;
+      height: auto;
+      display: block;
     }
-
-    figcaption {
-      font-size: $font_size_sm;
-      color: $color_text_secondary;
+    
+    &-caption {
+      padding: $spacing-3 $spacing-4;
+      font-size: $font-size-sm;
+      color: $color-text-tertiary;
       text-align: center;
+      background-color: $color-bg-secondary;
       font-style: italic;
     }
   }
-
-  // Horizontal rule
-  hr {
-    margin: $spacing_8 0;
-    border: none;
-    border-top: 2px solid $color_gray_200;
-  }
-
-  // Tables
-  table {
-    width: 100%;
-    margin: $spacing_6 0;
-    border-collapse: collapse;
-    font-size: $font_size_base;
-
-    @include respond-to-sm {
-      display: block;
-      overflow-x: auto;
+  
+  // ----------------------------------------------------------------------------
+  // Post Content (Long-form)
+  // ----------------------------------------------------------------------------
+  &__content {
+    @include container-narrow;
+    
+    // Typography for long-form content
+    > * + * {
+      margin-top: $spacing-6;
     }
-
-    thead {
-      background-color: $color_gray_100;
+    
+    // Headings
+    h2 {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      line-height: $line-height-snug;
+      color: $color-text-primary;
+      margin-top: $spacing-12;
+      margin-bottom: $spacing-4;
+      
+      @include md {
+        font-size: $font-size-3xl;
+      }
+      
+      // Anchor link icon
+      &:hover .heading-anchor {
+        opacity: 1;
+      }
     }
-
-    th, td {
-      padding: $spacing_3 $spacing_4;
-      text-align: left;
-      border-bottom: 1px solid $color_gray_200;
+    
+    h3 {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+      line-height: $line-height-snug;
+      color: $color-text-primary;
+      margin-top: $spacing-8;
+      margin-bottom: $spacing-3;
+      
+      @include md {
+        font-size: $font-size-2xl;
+      }
     }
-
-    th {
-      font-weight: $font_weight_semibold;
-      color: $color_text_primary;
+    
+    h4 {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      margin-top: $spacing-6;
+      margin-bottom: $spacing-3;
+      
+      @include md {
+        font-size: $font-size-xl;
+      }
     }
-
-    tbody tr:hover {
-      background-color: $color_bg_secondary;
+    
+    // Paragraphs
+    p {
+      font-size: $font-size-base;
+      line-height: $line-height-relaxed;
+      color: $color-text-primary;
+      
+      @include md {
+        font-size: $font-size-lg;
+      }
     }
-  }
-
-  // Inline code
-  code {
-    font-family: $font_family_mono;
-    font-size: 0.9em;
-    padding: 0.2em 0.4em;
-    background-color: $color_gray_100;
-    border-radius: $border_radius_sm;
-    color: $color_error;
-  }
-
-  // Code blocks (will be styled in _syntax-highlighting.scss)
-  pre {
-    margin: $spacing_6 0;
-    border-radius: $border_radius_md;
-    overflow-x: auto;
-
+    
+    // Links
+    a {
+      color: $color-text-link;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-underline-offset: 3px;
+      transition: text-decoration-color $duration-fast $ease-out;
+      
+      @include hover {
+        color: $color-text-link-hover;
+        text-decoration-color: currentColor;
+      }
+    }
+    
+    // Lists
+    ul, ol {
+      padding-left: $spacing-6;
+      
+      li {
+        margin-bottom: $spacing-3;
+        line-height: $line-height-relaxed;
+        
+        &::marker {
+          color: $color-primary-500;
+        }
+      }
+    }
+    
+    // Blockquote
+    blockquote {
+      padding: $spacing-6;
+      padding-left: $spacing-8;
+      margin: $spacing-8 0;
+      border-left: 4px solid $color-primary-500;
+      background-color: $color-primary-50;
+      border-radius: $radius-md;
+      font-size: $font-size-lg;
+      font-style: italic;
+      color: $color-text-secondary;
+      
+      p:last-child {
+        margin-bottom: 0;
+      }
+      
+      cite {
+        display: block;
+        margin-top: $spacing-3;
+        font-size: $font-size-base;
+        font-style: normal;
+        color: $color-text-tertiary;
+        
+        &::before {
+          content: "— ";
+        }
+      }
+    }
+    
+    // Code blocks
     code {
+      font-family: $font-family-mono;
+      font-size: 0.9em;
+      padding: $spacing-0-5 $spacing-2;
+      background-color: $color-neutral-100;
+      border-radius: $radius-sm;
+      color: $color-error-600;
+    }
+    
+    pre {
+      padding: $spacing-6;
+      background-color: $color-neutral-900;
+      color: $color-neutral-50;
+      border-radius: $radius-lg;
+      overflow-x: auto;
+      margin: $spacing-8 0;
+      box-shadow: $shadow-md;
+      
+      code {
+        background-color: transparent;
+        padding: 0;
+        color: inherit;
+      }
+    }
+    
+    // Images
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: $radius-lg;
+      margin: $spacing-8 auto;
       display: block;
-      padding: $spacing_5;
-      background-color: transparent;
-      color: inherit;
-      border-radius: 0;
+      box-shadow: $shadow-md;
+    }
+    
+    // Tables
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: $spacing-8 0;
+      font-size: $font-size-base;
+      
+      thead {
+        background-color: $color-bg-secondary;
+        
+        th {
+          padding: $spacing-3 $spacing-4;
+          text-align: left;
+          font-weight: $font-weight-semibold;
+          color: $color-text-primary;
+          border-bottom: 2px solid $color-border-default;
+        }
+      }
+      
+      tbody {
+        tr {
+          border-bottom: 1px solid $color-border-light;
+          
+          &:hover {
+            background-color: $color-bg-secondary;
+          }
+        }
+        
+        td {
+          padding: $spacing-3 $spacing-4;
+          color: $color-text-secondary;
+        }
+      }
+    }
+    
+    // Horizontal rule
+    hr {
+      border: none;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        $color-border-default 50%,
+        transparent 100%
+      );
+      margin: $spacing-12 0;
     }
   }
-}
-
-// ============================================================================
-// POST TAGS
-// ============================================================================
-
-.post-tags {
-  margin-bottom: $spacing_6;
-  padding-bottom: $spacing_6;
-  border-bottom: 1px solid $color_gray_200;
-
-  &__label {
-    display: inline-block;
-    margin-right: $spacing_3;
-    font-size: $font_size_sm;
-    font-weight: $font_weight_semibold;
-    color: $color_text_secondary;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  
+  // ----------------------------------------------------------------------------
+  // Post Footer (Author, Tags, Share)
+  // ----------------------------------------------------------------------------
+  &__footer {
+    @include container-narrow;
+    margin-top: $spacing-16;
+    padding-top: $spacing-8;
+    border-top: 2px solid $color-border-light;
   }
-
-  &__list {
-    display: inline-flex;
+  
+  // Tags
+  &__tags {
+    display: flex;
     flex-wrap: wrap;
-    gap: $spacing_2;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    gap: $spacing-2;
+    margin-bottom: $spacing-8;
   }
-
-  &__item {
-    // Styled by .tag class
+  
+  &__tag {
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-primary-700;
+    background-color: $color-primary-50;
+    border-radius: $radius-full;
+    text-decoration: none;
+    transition: $transition-colors;
+    
+    @include hover {
+      background-color: $color-primary-100;
+      color: $color-primary-800;
+    }
   }
-}
-
-.tag {
-  display: inline-block;
-  padding: $spacing_1 $spacing_3;
-  font-size: $font_size_xs;
-  font-weight: $font_weight_medium;
-  color: $color_text_secondary;
-  background-color: $color_gray_100;
-  border-radius: $border_radius_full;
-  transition: all $transition_fast;
-
-  &:hover {
-    background-color: $color_gray_200;
-    color: $color_text_primary;
+  
+  // Author bio
+  &__author {
+    display: flex;
+    gap: $spacing-4;
+    padding: $spacing-6;
+    background-color: $color-bg-secondary;
+    border-radius: $radius-lg;
+    margin-bottom: $spacing-8;
+    
+    &-avatar {
+      flex-shrink: 0;
+      width: $avatar-size-xl;
+      height: $avatar-size-xl;
+      border-radius: $radius-full;
+      object-fit: cover;
+    }
+    
+    &-info {
+      flex: 1;
+    }
+    
+    &-name {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $color-text-primary;
+      margin-bottom: $spacing-1;
+    }
+    
+    &-bio {
+      font-size: $font-size-base;
+      line-height: $line-height-relaxed;
+      color: $color-text-secondary;
+    }
   }
-}
-
-// ============================================================================
-// POST FOOTER NAVIGATION
-// ============================================================================
-
-.post-footer-nav {
-  display: flex;
-  justify-content: center;
-  margin-top: $spacing_6;
+  
+  // Share buttons
+  &__share {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    
+    &-label {
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      color: $color-text-secondary;
+    }
+    
+    &-buttons {
+      display: flex;
+      gap: $spacing-2;
+    }
+    
+    &-button {
+      @include button-base;
+      @include button-icon;
+      @include button-ghost;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Related Posts
+  // ----------------------------------------------------------------------------
+  &__related {
+    padding: $spacing-12 0;
+    background-color: $color-bg-page;
+    margin-top: $spacing-16;
+  }
+  
+  &__related-container {
+    @include container;
+  }
+  
+  &__related-title {
+    font-family: $font-family-heading;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-8;
+    text-align: center;
+    
+    @include md {
+      font-size: $font-size-3xl;
+    }
+  }
+  
+  &__related-grid {
+    display: grid;
+    gap: $spacing-6;
+    grid-template-columns: 1fr;
+    
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-8;
+    }
+    
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
 }
