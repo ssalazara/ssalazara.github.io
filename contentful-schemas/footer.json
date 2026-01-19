@@ -1,0 +1,163 @@
+{
+  "name": "🦠 Footer",
+  "description": "Organism component: Global website footer with branding, navigation, social links, and newsletter signup. One per site configuration.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Unique identifier for this footer configuration (e.g., 'Main Footer', 'Simple Footer')"
+    },
+    {
+      "id": "brandImage",
+      "name": "Brand Logo",
+      "type": "Link",
+      "linkType": "Asset",
+      "required": false,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Logo must be an image file"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional footer logo. Can be different from header logo (e.g., white version for dark footer)"
+    },
+    {
+      "id": "brandUrl",
+      "name": "Brand URL (Logo Link)",
+      "type": "Symbol",
+      "required": false,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$",
+            "flags": null,
+            "message": "Enter a valid URL"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "URL when footer logo is clicked. Typically homepage ('/')"
+    },
+    {
+      "id": "description",
+      "name": "About Text",
+      "type": "Text",
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 300 },
+          "message": "Keep description under 300 characters"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Brief company description or tagline in footer. Max 300 characters"
+    },
+    {
+      "id": "copyright",
+      "name": "Copyright Text",
+      "type": "Symbol",
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 150 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Copyright notice (e.g., '© 2026 Company Name. All rights reserved.')"
+    },
+    {
+      "id": "menuItems",
+      "name": "Footer Navigation Links",
+      "type": "Array",
+      "required": false,
+      "items": {
+        "type": "Link",
+        "linkType": "Entry",
+        "validations": [
+          {
+            "linkContentType": ["mlMenuItem"],
+            "message": "Only Menu Item entries allowed"
+          }
+        ]
+      },
+      "validations": [
+        {
+          "size": { "max": 12 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Footer navigation menu items (e.g., About, Privacy, Terms). Max 12 items"
+    },
+    {
+      "id": "socialTitle",
+      "name": "Social Media Section Title",
+      "type": "Symbol",
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 50 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Heading above social links (e.g., 'Follow Us', 'Connect With Us')"
+    },
+    {
+      "id": "socialLinks",
+      "name": "Social Media Links",
+      "type": "Array",
+      "required": false,
+      "items": {
+        "type": "Link",
+        "linkType": "Entry",
+        "validations": [
+          {
+            "linkContentType": ["componentSocialLink"],
+            "message": "Only Social Link components allowed"
+          }
+        ]
+      },
+      "validations": [
+        {
+          "size": { "max": 8 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Social media icons and links. Add using Social Link component. Max 8 platforms"
+    },
+    {
+      "id": "enableNewsletter",
+      "name": "Enable Newsletter Signup",
+      "type": "Boolean",
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "defaultValue": {
+        "en-US": false
+      },
+      "helpText": "Toggle to show/hide the newsletter subscription form in the footer"
+    }
+  ],
+  "sys": {
+    "id": "orFooter",
+    "type": "ContentType"
+  }
+}

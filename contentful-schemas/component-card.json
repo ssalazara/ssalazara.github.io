@@ -1,0 +1,110 @@
+{
+  "name": "🧬 Card",
+  "description": "Atomic component: Reusable content card with image, text, and optional link. Used in Carousels and grid layouts.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only. Not displayed on the website"
+    },
+    {
+      "id": "title",
+      "name": "Title",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 60 },
+          "message": "Keep titles under 60 characters for optimal display"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Main heading of the card. Keep concise and compelling (max 60 characters)"
+    },
+    {
+      "id": "description",
+      "name": "Description",
+      "type": "Text",
+      "localized": true,
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 150 },
+          "message": "Keep descriptions under 150 characters for better readability"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Brief summary text. Shows below the title (max 150 characters)"
+    },
+    {
+      "id": "image",
+      "name": "Image",
+      "type": "Link",
+      "linkType": "Asset",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Must be an image file"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Card thumbnail image. Recommended: 400x300px minimum for quality display"
+    },
+    {
+      "id": "url",
+      "name": "Link URL",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$",
+            "flags": null,
+            "message": "Enter a valid URL (e.g., https://example.com/page)"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional destination URL. Makes entire card clickable when provided"
+    },
+    {
+      "id": "urlLabel",
+      "name": "Link Label",
+      "type": "Symbol",
+      "localized": true,
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 25 },
+          "message": "Keep button labels short and actionable"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Call-to-action button text (e.g., 'Learn More', 'Read Article'). Max 25 characters"
+    }
+  ],
+  "sys": {
+    "id": "componentCard",
+    "type": "ContentType"
+  }
+}

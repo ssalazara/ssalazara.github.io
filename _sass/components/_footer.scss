@@ -1,0 +1,135 @@
+// Footer component styles
+@import '../variables';
+@import '../mixins';
+
+// ============================================================================
+// SITE FOOTER
+// ============================================================================
+
+.site-footer {
+  background-color: $color_gray_900;
+  color: $color_gray_300;
+  padding: $spacing_10 0 $spacing_6 0;
+  margin-top: auto;
+
+  @include respond-to-lg {
+    padding: $spacing_12 0 $spacing_8 0;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing_8;
+    margin-bottom: $spacing_8;
+
+    @include respond-to-md {
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: $spacing_10;
+    }
+  }
+
+  &__brand {
+    // Brand section
+  }
+
+  &__title {
+    font-size: $font_size_2xl;
+    font-weight: $font_weight_bold;
+    color: $color_text_inverse;
+    margin-bottom: $spacing_3;
+  }
+
+  &__tagline {
+    font-size: $font_size_base;
+    line-height: $line_height_relaxed;
+    color: $color_gray_400;
+  }
+
+  &__nav,
+  &__social {
+    // Navigation and social sections
+  }
+
+  &__nav-title,
+  &__social-title {
+    font-size: $font_size_base;
+    font-weight: $font_weight_semibold;
+    color: $color_text_inverse;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: $spacing_4;
+  }
+
+  &__bottom {
+    padding-top: $spacing_6;
+    border-top: 1px solid $color_gray_800;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_2;
+    text-align: center;
+
+    @include respond-to-md {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+    }
+  }
+
+  &__copyright,
+  &__meta {
+    font-size: $font_size_sm;
+    color: $color_gray_500;
+    margin: 0;
+  }
+}
+
+// ============================================================================
+// FOOTER NAVIGATION
+// ============================================================================
+
+.footer-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing_3;
+
+  &__item {
+    // No additional styles
+  }
+
+  &__link {
+    color: $color_gray_400;
+    text-decoration: none;
+    font-size: $font_size_base;
+    transition: color $transition_fast;
+
+    &:hover {
+      color: $color_text_inverse;
+      text-decoration: underline;
+    }
+
+    &:focus {
+      outline: 2px solid $color_primary;
+      outline-offset: 2px;
+    }
+  }
+}
+
+// ============================================================================
+// SOCIAL LINKS (FOOTER VARIANT)
+// ============================================================================
+
+.social-links--footer {
+  justify-content: flex-start;
+  
+  .social-links__link {
+    background-color: $color_gray_800;
+    color: $color_gray_400;
+
+    &:hover {
+      background-color: $color_primary;
+      color: $color_text_inverse;
+    }
+  }
+}

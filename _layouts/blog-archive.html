@@ -1,0 +1,131 @@
+---
+layout: default
+---
+
+{% assign current_locale = page.lang | default: site.default_lang | default: 'en' %}
+{% assign locale_posts = site.posts | where: "lang", current_locale | sort: "publish_date" | reverse %}
+
+<div class="blog-archive">
+  
+  <!-- Page Header -->
+  <header class="blog-archive__header">
+    <div class="container">
+      
+      <!-- Breadcrumb Navigation -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item">
+            <a href="{{ '/' | relative_url }}" class="breadcrumb__link">
+              {% if current_locale == 'es' %}
+                Inicio
+              {% else %}
+                Home
+              {% endif %}
+            </a>
+          </li>
+          <li class="breadcrumb__item breadcrumb__item--active" aria-current="page">
+            {% if current_locale == 'es' %}
+              Archivo del Blog
+            {% else %}
+              Blog Archive
+            {% endif %}
+          </li>
+        </ol>
+      </nav>
+
+      <h1 class="blog-archive__title">
+        {% if current_locale == 'es' %}
+          Archivo del Blog
+        {% else %}
+          Blog Archive
+        {% endif %}
+      </h1>
+      
+      {% if locale_posts.size > 0 %}
+      <p class="blog-archive__subtitle">
+        {% if current_locale == 'es' %}
+          {{ locale_posts.size }} {% if locale_posts.size == 1 %}artículo{% else %}artículos{% endif %} publicados
+        {% else %}
+          {{ locale_posts.size }} {% if locale_posts.size == 1 %}post{% else %}posts{% endif %} published
+        {% endif %}
+      </p>
+      {% endif %}
+
+    </div>
+  </header>
+
+  <!-- Posts Grid -->
+  <section class="blog-archive__content">
+    <div class="container">
+      
+      {% if locale_posts.size > 0 %}
+        
+        <div class="blog-archive__grid">
+          {% for post in locale_posts %}
+            <div class="blog-archive__item">
+              {% include components/post-card.html post=post %}
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Pagination (if more than 20 posts) -->
+        {% if locale_posts.size > 20 %}
+        <div class="blog-archive__pagination">
+          <!-- TODO: Implement pagination when needed -->
+          <p class="pagination__note">
+            {% if current_locale == 'es' %}
+              Mostrando todos los artículos ({{ locale_posts.size }})
+            {% else %}
+              Showing all posts ({{ locale_posts.size }})
+            {% endif %}
+          </p>
+        </div>
+        {% endif %}
+
+      {% else %}
+        
+        <!-- Empty State -->
+        <div class="blog-archive__empty">
+          <div class="empty-state">
+            <svg class="empty-state__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <h2 class="empty-state__title">
+              {% if current_locale == 'es' %}
+                No hay publicaciones aún
+              {% else %}
+                No blog posts yet
+              {% endif %}
+            </h2>
+            <p class="empty-state__message">
+              {% if current_locale == 'es' %}
+                Vuelve pronto para leer el primer artículo.
+              {% else %}
+                Check back soon for the first article.
+              {% endif %}
+            </p>
+            <a href="{{ '/' | relative_url }}" class="btn btn--primary">
+              {% if current_locale == 'es' %}
+                Volver al Inicio
+              {% else %}
+                Back to Home
+              {% endif %}
+            </a>
+          </div>
+        </div>
+
+      {% endif %}
+
+    </div>
+  </section>
+
+  <!-- Additional content from page frontmatter -->
+  {% if content %}
+  <div class="blog-archive__additional">
+    <div class="container">
+      {{ content }}
+    </div>
+  </div>
+  {% endif %}
+
+</div>

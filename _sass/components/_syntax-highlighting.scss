@@ -1,0 +1,196 @@
+// Code syntax highlighting styles (Rouge)
+@import '../variables';
+@import '../mixins';
+
+// ============================================================================
+// SYNTAX HIGHLIGHTING - DARK THEME
+// ============================================================================
+
+// Code blocks (pre > code)
+.highlight {
+  background-color: #282c34;  // Dark background (VS Code-inspired)
+  color: #abb2bf;             // Light gray text
+  border-radius: $border_radius_md;
+  box-shadow: $shadow_md;
+  position: relative;
+
+  pre {
+    margin: 0;
+    padding: $spacing_5;
+    overflow-x: auto;
+    
+    code {
+      font-family: $font_family_mono;
+      font-size: $font_size_sm;
+      line-height: 1.6;
+      color: inherit;
+      background-color: transparent;
+    }
+  }
+
+  // Scrollbar styling (webkit browsers)
+  pre::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  pre::-webkit-scrollbar-track {
+    background: #21252b;
+    border-radius: $border_radius_sm;
+  }
+
+  pre::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: $border_radius_sm;
+
+    &:hover {
+      background: #6b7280;
+    }
+  }
+}
+
+// ============================================================================
+// ROUGE SYNTAX COLORS (VS Code Dark+ inspired)
+// ============================================================================
+
+.highlight {
+  // Comments
+  .c, .cm, .c1, .cs {
+    color: #5c6370;
+    font-style: italic;
+  }
+
+  // Keywords (if, else, return, function, class, etc.)
+  .k, .kc, .kd, .kn, .kp, .kr, .kt {
+    color: #c678dd;  // Purple
+  }
+
+  // Strings
+  .s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .sx {
+    color: #98c379;  // Green
+  }
+
+  // Numbers
+  .m, .mf, .mh, .mi, .mo, .il {
+    color: #d19a66;  // Orange
+  }
+
+  // Functions
+  .n, .na, .nb, .nc, .nf, .nn, .no, .nv {
+    color: #61afef;  // Blue
+  }
+
+  // Variables / Properties
+  .nx, .py {
+    color: #e06c75;  // Red
+  }
+
+  // Operators
+  .o, .ow {
+    color: #56b6c2;  // Cyan
+  }
+
+  // Punctuation
+  .p {
+    color: #abb2bf;  // Light gray
+  }
+
+  // Booleans / Constants
+  .kc {
+    color: #d19a66;  // Orange
+  }
+
+  // Classes / Types
+  .nc, .nt {
+    color: #e5c07b;  // Yellow
+  }
+
+  // RegEx
+  .sr {
+    color: #98c379;  // Green
+  }
+
+  // Symbols
+  .ss {
+    color: #56b6c2;  // Cyan
+  }
+
+  // Deletion (diff)
+  .gd {
+    color: #e06c75;  // Red
+    background-color: rgba(224, 108, 117, 0.1);
+  }
+
+  // Insertion (diff)
+  .gi {
+    color: #98c379;  // Green
+    background-color: rgba(152, 195, 121, 0.1);
+  }
+
+  // Error
+  .err {
+    color: #e06c75;  // Red
+  }
+
+  // Line numbers (if enabled)
+  .lineno {
+    color: #5c6370;
+    padding-right: $spacing_4;
+    user-select: none;
+  }
+}
+
+// ============================================================================
+// INLINE CODE (within text)
+// ============================================================================
+
+// Inline code already styled in _post-layout.scss
+// This section is for any overrides or additions
+
+p code,
+li code,
+td code {
+  // Inline code styling (light theme for readability in body text)
+  font-family: $font_family_mono;
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  background-color: $color_gray_100;
+  border: 1px solid $color_gray_200;
+  border-radius: $border_radius_sm;
+  color: $color_error;
+  white-space: nowrap;
+}
+
+// ============================================================================
+// LANGUAGE INDICATOR (optional enhancement)
+// ============================================================================
+
+.highlight[class*="language-"]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: $spacing_2;
+  right: $spacing_3;
+  font-size: $font_size_xs;
+  font-weight: $font_weight_medium;
+  color: $color_gray_400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: $spacing_1 $spacing_2;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: $border_radius_sm;
+}
+
+// ============================================================================
+// CODE BLOCK MOBILE OPTIMIZATION
+// ============================================================================
+
+@media (max-width: $breakpoint_sm) {
+  .highlight pre {
+    padding: $spacing_4;
+    font-size: 0.8rem;
+  }
+
+  .highlight pre code {
+    word-wrap: normal;
+    white-space: pre;
+  }
+}

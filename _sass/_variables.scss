@@ -1,0 +1,149 @@
+// Design Tokens & Variables
+// Mobile-first responsive design system
+
+// ============================================================================
+// COLORS - Warm, friendly palette
+// ============================================================================
+
+// Primary colors
+$color_primary: #2563eb;           // Vibrant blue
+$color_primary_light: #3b82f6;     // Lighter blue
+$color_primary_dark: #1e40af;      // Darker blue
+
+// Secondary colors
+$color_secondary: #f59e0b;         // Warm amber
+$color_secondary_light: #fbbf24;   // Lighter amber
+$color_secondary_dark: #d97706;    // Darker amber
+
+// Neutral colors
+$color_gray_50: #f9fafb;
+$color_gray_100: #f3f4f6;
+$color_gray_200: #e5e7eb;
+$color_gray_300: #d1d5db;
+$color_gray_400: #9ca3af;
+$color_gray_500: #6b7280;
+$color_gray_600: #4b5563;
+$color_gray_700: #374151;
+$color_gray_800: #1f2937;
+$color_gray_900: #111827;
+
+// Semantic colors
+$color_success: #10b981;
+$color_warning: #f59e0b;
+$color_error: #ef4444;
+$color_info: #3b82f6;
+
+// Text colors
+$color_text_primary: $color_gray_900;
+$color_text_secondary: $color_gray_600;
+$color_text_muted: $color_gray_500;
+$color_text_inverse: #ffffff;
+
+// Background colors
+$color_bg_primary: #ffffff;
+$color_bg_secondary: $color_gray_50;
+$color_bg_tertiary: $color_gray_100;
+
+// ============================================================================
+// TYPOGRAPHY
+// ============================================================================
+
+// Font families
+$font_family_base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font_family_heading: "Georgia", "Times New Roman", serif;
+$font_family_mono: "Monaco", "Courier New", monospace;
+
+// Font sizes (mobile-first)
+$font_size_xs: 0.75rem;      // 12px
+$font_size_sm: 0.875rem;     // 14px
+$font_size_base: 1rem;       // 16px
+$font_size_lg: 1.125rem;     // 18px
+$font_size_xl: 1.25rem;      // 20px
+$font_size_2xl: 1.5rem;      // 24px
+$font_size_3xl: 1.875rem;    // 30px
+$font_size_4xl: 2.25rem;     // 36px
+$font_size_5xl: 3rem;        // 48px
+
+// Font weights
+$font_weight_normal: 400;
+$font_weight_medium: 500;
+$font_weight_semibold: 600;
+$font_weight_bold: 700;
+
+// Line heights
+$line_height_tight: 1.25;
+$line_height_normal: 1.5;
+$line_height_relaxed: 1.75;
+
+// ============================================================================
+// SPACING (based on 8px grid)
+// ============================================================================
+
+$spacing_1: 0.25rem;   // 4px
+$spacing_2: 0.5rem;    // 8px
+$spacing_3: 0.75rem;   // 12px
+$spacing_4: 1rem;      // 16px
+$spacing_5: 1.5rem;    // 24px
+$spacing_6: 2rem;      // 32px
+$spacing_8: 3rem;      // 48px
+$spacing_10: 4rem;     // 64px
+$spacing_12: 6rem;     // 96px
+$spacing_16: 8rem;     // 128px
+
+// ============================================================================
+// BREAKPOINTS (mobile-first)
+// ============================================================================
+
+$breakpoint_sm: 640px;    // Small devices (landscape phones)
+$breakpoint_md: 768px;    // Medium devices (tablets)
+$breakpoint_lg: 1024px;   // Large devices (desktops)
+$breakpoint_xl: 1280px;   // Extra large devices (large desktops)
+$breakpoint_2xl: 1536px;  // 2X large devices
+
+// ============================================================================
+// LAYOUT
+// ============================================================================
+
+$container_max_width: 1200px;
+$container_padding_mobile: $spacing_4;      // 16px
+$container_padding_tablet: $spacing_6;      // 32px
+$container_padding_desktop: $spacing_8;     // 48px
+
+// ============================================================================
+// BORDER RADIUS
+// ============================================================================
+
+$border_radius_sm: 0.25rem;   // 4px
+$border_radius_md: 0.5rem;    // 8px
+$border_radius_lg: 0.75rem;   // 12px
+$border_radius_xl: 1rem;      // 16px
+$border_radius_full: 9999px;  // Fully rounded
+
+// ============================================================================
+// SHADOWS
+// ============================================================================
+
+$shadow_sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow_md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow_lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow_xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// ============================================================================
+// TRANSITIONS
+// ============================================================================
+
+$transition_fast: 150ms ease-in-out;
+$transition_base: 300ms ease-in-out;
+$transition_slow: 500ms ease-in-out;
+
+// ============================================================================
+// Z-INDEX
+// ============================================================================
+
+$z_index_dropdown: 1000;
+$z_index_sticky: 1020;
+$z_index_fixed: 1030;
+$z_index_modal_backdrop: 1040;
+$z_index_modal: 1050;
+$z_index_popover: 1060;
+$z_index_tooltip: 1070;

@@ -1,0 +1,64 @@
+{
+  "name": "🧩 Carousel",
+  "description": "Molecular component: A sliding container for displaying multiple Cards in a horizontal scrollable layout.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only. Not displayed on the website"
+    },
+    {
+      "id": "title",
+      "name": "Section Title",
+      "type": "Symbol",
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 80 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional heading above the carousel (e.g., 'Featured Projects', 'Customer Stories')"
+    },
+    {
+      "id": "cards",
+      "name": "Cards",
+      "type": "Array",
+      "required": true,
+      "items": {
+        "type": "Link",
+        "linkType": "Entry",
+        "validations": [
+          {
+            "linkContentType": ["componentCard"],
+            "message": "Only Card components can be added to the carousel"
+          }
+        ]
+      },
+      "validations": [
+        {
+          "size": { "min": 2, "max": 12 },
+          "message": "Add between 2 and 12 cards for optimal carousel experience"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Add Card components to display in the carousel. Minimum 2 cards, maximum 12 for performance"
+    }
+  ],
+  "sys": {
+    "id": "componentCarousel",
+    "type": "ContentType"
+  }
+}

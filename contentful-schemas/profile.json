@@ -1,0 +1,195 @@
+{
+  "name": "👤 Profile",
+  "description": "Singleton: Personal profile information displayed on the homepage. Contains bio, image, and professional details.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "unique": true,
+          "message": "Only one profile entry should exist"
+        },
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Identifier for this profile (e.g., 'Simon Salazar Profile'). Should only have one instance"
+    },
+    {
+      "id": "fullName",
+      "name": "Full Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Your full name as displayed on the homepage (e.g., 'Dr. Simon Salazar')"
+    },
+    {
+      "id": "title",
+      "name": "Professional Title",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 150 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Your professional title or headline (e.g., 'Researcher & Developer', 'PhD Candidate in Computer Science'). Localized per language"
+    },
+    {
+      "id": "bio",
+      "name": "Biography Summary",
+      "type": "Text",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 500 },
+          "message": "Keep bio summary under 500 characters for homepage display"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Brief introduction about yourself for the homepage. Keep warm, friendly, and concise. Max 500 characters. Localized per language"
+    },
+    {
+      "id": "profileImage",
+      "name": "Profile Photo",
+      "type": "Link",
+      "linkType": "Asset",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Must be an image file"
+        },
+        {
+          "assetImageDimensions": {
+            "width": { "min": 400 },
+            "height": { "min": 400 }
+          },
+          "message": "Profile photo should be at least 400x400px for quality display"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Your professional photo. Recommended: Square format (e.g., 500x500px), friendly and approachable"
+    },
+    {
+      "id": "email",
+      "name": "Contact Email",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+            "flags": null,
+            "message": "Enter a valid email address"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Your contact email address. Optional, only if you want to display it publicly"
+    },
+    {
+      "id": "socialLinks",
+      "name": "Social Media Links",
+      "type": "Array",
+      "localized": false,
+      "required": false,
+      "items": {
+        "type": "Link",
+        "linkType": "Entry",
+        "validations": [
+          {
+            "linkContentType": ["componentSocialLink"],
+            "message": "Only Social Link components allowed"
+          }
+        ]
+      },
+      "validations": [
+        {
+          "size": { "max": 8 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Your social media profiles (LinkedIn, GitHub, Twitter, etc.). Max 8 links. Use Social Link component"
+    },
+    {
+      "id": "ctaLabel",
+      "name": "Call-to-Action Button Text",
+      "type": "Symbol",
+      "localized": true,
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 30 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional button text on your profile section (e.g., 'View My Work', 'Download CV', 'Get in Touch'). Localized"
+    },
+    {
+      "id": "ctaUrl",
+      "name": "Call-to-Action Button URL",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$|^\\/[a-z0-9\\-\\/]*$",
+            "flags": null,
+            "message": "Enter a valid URL or relative path"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Destination for the CTA button. Can be relative path (e.g., '/cv.pdf') or full URL"
+    },
+    {
+      "id": "resumeFile",
+      "name": "Resume/CV File",
+      "type": "Link",
+      "linkType": "Asset",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["attachment"],
+          "message": "Must be a file (PDF recommended)"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional: Upload your CV/Resume as a downloadable file. PDF format recommended"
+    }
+  ],
+  "sys": {
+    "id": "profile",
+    "type": "ContentType"
+  }
+}

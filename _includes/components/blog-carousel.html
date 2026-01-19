@@ -1,0 +1,88 @@
+{% comment %}
+  Blog Carousel Component
+  Displays latest 6-10 blog posts on homepage
+  Filters by current locale and sorts by publish_date descending
+  Responsive grid: 1 col (mobile) | 2 cols (tablet) | 3 cols (desktop)
+{% endcomment %}
+
+{% assign current_locale = page.lang | default: site.default_lang | default: 'en' %}
+
+{% comment %} Filter posts by locale and sort by date {% endcomment %}
+{% assign locale_posts = site.posts | where: "lang", current_locale | sort: "publish_date" | reverse %}
+
+{% comment %} Get latest 10 posts maximum {% endcomment %}
+{% assign latest_posts = locale_posts | slice: 0, 10 %}
+
+<div class="blog-carousel">
+  
+  <!-- Section Header -->
+  <div class="blog-carousel__header">
+    <h2 class="blog-carousel__title">
+      {% if current_locale == 'es' %}
+        Últimas Publicaciones
+      {% else %}
+        Latest Blog Posts
+      {% endif %}
+    </h2>
+    
+    {% if latest_posts.size > 0 %}
+    <p class="blog-carousel__subtitle">
+      {% if current_locale == 'es' %}
+        Descubre mis últimos artículos sobre tecnología, desarrollo de productos y más.
+      {% else %}
+        Discover my latest articles on technology, product development, and more.
+      {% endif %}
+    </p>
+    {% endif %}
+  </div>
+
+  <!-- Posts Grid -->
+  {% if latest_posts.size > 0 %}
+    <div class="blog-carousel__grid">
+      {% for post in latest_posts %}
+        <div class="blog-carousel__item">
+          {% include components/post-card.html post=post %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- View All CTA -->
+    <div class="blog-carousel__footer">
+      <a href="{{ '/' | append: current_locale | append: '/blog/' | relative_url }}" class="btn btn--secondary btn--large">
+        {% if current_locale == 'es' %}
+          Ver Todas las Publicaciones
+        {% else %}
+          View All Blog Posts
+        {% endif %}
+        <svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </a>
+    </div>
+
+  {% else %}
+    <!-- Empty State (no posts published yet) -->
+    <div class="blog-carousel__empty">
+      <div class="empty-state">
+        <svg class="empty-state__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <h3 class="empty-state__title">
+          {% if current_locale == 'es' %}
+            No hay publicaciones aún
+          {% else %}
+            No blog posts yet
+          {% endif %}
+        </h3>
+        <p class="empty-state__message">
+          {% if current_locale == 'es' %}
+            Vuelve pronto para leer el primer artículo.
+          {% else %}
+            Check back soon for the first article.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  {% endif %}
+
+</div>

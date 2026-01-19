@@ -1,0 +1,84 @@
+name: Preview Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      locale:
+        description: 'Locale to preview (optional, defaults to all)'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - en
+          - es
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages-preview"
+  cancel-in-progress: true
+
+jobs:
+  preview-build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: Install Python dependencies
+        run: |
+          pip install -r scripts/requirements.txt
+      
+      - name: Transform Contentful content (PREVIEW MODE)
+        env:
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.CONTENTFUL_PREVIEW_TOKEN }}
+          CONTENTFUL_MODE: preview
+        run: |
+          python scripts/contentful_to_jekyll.py
+      
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+      
+      - name: Build Jekyll site
+        run: |
+          bundle exec jekyll build
+        env:
+          JEKYLL_ENV: development
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: _site
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v3
+      
+      - name: Preview Summary
+        run: |
+          echo "🎉 Preview deployed successfully!"
+          echo "⚠️  NOTE: This preview deployment overwrites the main site temporarily"
+          echo "📝 Locale: ${{ github.event.inputs.locale }}"
+          echo "🌐 Preview URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"

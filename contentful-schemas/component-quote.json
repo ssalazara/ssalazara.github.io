@@ -1,0 +1,91 @@
+{
+  "name": "🧬 Quote / Testimonial",
+  "description": "Atomic component: Displays a quote or customer testimonial with author attribution. Ideal for social proof.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only. Not displayed on the website"
+    },
+    {
+      "id": "quote",
+      "name": "Quote Text",
+      "type": "Text",
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 500 },
+          "message": "Keep quotes under 500 characters for readability"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "The testimonial or quote content. Keep impactful and concise (max 500 characters)"
+    },
+    {
+      "id": "author",
+      "name": "Author Name",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Full name of the person being quoted"
+    },
+    {
+      "id": "role",
+      "name": "Role / Company",
+      "type": "Symbol",
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Author's job title and/or company (e.g., 'CEO, TechCorp' or 'Happy Customer')"
+    },
+    {
+      "id": "image",
+      "name": "Author Photo",
+      "type": "Link",
+      "linkType": "Asset",
+      "required": false,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Photo must be an image file"
+        },
+        {
+          "assetImageDimensions": {
+            "width": { "min": 80 },
+            "height": { "min": 80 }
+          },
+          "message": "Photo should be at least 80x80 pixels"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional headshot of the author. Recommended: Square image, 200x200px minimum"
+    }
+  ],
+  "sys": {
+    "id": "componentQuote",
+    "type": "ContentType"
+  }
+}

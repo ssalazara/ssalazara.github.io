@@ -1,0 +1,81 @@
+{% comment %}
+  Related Posts Component
+  Displays 3-4 related posts based on category or recent posts
+  Used in: individual blog post layout
+{% endcomment %}
+
+{% assign current_locale = page.lang | default: site.default_lang | default: 'en' %}
+{% assign max_related = 3 %}
+
+{% comment %} Get posts in same locale, excluding current post {% endcomment %}
+{% assign locale_posts = site.posts | where: "lang", current_locale %}
+{% assign other_posts = locale_posts | where_exp: "post", "post.url != page.url" %}
+
+{% comment %} Try to find related posts by category {% endcomment %}
+{% assign related_posts = "" | split: "" %}
+
+{% if page.category %}
+  {% comment %} Get posts with same category {% endcomment %}
+  {% assign category_posts = other_posts | where: "category", page.category %}
+  {% assign related_posts = category_posts | slice: 0, max_related %}
+{% endif %}
+
+{% comment %} If not enough related posts by category, fill with recent posts {% endcomment %}
+{% if related_posts.size < max_related %}
+  {% assign needed = max_related | minus: related_posts.size %}
+  {% assign recent_posts = other_posts | sort: "publish_date" | reverse | slice: 0, max_related %}
+  
+  {% comment %} Merge arrays without duplicates {% endcomment %}
+  {% for post in recent_posts %}
+    {% assign is_duplicate = false %}
+    {% for related in related_posts %}
+      {% if related.url == post.url %}
+        {% assign is_duplicate = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% unless is_duplicate %}
+      {% assign related_posts = related_posts | push: post %}
+      {% if related_posts.size >= max_related %}
+        {% break %}
+      {% endif %}
+    {% endunless %}
+  {% endfor %}
+{% endif %}
+
+{% if related_posts.size > 0 %}
+<section class="related-posts">
+  
+  <!-- Section Header -->
+  <div class="related-posts__header">
+    <h2 class="related-posts__title">
+      {% if current_locale == 'es' %}
+        También te puede interesar
+      {% else %}
+        You May Also Like
+      {% endif %}
+    </h2>
+  </div>
+
+  <!-- Related Posts Grid -->
+  <div class="related-posts__grid">
+    {% for post in related_posts %}
+      <div class="related-posts__item">
+        {% include components/post-card.html post=post %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Back to Archive Link -->
+  <div class="related-posts__footer">
+    <a href="{{ '/' | append: current_locale | append: '/blog/' | relative_url }}" class="btn btn--secondary">
+      {% if current_locale == 'es' %}
+        Ver Todos los Artículos →
+      {% else %}
+        View All Posts →
+      {% endif %}
+    </a>
+  </div>
+
+</section>
+{% endif %}

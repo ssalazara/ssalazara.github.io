@@ -1,0 +1,210 @@
+{
+  "name": "📰 Blog Post",
+  "description": "Template: Individual blog post or article page with rich content and hero image. Optimized for reading experience.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only. Not displayed on the website"
+    },
+    {
+      "id": "url",
+      "name": "URL Slug",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "unique": true,
+          "message": "Each blog post must have a unique URL slug"
+        },
+        {
+          "regexp": {
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "flags": null,
+            "message": "Use lowercase letters, numbers, and hyphens only (e.g., 'my-blog-post')"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "URL path for this post (e.g., 'how-to-improve-seo'). Lowercase with hyphens. Auto-appends to /blog/"
+    },
+    {
+      "id": "seo",
+      "name": "SEO Metadata",
+      "type": "Link",
+      "linkType": "Entry",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "linkContentType": ["seo"],
+          "message": "Must link to an SEO entry"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Search engine optimization settings. Critical for blog discoverability in search results"
+    },
+    {
+      "id": "title",
+      "name": "Article Title (H1)",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Main article heading. Displayed prominently at top of post. Can differ from SEO title"
+    },
+    {
+      "id": "description",
+      "name": "Article Summary",
+      "type": "Text",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 300 },
+          "message": "Keep summary under 300 characters"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Brief article summary shown in listings and below title. Max 300 characters"
+    },
+    {
+      "id": "label",
+      "name": "Category",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "in": ["Technology", "Lifestyle", "Business", "Design", "Updates", "News"],
+          "message": "Select from: Technology, Lifestyle, Business, Design, Updates, or News"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Article category for organization and filtering. Displayed as a badge on the post"
+    },
+    {
+      "id": "publishDate",
+      "name": "Publish Date",
+      "type": "Date",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "When this article was or will be published. Used for sorting and display"
+    },
+    {
+      "id": "author",
+      "name": "Author Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Article author's name. Displayed as byline (e.g., 'by Jane Smith')"
+    },
+    {
+      "id": "heroBanner",
+      "name": "Hero Banner",
+      "type": "Link",
+      "linkType": "Entry",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "linkContentType": ["heroBanner"],
+          "message": "Must link to a Hero Banner entry"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional hero section at top of article. If omitted, uses thumbnail image instead"
+    },
+    {
+      "id": "text",
+      "name": "Article Body",
+      "type": "RichText",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "enabledNodeTypes": [
+            "heading-2",
+            "heading-3",
+            "heading-4",
+            "ordered-list",
+            "unordered-list",
+            "blockquote",
+            "hr",
+            "embedded-asset-block",
+            "embedded-entry-block",
+            "hyperlink"
+          ],
+          "message": "Use H2-H4 for structure. Embed images and components as needed"
+        },
+        {
+          "enabledMarks": ["bold", "italic", "underline", "code"]
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Main article content. Use headings (H2-H4) to structure, embed images, and add formatting"
+    },
+    {
+      "id": "image",
+      "name": "Featured Image",
+      "type": "Link",
+      "linkType": "Asset",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Must be an image file"
+        },
+        {
+          "assetImageDimensions": {
+            "width": { "min": 800 },
+            "height": { "min": 600 }
+          },
+          "message": "Image should be at least 800x600px for quality display"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Thumbnail for blog listings and social shares. Recommended: 1200x630px for optimal social media display"
+    }
+  ],
+  "sys": {
+    "id": "blogTemplate",
+    "type": "ContentType"
+  }
+}

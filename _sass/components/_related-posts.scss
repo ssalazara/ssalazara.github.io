@@ -1,0 +1,39 @@
+// Related posts component styles
+@import '../variables';
+@import '../mixins';
+
+// ============================================================================
+// RELATED POSTS
+// ============================================================================
+
+.related-posts {
+  padding: $spacing_8 0;
+
+  @include respond-to-lg {
+    padding: $spacing_10 0;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing_8;
+  }
+
+  &__title {
+    @include heading-2;
+    color: $color_text_primary;
+  }
+
+  &__grid {
+    @include responsive-grid(1, 2, 3, $spacing_6);
+    margin-bottom: $spacing_8;
+  }
+
+  &__item {
+    // Grid items automatically sized
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+  }
+}

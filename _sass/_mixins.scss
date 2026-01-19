@@ -1,0 +1,242 @@
+// Mixins for responsive design and common patterns
+@import 'variables';
+
+// ============================================================================
+// MEDIA QUERY MIXINS (mobile-first)
+// ============================================================================
+
+@mixin respond-to-sm {
+  @media (min-width: $breakpoint_sm) {
+    @content;
+  }
+}
+
+@mixin respond-to-md {
+  @media (min-width: $breakpoint_md) {
+    @content;
+  }
+}
+
+@mixin respond-to-lg {
+  @media (min-width: $breakpoint_lg) {
+    @content;
+  }
+}
+
+@mixin respond-to-xl {
+  @media (min-width: $breakpoint_xl) {
+    @content;
+  }
+}
+
+// ============================================================================
+// CONTAINER MIXIN
+// ============================================================================
+
+@mixin container {
+  width: 100%;
+  max-width: $container_max_width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container_padding_mobile;
+  padding-right: $container_padding_mobile;
+
+  @include respond-to-md {
+    padding-left: $container_padding_tablet;
+    padding-right: $container_padding_tablet;
+  }
+
+  @include respond-to-lg {
+    padding-left: $container_padding_desktop;
+    padding-right: $container_padding_desktop;
+  }
+}
+
+// ============================================================================
+// GRID MIXINS
+// ============================================================================
+
+@mixin grid($columns: 1, $gap: $spacing_6) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+@mixin responsive-grid($mobile: 1, $tablet: 2, $desktop: 3, $gap: $spacing_6) {
+  display: grid;
+  grid-template-columns: repeat($mobile, 1fr);
+  gap: $gap;
+
+  @include respond-to-md {
+    grid-template-columns: repeat($tablet, 1fr);
+  }
+
+  @include respond-to-lg {
+    grid-template-columns: repeat($desktop, 1fr);
+  }
+}
+
+// ============================================================================
+// TYPOGRAPHY MIXINS
+// ============================================================================
+
+@mixin heading-base {
+  font-family: $font_family_heading;
+  font-weight: $font_weight_bold;
+  line-height: $line_height_tight;
+  color: $color_text_primary;
+  margin-bottom: $spacing_4;
+}
+
+@mixin heading-1 {
+  @include heading-base;
+  font-size: $font_size_3xl;
+  
+  @include respond-to-md {
+    font-size: $font_size_4xl;
+  }
+  
+  @include respond-to-lg {
+    font-size: $font_size_5xl;
+  }
+}
+
+@mixin heading-2 {
+  @include heading-base;
+  font-size: $font_size_2xl;
+  
+  @include respond-to-md {
+    font-size: $font_size_3xl;
+  }
+}
+
+@mixin heading-3 {
+  @include heading-base;
+  font-size: $font_size_xl;
+  
+  @include respond-to-md {
+    font-size: $font_size_2xl;
+  }
+}
+
+@mixin body-text {
+  font-family: $font_family_base;
+  font-size: $font_size_base;
+  line-height: $line_height_normal;
+  color: $color_text_primary;
+}
+
+// ============================================================================
+// BUTTON MIXINS
+// ============================================================================
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing_2;
+  padding: $spacing_3 $spacing_5;
+  font-family: $font_family_base;
+  font-size: $font_size_base;
+  font-weight: $font_weight_medium;
+  line-height: 1;
+  text-decoration: none;
+  border: none;
+  border-radius: $border_radius_md;
+  cursor: pointer;
+  transition: all $transition_base;
+  white-space: nowrap;
+
+  &:focus {
+    outline: 2px solid $color_primary;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $color_primary;
+  color: $color_text_inverse;
+
+  &:hover:not(:disabled) {
+    background-color: $color_primary_dark;
+    transform: translateY(-1px);
+    box-shadow: $shadow_md;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: transparent;
+  color: $color_primary;
+  border: 2px solid $color_primary;
+
+  &:hover:not(:disabled) {
+    background-color: $color_primary;
+    color: $color_text_inverse;
+  }
+}
+
+// ============================================================================
+// CARD MIXINS
+// ============================================================================
+
+@mixin card-base {
+  background-color: $color_bg_primary;
+  border-radius: $border_radius_lg;
+  overflow: hidden;
+  box-shadow: $shadow_sm;
+  transition: all $transition_base;
+}
+
+@mixin card-hover {
+  &:hover {
+    box-shadow: $shadow_lg;
+    transform: translateY(-4px);
+  }
+}
+
+// ============================================================================
+// UTILITY MIXINS
+// ============================================================================
+
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin aspect-ratio($width, $height) {
+  aspect-ratio: $width / $height;
+  
+  @supports not (aspect-ratio: 16 / 9) {
+    position: relative;
+    
+    &::before {
+      content: '';
+      display: block;
+      padding-bottom: ($height / $width) * 100%;
+    }
+  }
+}

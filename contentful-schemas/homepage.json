@@ -1,0 +1,130 @@
+{
+  "name": "📄 Homepage",
+  "description": "Template: Main landing page with flexible content blocks. Combines multiple components for rich, dynamic layouts.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "unique": true,
+          "message": "Each page must have a unique name"
+        },
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Unique identifier for this page (e.g., 'Homepage', 'Homepage - Campaign 2026')"
+    },
+    {
+      "id": "url",
+      "name": "URL Slug",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "unique": true,
+          "message": "URL slug must be unique across all pages"
+        },
+        {
+          "regexp": {
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "flags": null,
+            "message": "Use lowercase letters, numbers, and hyphens only (e.g., 'about-us')"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "URL path for this page. Use '/' for homepage, or 'page-name' for others. Lowercase with hyphens only"
+    },
+    {
+      "id": "seo",
+      "name": "SEO Metadata",
+      "type": "Link",
+      "linkType": "Entry",
+      "required": true,
+      "validations": [
+        {
+          "linkContentType": ["seo"],
+          "message": "Must link to an SEO entry"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Search engine optimization settings. Controls how page appears in search results and social shares"
+    },
+    {
+      "id": "header",
+      "name": "Header Component",
+      "type": "Link",
+      "linkType": "Entry",
+      "required": true,
+      "validations": [
+        {
+          "linkContentType": ["orHeader"],
+          "message": "Must link to a Header entry"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Select which header configuration to display. Usually 'Main Header' for consistency"
+    },
+    {
+      "id": "blocks",
+      "name": "Content Blocks",
+      "type": "Array",
+      "items": {
+        "type": "Link",
+        "linkType": "Entry",
+        "validations": [
+          {
+            "linkContentType": [
+              "heroBanner",
+              "componentRichText",
+              "textWithImage",
+              "componentCarousel",
+              "componentQuote"
+            ],
+            "message": "Add Hero Banners, Rich Text, Text with Image, Carousels, or Quotes"
+          }
+        ]
+      },
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 20 },
+          "message": "Max 20 content blocks for optimal page performance"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Build your page by adding content blocks. Drag to reorder. Hero Banner typically goes first"
+    },
+    {
+      "id": "footer",
+      "name": "Footer Component",
+      "type": "Link",
+      "linkType": "Entry",
+      "required": true,
+      "validations": [
+        {
+          "linkContentType": ["orFooter"],
+          "message": "Must link to a Footer entry"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Select which footer configuration to display. Usually 'Main Footer' for consistency"
+    }
+  ],
+  "sys": {
+    "id": "pageTemplate",
+    "type": "ContentType"
+  }
+}

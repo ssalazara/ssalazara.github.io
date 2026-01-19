@@ -1,0 +1,66 @@
+{
+  "name": "🧬 Social Link",
+  "description": "Atomic component: A single social media link with icon. Used in Footer and Header components.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Platform Name",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 30 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Name of the social platform (e.g., Facebook, Twitter, LinkedIn)"
+    },
+    {
+      "id": "url",
+      "name": "Profile URL",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$",
+            "flags": null,
+            "message": "Enter a valid URL starting with http:// or https://"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Full URL to your social media profile or page"
+    },
+    {
+      "id": "icon",
+      "name": "Icon",
+      "type": "Link",
+      "linkType": "Asset",
+      "required": true,
+      "validations": [
+        { 
+          "linkMimetypeGroup": ["image"],
+          "message": "Icon must be an image file (SVG, PNG, or JPG)"
+        },
+        {
+          "assetImageDimensions": {
+            "width": { "min": 24, "max": 128 },
+            "height": { "min": 24, "max": 128 }
+          },
+          "message": "Icon should be between 24x24 and 128x128 pixels"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Social media icon image. Recommended: 48x48px SVG for crisp rendering"
+    }
+  ],
+  "sys": {
+    "id": "componentSocialLink",
+    "type": "ContentType"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "name": "🧬 Image Component",
+  "description": "Atomic component: Image wrapper with accessibility features. Allows context-specific alt text and captions.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only. Not shown on the website"
+    },
+    {
+      "id": "image",
+      "name": "Image Asset",
+      "type": "Link",
+      "linkType": "Asset",
+      "required": true,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Must be an image file (JPG, PNG, WebP, or SVG)"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "The image file. Recommended: WebP format for web performance"
+    },
+    {
+      "id": "altText",
+      "name": "Alternative Text",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 125 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Describe the image for accessibility. Read by screen readers and shown if image fails to load"
+    },
+    {
+      "id": "caption",
+      "name": "Caption",
+      "type": "Symbol",
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 200 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional text displayed below the image. Use for photo credits or context"
+    }
+  ],
+  "sys": {
+    "id": "componentImage",
+    "type": "ContentType"
+  }
+}

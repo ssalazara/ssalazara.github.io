@@ -1,0 +1,90 @@
+{
+  "name": "🧬 Menu Item",
+  "description": "Atomic component: Single navigation link used in Header and Footer menus. Supports localized labels and internal/external URLs.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only (e.g., 'Main Nav - About', 'Footer - Privacy'). Not displayed on website"
+    },
+    {
+      "id": "label",
+      "name": "Link Label",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 30 },
+          "message": "Keep menu labels short for better navigation (max 30 characters)"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Text displayed in the menu (e.g., 'About', 'Blog', 'Contact'). Localized per language. Max 30 characters"
+    },
+    {
+      "id": "url",
+      "name": "Destination URL",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$|^\\/[a-z0-9\\-\\/]*$",
+            "flags": null,
+            "message": "Enter a valid URL (e.g., '/about', 'https://example.com') or relative path"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Link destination. Use relative paths for internal pages (e.g., '/blog', '/about') or full URLs for external links"
+    },
+    {
+      "id": "openInNewTab",
+      "name": "Open in New Tab",
+      "type": "Boolean",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "defaultValue": {
+        "en-US": false
+      },
+      "helpText": "Enable for external links to open in a new browser tab. Typically used for external resources"
+    },
+    {
+      "id": "icon",
+      "name": "Optional Icon",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 50 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional icon identifier (e.g., 'home', 'mail', 'phone'). Frontend must support the icon library being used"
+    }
+  ],
+  "sys": {
+    "id": "mlMenuItem",
+    "type": "ContentType"
+  }
+}

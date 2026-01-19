@@ -1,0 +1,172 @@
+{
+  "name": "🦠 Header",
+  "description": "Organism component: Global website header containing branding, navigation menu, and utility controls. One per site configuration.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "unique": true,
+          "message": "Each header must have a unique name"
+        },
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Unique identifier for this header configuration (e.g., 'Main Header', 'Campaign Header')"
+    },
+    {
+      "id": "brandUrl",
+      "name": "Brand URL (Logo Link)",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$",
+            "flags": null,
+            "message": "Enter a valid URL (e.g., https://www.example.com)"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "URL when logo is clicked. Typically the homepage (e.g., '/' or 'https://www.yoursite.com')"
+    },
+    {
+      "id": "brandImage",
+      "name": "Brand Logo",
+      "type": "Link",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Logo must be an image file"
+        },
+        {
+          "assetImageDimensions": {
+            "width": { "max": 400 },
+            "height": { "max": 100 }
+          },
+          "message": "Logo should be max 400x100px for optimal header display"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "linkType": "Asset",
+      "helpText": "Company logo. Recommended: SVG or PNG with transparent background, max 400x100px"
+    },
+    {
+      "id": "menuItems",
+      "name": "Main Navigation Menu",
+      "type": "Array",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "size": { "min": 1, "max": 8 },
+          "message": "Add 1-8 main menu items for optimal navigation"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "items": {
+        "type": "Link",
+        "validations": [
+          {
+            "linkContentType": ["mlMenuItem"],
+            "message": "Only Menu Item entries allowed"
+          }
+        ],
+        "linkType": "Entry"
+      },
+      "helpText": "Primary navigation links. Keep to 5-8 items max for clean design. Use Menu Item content type"
+    },
+    {
+      "id": "topLinks",
+      "name": "Top Bar Links (Utility)",
+      "type": "Array",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 5 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "items": {
+        "type": "Link",
+        "validations": [
+          {
+            "linkContentType": ["mlMenuItem"],
+            "message": "Only Menu Item entries allowed"
+          }
+        ],
+        "linkType": "Entry"
+      },
+      "helpText": "Optional secondary links above main nav (e.g., 'Login', 'Contact', 'Support'). Max 5 items"
+    },
+    {
+      "id": "enableSearch",
+      "name": "Enable Search Bar",
+      "type": "Boolean",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "defaultValue": {
+        "en-US": false
+      },
+      "helpText": "Toggle to show/hide the search functionality in the header"
+    },
+    {
+      "id": "enableBasket",
+      "name": "Enable Shopping Cart",
+      "type": "Boolean",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "defaultValue": {
+        "en-US": false
+      },
+      "helpText": "Toggle to show/hide the shopping cart icon and pop-up basket functionality"
+    },
+    {
+      "id": "stickBarContent",
+      "name": "Sticky Announcement Bar",
+      "type": "RichText",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "enabledMarks": ["bold", "italic"],
+          "message": "Only bold and italic formatting allowed for clean display"
+        },
+        {
+          "enabledNodeTypes": ["hyperlink"],
+          "message": "Only plain text with hyperlinks allowed. No headings or lists"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional announcement bar above header (e.g., 'Free shipping on orders over $50'). Keep brief"
+    }
+  ],
+  "sys": {
+    "id": "orHeader",
+    "type": "ContentType"
+  }
+}

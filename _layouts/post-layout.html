@@ -1,0 +1,110 @@
+---
+layout: default
+---
+
+{% assign current_locale = page.lang | default: site.default_lang | default: 'en' %}
+
+<article class="post-layout" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <header class="post-layout__header">
+    <div class="container container--narrow">
+      
+      <!-- Post Title -->
+      <h1 class="post-layout__title" itemprop="headline">
+        {{ page.title | escape }}
+      </h1>
+
+      <!-- Post Byline (author, date, reading time, category) -->
+      {% include components/post-byline.html %}
+
+    </div>
+  </header>
+
+  <!-- Featured Image -->
+  {% if page.featured_image %}
+  <div class="post-layout__featured-image">
+    <figure class="post-figure">
+      <img 
+        src="{{ page.featured_image }}?w=1200&fm=webp&q=85" 
+        alt="{{ page.featured_image_alt | default: page.title | escape }}"
+        itemprop="image"
+        class="post-figure__img"
+        loading="eager"
+      />
+      {% if page.featured_image_caption %}
+      <figcaption class="post-figure__caption">
+        {{ page.featured_image_caption }}
+      </figcaption>
+      {% endif %}
+    </figure>
+  </div>
+  {% endif %}
+
+  <!-- Post Content -->
+  <div class="post-layout__content">
+    <div class="container container--narrow">
+      
+      <div class="post-content" itemprop="articleBody">
+        {{ content }}
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Post Footer -->
+  <footer class="post-layout__footer">
+    <div class="container container--narrow">
+      
+      <!-- Tags / Topics (optional) -->
+      {% if page.tags and page.tags.size > 0 %}
+      <div class="post-tags">
+        <span class="post-tags__label">
+          {% if current_locale == 'es' %}
+            Etiquetas:
+          {% else %}
+            Tags:
+          {% endif %}
+        </span>
+        <ul class="post-tags__list">
+          {% for tag in page.tags %}
+          <li class="post-tags__item">
+            <span class="tag">{{ tag }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <!-- Back to Archive Link -->
+      <div class="post-footer-nav">
+        <a href="{{ '/' | append: current_locale | append: '/blog/' | relative_url }}" class="btn btn--secondary">
+          {% if current_locale == 'es' %}
+            ← Volver al Archivo
+          {% else %}
+            ← Back to Blog Archive
+          {% endif %}
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Related Posts Section -->
+  <aside class="post-layout__related" aria-label="Related posts">
+    <div class="container">
+      {% include components/related-posts.html %}
+    </div>
+  </aside>
+
+  <!-- Hidden Schema.org metadata -->
+  <meta itemprop="author" content="{{ site.title | default: 'Simon Salazar' }}">
+  <meta itemprop="datePublished" content="{{ page.publish_date | default: page.date | date_to_xmlschema }}">
+  {% if page.last_modified_date %}
+  <meta itemprop="dateModified" content="{{ page.last_modified_date | date_to_xmlschema }}">
+  {% endif %}
+  <meta itemprop="inLanguage" content="{{ page.lang | default: 'en' }}">
+  {% if page.excerpt %}
+  <meta itemprop="description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}">
+  {% endif %}
+
+</article>

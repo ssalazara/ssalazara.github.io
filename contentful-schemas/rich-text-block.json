@@ -1,0 +1,59 @@
+{
+  "name": "🧩 Rich Text Block",
+  "description": "Molecular component: Long-form content block with full rich text editing capabilities. Perfect for articles and detailed content.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only. Not displayed on the website"
+    },
+    {
+      "id": "content",
+      "name": "Content",
+      "type": "RichText",
+      "required": true,
+      "validations": [
+        {
+          "enabledNodeTypes": [
+            "heading-2",
+            "heading-3",
+            "heading-4",
+            "heading-5",
+            "heading-6",
+            "ordered-list",
+            "unordered-list",
+            "hr",
+            "blockquote",
+            "embedded-entry-block",
+            "embedded-asset-block",
+            "hyperlink",
+            "entry-hyperlink",
+            "asset-hyperlink"
+          ],
+          "message": "H1 is disabled for SEO. Use H2-H6 for proper heading hierarchy"
+        },
+        {
+          "enabledMarks": ["bold", "italic", "underline", "code"],
+          "message": "Available formatting: bold, italic, underline, and code"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Full rich text editor with headings, lists, quotes, embeds, and links. H1 disabled for SEO best practices"
+    }
+  ],
+  "sys": {
+    "id": "componentRichText",
+    "type": "ContentType"
+  }
+}

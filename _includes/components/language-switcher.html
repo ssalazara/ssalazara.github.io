@@ -1,0 +1,41 @@
+{% comment %}
+  Language Switcher Component
+  Allows users to toggle between English and Spanish
+  Stores preference in localStorage (via JavaScript)
+{% endcomment %}
+
+{% assign current_locale = page.lang | default: site.default_lang | default: 'en' %}
+
+{% comment %} Determine alternate locale URL {% endcomment %}
+{% if current_locale == 'en' %}
+  {% assign alt_locale = 'es' %}
+  {% assign alt_locale_name = 'Español' %}
+{% else %}
+  {% assign alt_locale = 'en' %}
+  {% assign alt_locale_name = 'English' %}
+{% endif %}
+
+{% comment %} Build alternate URL by replacing locale in path {% endcomment %}
+{% assign current_path = page.url | remove_first: '/' | remove_first: current_locale %}
+{% assign alt_url = '/' | append: alt_locale | append: current_path %}
+
+<div class="language-switcher">
+  
+  <!-- Current Language Indicator -->
+  <span class="language-switcher__current" aria-label="Current language">
+    {{ current_locale | upcase }}
+  </span>
+
+  <span class="language-switcher__separator">/</span>
+
+  <!-- Alternate Language Link -->
+  <a 
+    href="{{ alt_url | relative_url }}" 
+    class="language-switcher__link"
+    aria-label="Switch to {{ alt_locale_name }}"
+    hreflang="{{ alt_locale }}"
+  >
+    {{ alt_locale | upcase }}
+  </a>
+
+</div>

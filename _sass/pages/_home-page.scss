@@ -1,0 +1,31 @@
+// Homepage layout styles
+@import '../variables';
+@import '../mixins';
+
+// ============================================================================
+// HOME PAGE
+// ============================================================================
+
+.home-page {
+  min-height: 100vh;
+
+  // Profile section
+  .profile-section {
+    background-color: $color_bg_primary;
+    border-bottom: 1px solid $color_gray_200;
+  }
+
+  // Blog carousel section
+  .blog-carousel-section {
+    // Styles defined in _blog-carousel.scss
+  }
+
+  // Additional homepage content
+  .home-content {
+    padding: $spacing_8 0;
+
+    @include respond-to-lg {
+      padding: $spacing_10 0;
+    }
+  }
+}

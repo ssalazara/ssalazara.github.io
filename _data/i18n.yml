@@ -1,0 +1,191 @@
+# i18n UI Strings
+# Centralized translations for all user-facing text
+# Access in templates: {{ site.data.i18n[current_locale].key }}
+
+en:
+  # Navigation
+  nav:
+    home: "Home"
+    blog: "Blog"
+    about: "About"
+    contact: "Contact"
+  
+  # Common actions
+  actions:
+    read_more: "Read More"
+    view_all: "View All"
+    view_all_posts: "View All Blog Posts"
+    back_to_archive: "Back to Blog Archive"
+    back_to_home: "Back to Home"
+    learn_more: "Learn More"
+    subscribe: "Subscribe"
+    submit: "Submit"
+    cancel: "Cancel"
+    close: "Close"
+  
+  # Blog
+  blog:
+    latest_posts: "Latest Blog Posts"
+    latest_posts_subtitle: "Discover my latest articles on technology, product development, and more."
+    archive_title: "Blog Archive"
+    related_posts: "You May Also Like"
+    view_all_articles: "View All Posts"
+    no_posts_title: "No blog posts yet"
+    no_posts_message: "Check back soon for the first article."
+    published_on: "Published on"
+    min_read: "min read"
+    tags: "Tags"
+    category: "Category"
+    author: "By"
+  
+  # Post metadata
+  post:
+    reading_time: "min read"
+    published: "Published on"
+    updated: "Last updated"
+    written_by: "Written by"
+  
+  # Profile
+  profile:
+    view_bio: "View Full Bio"
+    download_cv: "Download CV"
+    connect: "Connect"
+  
+  # Footer
+  footer:
+    all_rights_reserved: "All rights reserved"
+    built_with: "Built with Jekyll and hosted on GitHub Pages"
+    navigation: "Navigation"
+    connect: "Connect"
+  
+  # Empty states
+  empty:
+    no_posts: "No blog posts yet"
+    no_posts_message: "Check back soon for the first article."
+    no_results: "No results found"
+    no_content: "No content available"
+  
+  # Breadcrumbs
+  breadcrumb:
+    home: "Home"
+    blog: "Blog"
+    archive: "Blog Archive"
+  
+  # Pagination
+  pagination:
+    previous: "Previous"
+    next: "Next"
+    page: "Page"
+    of: "of"
+    showing_all: "Showing all posts"
+  
+  # Forms (future)
+  forms:
+    name: "Name"
+    email: "Email"
+    message: "Message"
+    required: "Required"
+    optional: "Optional"
+  
+  # Accessibility
+  aria:
+    skip_to_content: "Skip to main content"
+    toggle_menu: "Toggle navigation menu"
+    open_menu: "Open menu"
+    close_menu: "Close menu"
+    search: "Search"
+    language_switcher: "Change language"
+
+es:
+  # Navegación
+  nav:
+    home: "Inicio"
+    blog: "Blog"
+    about: "Acerca de"
+    contact: "Contacto"
+  
+  # Acciones comunes
+  actions:
+    read_more: "Leer Más"
+    view_all: "Ver Todos"
+    view_all_posts: "Ver Todas las Publicaciones"
+    back_to_archive: "Volver al Archivo"
+    back_to_home: "Volver al Inicio"
+    learn_more: "Saber Más"
+    subscribe: "Suscribirse"
+    submit: "Enviar"
+    cancel: "Cancelar"
+    close: "Cerrar"
+  
+  # Blog
+  blog:
+    latest_posts: "Últimas Publicaciones"
+    latest_posts_subtitle: "Descubre mis últimos artículos sobre tecnología, desarrollo de productos y más."
+    archive_title: "Archivo del Blog"
+    related_posts: "También te puede interesar"
+    view_all_articles: "Ver Todos los Artículos"
+    no_posts_title: "No hay publicaciones aún"
+    no_posts_message: "Vuelve pronto para leer el primer artículo."
+    published_on: "Publicado el"
+    min_read: "min de lectura"
+    tags: "Etiquetas"
+    category: "Categoría"
+    author: "Por"
+  
+  # Metadatos de publicación
+  post:
+    reading_time: "min de lectura"
+    published: "Publicado el"
+    updated: "Última actualización"
+    written_by: "Escrito por"
+  
+  # Perfil
+  profile:
+    view_bio: "Ver Biografía Completa"
+    download_cv: "Descargar CV"
+    connect: "Conecta"
+  
+  # Pie de página
+  footer:
+    all_rights_reserved: "Todos los derechos reservados"
+    built_with: "Creado con Jekyll y alojado en GitHub Pages"
+    navigation: "Navegación"
+    connect: "Conecta"
+  
+  # Estados vacíos
+  empty:
+    no_posts: "No hay publicaciones aún"
+    no_posts_message: "Vuelve pronto para leer el primer artículo."
+    no_results: "No se encontraron resultados"
+    no_content: "No hay contenido disponible"
+  
+  # Migas de pan
+  breadcrumb:
+    home: "Inicio"
+    blog: "Blog"
+    archive: "Archivo del Blog"
+  
+  # Paginación
+  pagination:
+    previous: "Anterior"
+    next: "Siguiente"
+    page: "Página"
+    of: "de"
+    showing_all: "Mostrando todos los artículos"
+  
+  # Formularios (futuro)
+  forms:
+    name: "Nombre"
+    email: "Correo electrónico"
+    message: "Mensaje"
+    required: "Requerido"
+    optional: "Opcional"
+  
+  # Accesibilidad
+  aria:
+    skip_to_content: "Saltar al contenido principal"
+    toggle_menu: "Alternar menú de navegación"
+    open_menu: "Abrir menú"
+    close_menu: "Cerrar menú"
+    search: "Buscar"
+    language_switcher: "Cambiar idioma"

@@ -1,0 +1,116 @@
+{
+  "name": "🦠 Hero Banner",
+  "description": "Organism component: High-impact visual section with headline, description, and call-to-action. Typically used at page tops.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only. Not displayed on the website"
+    },
+    {
+      "id": "title",
+      "name": "Headline",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 80 },
+          "message": "Keep headlines under 80 characters for mobile readability"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Main hero headline. Keep impactful and concise (max 80 characters for mobile)"
+    },
+    {
+      "id": "description",
+      "name": "Subheading",
+      "type": "Text",
+      "localized": true,
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 250 },
+          "message": "Keep subheading under 250 characters for optimal readability"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Supporting text below the headline. Clarifies the value proposition (max 250 characters)"
+    },
+    {
+      "id": "ctaLabel",
+      "name": "CTA Button Label",
+      "type": "Symbol",
+      "localized": true,
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 25 },
+          "message": "Keep button labels short and actionable"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Call-to-action button text (e.g., 'Get Started', 'Learn More'). Max 25 characters"
+    },
+    {
+      "id": "ctaUrl",
+      "name": "CTA Button URL",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$",
+            "flags": null,
+            "message": "Enter a valid URL (e.g., https://example.com/page)"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Destination URL for the CTA button. Required if CTA Label is provided"
+    },
+    {
+      "id": "image",
+      "name": "Background Image",
+      "type": "Link",
+      "linkType": "Asset",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Must be an image file"
+        },
+        {
+          "assetFileSize": {
+            "max": 2097152
+          },
+          "message": "Image should be under 2MB for fast loading"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Hero background image. Recommended: 1920x1080px, under 2MB. Use WebP for best performance"
+    }
+  ],
+  "sys": {
+    "id": "heroBanner",
+    "type": "ContentType"
+  }
+}

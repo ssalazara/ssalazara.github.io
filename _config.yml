@@ -1,0 +1,81 @@
+# Site settings
+title: Simon Salazar
+email: simon@example.com
+description: >-
+  Personal portfolio and blog by Simon Salazar.
+  Exploring software engineering, product development, and technology.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://simonsalazar.github.io" # the base hostname & protocol for your site
+twitter_username: simonsalazar
+github_username:  simonsalazar
+linkedin_username: simonsalazar
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Markdown settings
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+      start_line: 1
+
+# Sass settings (performance optimization)
+sass:
+  style: compressed  # Minify CSS in production
+  sass_dir: _sass
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:lang/blog/:slug/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post-layout"
+      lang: "en"
+  - scope:
+      path: "_posts/en"
+      type: "posts"
+    values:
+      lang: "en"
+  - scope:
+      path: "_posts/es"
+      type: "posts"
+    values:
+      lang: "es"
+
+# Localization
+languages: ["en", "es"]
+default_lang: "en"
+
+# Exclude from processing
+exclude:
+  - .env
+  - .env.example
+  - scripts/
+  - tests/
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - _bmad/
+  - _bmad-output/
+  - contentful-schemas/

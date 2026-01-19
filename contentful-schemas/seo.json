@@ -1,0 +1,139 @@
+{
+  "name": "⚙️ SEO Metadata",
+  "description": "Utility component: Search engine optimization and social media metadata. Controls how pages appear in search results and social shares.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only (e.g., 'Homepage SEO', 'About Page SEO'). Not visible to users"
+    },
+    {
+      "id": "title",
+      "name": "Meta Title",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "min": 30, "max": 60 },
+          "message": "Optimal length: 30-60 characters. Longer titles may be truncated in search results"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Page title for search engines and browser tabs. Include primary keyword. Ideal: 50-60 characters"
+    },
+    {
+      "id": "description",
+      "name": "Meta Description",
+      "type": "Text",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "min": 120, "max": 160 },
+          "message": "Optimal length: 120-160 characters. Longer descriptions may be truncated in search results"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Brief page summary shown in search results. Make it compelling with relevant keywords. Ideal: 150-160 characters"
+    },
+    {
+      "id": "keywords",
+      "name": "Focus Keywords",
+      "type": "Array",
+      "localized": true,
+      "required": false,
+      "items": {
+        "type": "Symbol",
+        "validations": [
+          {
+            "size": { "max": 50 }
+          }
+        ]
+      },
+      "validations": [
+        {
+          "size": { "max": 10 },
+          "message": "Focus on 5-10 most relevant keywords for best results"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Target keywords for this page. Used for reference, not directly for SEO. Add 5-10 relevant terms"
+    },
+    {
+      "id": "ogImage",
+      "name": "Social Share Image",
+      "type": "Link",
+      "linkType": "Asset",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Must be an image file"
+        },
+        {
+          "assetImageDimensions": {
+            "width": { "min": 1200, "max": 1200 },
+            "height": { "min": 630, "max": 630 }
+          },
+          "message": "For optimal display across platforms, use exactly 1200x630px"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Image shown when page is shared on social media (Facebook, LinkedIn, Twitter). Recommended: exactly 1200x630px"
+    },
+    {
+      "id": "noIndex",
+      "name": "Hide from Search Engines",
+      "type": "Boolean",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "defaultValue": {
+        "en-US": false
+      },
+      "helpText": "Enable to prevent search engines from indexing this page. Use for private/temporary content"
+    },
+    {
+      "id": "canonicalUrl",
+      "name": "Canonical URL",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$",
+            "flags": null,
+            "message": "Enter a valid URL"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional: Specify the preferred URL if content exists at multiple URLs. Prevents duplicate content issues"
+    }
+  ],
+  "sys": {
+    "id": "seo",
+    "type": "ContentType"
+  }
+}

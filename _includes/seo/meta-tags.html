@@ -1,0 +1,80 @@
+{% comment %}
+  Enhanced SEO Meta Tags
+  Open Graph, Twitter Cards, and additional SEO metadata
+  Note: jekyll-seo-tag plugin handles most of this, but we add enhancements
+{% endcomment %}
+
+{% assign current_locale = page.lang | default: site.default_lang | default: 'en' %}
+{% assign base_url = site.url | default: 'https://simonsalazar.github.io' %}
+{% assign page_url = base_url | append: page.url %}
+
+{% comment %} Page title {% endcomment %}
+{% if page.title %}
+  {% assign page_title = page.title | append: ' | ' | append: site.title %}
+{% else %}
+  {% assign page_title = site.title %}
+{% endif %}
+
+{% comment %} Page description {% endcomment %}
+{% if page.excerpt %}
+  {% assign page_description = page.excerpt | strip_html | strip_newlines | truncate: 160 %}
+{% elsif page.description %}
+  {% assign page_description = page.description | truncate: 160 %}
+{% else %}
+  {% assign page_description = site.description | truncate: 160 %}
+{% endif %}
+
+{% comment %} Page image (for social sharing) {% endcomment %}
+{% if page.featured_image %}
+  {% assign page_image = page.featured_image %}
+  {% unless page_image contains 'http' %}
+    {% assign page_image = base_url | append: page_image %}
+  {% endunless %}
+{% else %}
+  {% assign page_image = base_url | append: '/assets/images/og-default.jpg' %}
+{% endif %}
+
+<!-- Enhanced Open Graph Tags -->
+<meta property="og:site_name" content="{{ site.title }}" />
+<meta property="og:locale" content="{{ current_locale }}_{% if current_locale == 'es' %}ES{% else %}US{% endif %}" />
+
+{% if page.layout == 'post-layout' %}
+<!-- Blog Post Specific Tags -->
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="{{ page.publish_date | default: page.date | date_to_xmlschema }}" />
+{% if page.last_modified_date %}
+<meta property="article:modified_time" content="{{ page.last_modified_date | date_to_xmlschema }}" />
+{% endif %}
+<meta property="article:author" content="{{ page.author | default: site.title }}" />
+{% if page.category %}
+<meta property="article:section" content="{{ page.category }}" />
+{% endif %}
+{% if page.tags %}
+  {% for tag in page.tags %}
+<meta property="article:tag" content="{{ tag }}" />
+  {% endfor %}
+{% endif %}
+{% else %}
+<!-- Website Type -->
+<meta property="og:type" content="website" />
+{% endif %}
+
+<!-- Twitter Card Tags -->
+<meta name="twitter:card" content="summary_large_image" />
+{% if site.twitter_username %}
+<meta name="twitter:site" content="@{{ site.twitter_username }}" />
+<meta name="twitter:creator" content="@{{ site.twitter_username }}" />
+{% endif %}
+<meta name="twitter:title" content="{{ page_title }}" />
+<meta name="twitter:description" content="{{ page_description }}" />
+<meta name="twitter:image" content="{{ page_image }}" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ page_url }}" />
+
+<!-- Additional SEO -->
+<meta name="robots" content="index, follow" />
+<meta name="language" content="{{ current_locale }}" />
+{% if page.author %}
+<meta name="author" content="{{ page.author }}" />
+{% endif %}

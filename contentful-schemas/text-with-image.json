@@ -1,0 +1,93 @@
+{
+  "name": "🧩 Text with Image",
+  "description": "Molecular component: Two-column layout featuring text content alongside an image. Flexible positioning for varied layouts.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only. Not displayed on the website"
+    },
+    {
+      "id": "title",
+      "name": "Heading",
+      "type": "Symbol",
+      "required": false,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Optional section heading. Displayed as an H2 or H3 depending on page context"
+    },
+    {
+      "id": "description",
+      "name": "Body Text",
+      "type": "RichText",
+      "required": false,
+      "validations": [
+        {
+          "enabledNodeTypes": [
+            "heading-3",
+            "heading-4",
+            "unordered-list",
+            "ordered-list",
+            "hyperlink"
+          ],
+          "message": "Allowed: H3, H4, lists, and links"
+        },
+        {
+          "enabledMarks": ["bold", "italic"],
+          "message": "Formatting: bold and italic only"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Main content area with rich text formatting. Use headings, lists, and links to structure content"
+    },
+    {
+      "id": "image",
+      "name": "Image",
+      "type": "Link",
+      "linkType": "Asset",
+      "required": true,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Must be an image file"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Featured image for this section. Recommended: 800x600px minimum for high-quality display"
+    },
+    {
+      "id": "imageOnRight",
+      "name": "Position Image on Right?",
+      "type": "Boolean",
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "defaultValue": {
+        "en-US": false
+      },
+      "helpText": "Toggle to position image on right side. Default: image on left, text on right"
+    }
+  ],
+  "sys": {
+    "id": "textWithImage",
+    "type": "ContentType"
+  }
+}

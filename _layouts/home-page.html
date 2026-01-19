@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<div class="home-page">
+  
+  <!-- Profile Section (appears first on homepage) -->
+  <section class="profile-section" aria-label="About Simon">
+    <div class="container">
+      {% include components/profile-card.html %}
+    </div>
+  </section>
+
+  <!-- Blog Carousel Section (latest posts) -->
+  <section class="blog-carousel-section" aria-label="Latest Blog Posts">
+    <div class="container">
+      {% include components/blog-carousel.html %}
+    </div>
+  </section>
+
+  <!-- Additional homepage content can go here -->
+  <div class="home-content">
+    {{ content }}
+  </div>
+
+</div>
