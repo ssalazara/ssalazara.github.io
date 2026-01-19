@@ -2,21 +2,68 @@
 layout: default
 ---
 
+{% comment %}
+  Dynamic Homepage Layout
+  Renders content blocks from Contentful homepage data
+{% endcomment %}
+
+{% comment %} Get homepage data for current locale {% endcomment %}
+{% if page.lang == 'es' %}
+  {% assign homepage = site.data.homepage-es %}
+{% else %}
+  {% assign homepage = site.data.homepage-en %}
+{% endif %}
+
 <div class="home-page">
   
-  <!-- Profile Section (appears first on homepage) -->
-  <section class="profile-section" aria-label="About Simon">
-    <div class="container">
-      {% include components/profile-card.html %}
-    </div>
-  </section>
+  {% comment %} Render dynamic content blocks from Contentful {% endcomment %}
+  {% if homepage.blocks %}
+    {% for block in homepage.blocks %}
+      
+      {% comment %} Hero Banner Block {% endcomment %}
+      {% if block.type == 'heroBanner' %}
+        {% include components/hero-banner.html hero=block %}
+      {% endif %}
+      
+      {% comment %} Rich Text Block (placeholder for future) {% endcomment %}
+      {% if block.type == 'richText' %}
+        {% comment %} TODO: Implement rich text component {% endcomment %}
+      {% endif %}
+      
+      {% comment %} Text with Image Block (placeholder for future) {% endcomment %}
+      {% if block.type == 'textWithImage' %}
+        {% comment %} TODO: Implement text-with-image component {% endcomment %}
+      {% endif %}
+      
+      {% comment %} Carousel Block (placeholder for future) {% endcomment %}
+      {% if block.type == 'carousel' %}
+        {% comment %} TODO: Implement carousel component {% endcomment %}
+      {% endif %}
+      
+      {% comment %} Quote Block (placeholder for future) {% endcomment %}
+      {% if block.type == 'quote' %}
+        {% comment %} TODO: Implement quote component {% endcomment %}
+      {% endif %}
+      
+    {% endfor %}
+  {% endif %}
+  
+  {% comment %} Fallback: Show hardcoded profile + blog carousel if no homepage data {% endcomment %}
+  {% unless homepage %}
+    <!-- Profile Section (appears first on homepage) -->
+    <section class="profile-section" aria-label="About Simon">
+      <div class="container">
+        {% include components/profile-card.html %}
+      </div>
+    </section>
 
-  <!-- Blog Carousel Section (latest posts) -->
-  <section class="blog-carousel-section" aria-label="Latest Blog Posts">
-    <div class="container">
-      {% include components/blog-carousel.html %}
-    </div>
-  </section>
+    <!-- Blog Carousel Section (latest posts) -->
+    <section class="blog-carousel-section" aria-label="Latest Blog Posts">
+      <div class="container">
+        {% include components/blog-carousel.html %}
+      </div>
+    </section>
+  {% endunless %}
 
   <!-- Additional homepage content can go here -->
   <div class="home-content">

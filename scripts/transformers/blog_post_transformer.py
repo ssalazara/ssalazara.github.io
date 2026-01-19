@@ -53,10 +53,7 @@ class BlogPostTransformer(BaseTransformer):
             )
         
         # Validate SEO fields
-        seo_fields = seo_entry.fields(
-            locale=self.locale,
-            fallback_locale=self.fallback_locale
-        )
+        seo_fields = seo_entry.fields()
         
         required_seo_fields = ['title', 'description']
         missing_fields = []
@@ -91,10 +88,7 @@ class BlogPostTransformer(BaseTransformer):
         self.validate_seo(entry)
         
         # Get entry fields
-        fields = entry.fields(
-            locale=self.locale,
-            fallback_locale=self.fallback_locale
-        )
+        fields = entry.fields()
         
         # Extract basic fields (Contentful camelCase → Jekyll snake_case)
         slug = fields.get('url', '')
@@ -126,10 +120,7 @@ class BlogPostTransformer(BaseTransformer):
         
         # Extract SEO fields
         seo_entry = self.resolve_reference(entry, 'seo')
-        seo_fields = seo_entry.fields(
-            locale=self.locale,
-            fallback_locale=self.fallback_locale
-        )
+        seo_fields = seo_entry.fields()
         
         seo_title = seo_fields.get('title', title)  # Fallback to post title
         seo_description = seo_fields.get('description', excerpt)  # Fallback to excerpt

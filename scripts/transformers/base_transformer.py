@@ -82,10 +82,7 @@ class BaseTransformer(ABC):
         Raises:
             ValueError: If required field is missing
         """
-        entry_fields = entry.fields(
-            locale=self.locale,
-            fallback_locale=self.fallback_locale
-        )
+        entry_fields = entry.fields()
         
         missing_fields = []
         for field in fields:
@@ -144,10 +141,7 @@ class BaseTransformer(ABC):
         Returns:
             Referenced entry or None if not found
         """
-        entry_fields = entry.fields(
-            locale=self.locale,
-            fallback_locale=self.fallback_locale
-        )
+        entry_fields = entry.fields()
         
         referenced = entry_fields.get(field_name)
         
@@ -171,10 +165,7 @@ class BaseTransformer(ABC):
         Returns:
             List of referenced entries
         """
-        entry_fields = entry.fields(
-            locale=self.locale,
-            fallback_locale=self.fallback_locale
-        )
+        entry_fields = entry.fields()
         
         referenced_array = entry_fields.get(field_name, [])
         

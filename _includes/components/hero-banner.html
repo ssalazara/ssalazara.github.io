@@ -1,0 +1,57 @@
+{% comment %}
+  Hero Banner Component
+  
+  Usage:
+    {% include components/hero-banner.html hero=block %}
+  
+  Parameters:
+    - hero: Object with title, description, cta_label, cta_url, image_url
+  
+  Accessibility:
+    - Semantic HTML5 section element
+    - Alt text on background image
+    - ARIA labels for call-to-action
+{% endcomment %}
+
+<section class="hero-banner" aria-label="{% if include.hero.title %}{{ include.hero.title }}{% else %}Hero Banner{% endif %}">
+  <div class="hero-banner__container">
+    
+    {% comment %} Background Image {% endcomment %}
+    {% if include.hero.image_url %}
+    <div class="hero-banner__image" 
+         style="background-image: url('{{ include.hero.image_url }}');" 
+         role="img" 
+         aria-label="Hero banner background">
+    </div>
+    {% endif %}
+    
+    {% comment %} Content Overlay {% endcomment %}
+    <div class="hero-banner__content">
+      <div class="hero-banner__text">
+        
+        {% comment %} Headline {% endcomment %}
+        {% if include.hero.title %}
+        <h1 class="hero-banner__title">{{ include.hero.title }}</h1>
+        {% endif %}
+        
+        {% comment %} Subheading {% endcomment %}
+        {% if include.hero.description %}
+        <p class="hero-banner__description">{{ include.hero.description }}</p>
+        {% endif %}
+        
+        {% comment %} Call-to-Action Button {% endcomment %}
+        {% if include.hero.cta_label and include.hero.cta_url %}
+        <div class="hero-banner__cta">
+          <a href="{{ include.hero.cta_url }}" 
+             class="btn btn--primary hero-banner__button"
+             aria-label="{{ include.hero.cta_label }}">
+            {{ include.hero.cta_label }}
+          </a>
+        </div>
+        {% endif %}
+        
+      </div>
+    </div>
+    
+  </div>
+</section>

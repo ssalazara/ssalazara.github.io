@@ -26,6 +26,7 @@ from scripts.transformers.blog_post_transformer import BlogPostTransformer
 from scripts.transformers.profile_transformer import ProfileTransformer
 from scripts.transformers.header_transformer import HeaderTransformer
 from scripts.transformers.footer_transformer import FooterTransformer
+from scripts.transformers.homepage_transformer import HomepageTransformer
 
 # Import writers
 from scripts.writers.file_writer import FileWriter
@@ -179,6 +180,7 @@ def process_locale(
     profile_transformer = ProfileTransformer(client, locale)
     header_transformer = HeaderTransformer(client, locale)
     footer_transformer = FooterTransformer(client, locale)
+    homepage_transformer = HomepageTransformer(client, locale)
     
     # Transform blog posts
     logger.info(f"📝 Transforming blog posts...")
@@ -231,6 +233,19 @@ def process_locale(
             stats['successful'] += 1
         except Exception as e:
             logger.error(f"❌ FOOTER_WRITE_FAILED: {str(e)}")
+            stats['failed'] += 1
+    
+    # Transform and write homepage (use Jekyll locale for filename)
+    logger.info(f"🏠 Transforming homepage...")
+    homepages = homepage_transformer.transform_all()
+    stats['total_entries'] += len(homepages)
+    
+    if homepages:
+        try:
+            data_writer.write_data_file(homepages[0], 'homepage', jekyll_locale)
+            stats['successful'] += 1
+        except Exception as e:
+            logger.error(f"❌ HOMEPAGE_WRITE_FAILED: {str(e)}")
             stats['failed'] += 1
     
     return stats

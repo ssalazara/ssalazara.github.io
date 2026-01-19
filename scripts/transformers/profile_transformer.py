@@ -39,10 +39,7 @@ class ProfileTransformer(BaseTransformer):
         Returns:
             YAML-ready dictionary
         """
-        fields = entry.fields(
-            locale=self.locale,
-            fallback_locale=self.fallback_locale
-        )
+        fields = entry.fields()
         
         # Extract basic fields
         full_name = fields.get('fullName', '')
@@ -62,10 +59,7 @@ class ProfileTransformer(BaseTransformer):
         
         for social_entry in social_link_entries:
             try:
-                social_fields = social_entry.fields(
-                    locale=self.locale,
-                    fallback_locale=self.fallback_locale
-                )
+                social_fields = social_entry.fields()
                 
                 platform = social_fields.get('platform', '')
                 url = social_fields.get('url', '')

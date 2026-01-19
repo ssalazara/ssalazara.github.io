@@ -59,10 +59,7 @@ class HeaderTransformer(BaseTransformer):
             visited.add(menu_entry.id)
             
             try:
-                menu_fields = menu_entry.fields(
-                    locale=self.locale,
-                    fallback_locale=self.fallback_locale
-                )
+                menu_fields = menu_entry.fields()
                 
                 label = menu_fields.get('label', '')  # Localized
                 url = menu_fields.get('url', '')
@@ -92,10 +89,7 @@ class HeaderTransformer(BaseTransformer):
         Returns:
             YAML-ready dictionary
         """
-        fields = entry.fields(
-            locale=self.locale,
-            fallback_locale=self.fallback_locale
-        )
+        fields = entry.fields()
         
         # Extract brand
         brand_url = fields.get('brandUrl', '/')

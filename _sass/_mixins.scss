@@ -36,7 +36,7 @@
 }
 
 // 2X large devices and up (≥1536px)
-@mixin 2xl {
+@mixin xxl {
   @media (min-width: $breakpoint-2xl) {
     @content;
   }

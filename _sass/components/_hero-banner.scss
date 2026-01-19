@@ -1,0 +1,261 @@
+// ============================================================================
+// Hero Banner Component
+// ============================================================================
+// High-impact visual section with headline, description, and call-to-action
+// Typically used at page tops for maximum engagement
+//
+// Responsive Strategy: Mobile-first with progressive enhancement
+// - Mobile: Stacked layout, smaller text, compact spacing
+// - Tablet: Slightly larger text, more breathing room
+// - Desktop: Full hero treatment with parallax-ready background
+
+.hero-banner {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  overflow: hidden;
+  background-color: $color-neutral-900;
+  
+  // Tablet breakpoint
+  @include md {
+    min-height: 500px;
+  }
+  
+  // Desktop breakpoint
+  @include lg {
+    min-height: 600px;
+  }
+  
+  // Extra large screens
+  @include xl {
+    min-height: 700px;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Container (constrains content width)
+// ----------------------------------------------------------------------------
+.hero-banner__container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+}
+
+// ----------------------------------------------------------------------------
+// Background Image Layer
+// ----------------------------------------------------------------------------
+.hero-banner__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  
+  // Dark overlay for text readability
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    z-index: 2;
+  }
+  
+  // Optional: Add subtle animation on load
+  animation: heroImageFadeIn 0.8s ease-out;
+}
+
+// ----------------------------------------------------------------------------
+// Content Overlay (text and CTA)
+// ----------------------------------------------------------------------------
+.hero-banner__content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: inherit;
+  padding: $spacing-6 $spacing-4;
+  
+  // Tablet: More padding
+  @include md {
+    padding: $spacing-8 $spacing-6;
+  }
+  
+  // Desktop: Maximum padding
+  @include lg {
+    padding: $spacing-12 $spacing-8;
+  }
+}
+
+.hero-banner__text {
+  max-width: 800px;
+  text-align: center;
+  color: $color-text-inverse;
+  
+  // Desktop: Slightly wider max-width
+  @include lg {
+    max-width: 900px;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Typography
+// ----------------------------------------------------------------------------
+.hero-banner__title {
+  font-family: $font-family-heading;
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $color-text-inverse;
+  margin: 0 0 $spacing-4;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  
+  // Tablet: Larger title
+  @include md {
+    font-size: $font-size-4xl;
+    margin-bottom: $spacing-5;
+  }
+  
+  // Desktop: Hero-sized title
+  @include lg {
+    font-size: $font-size-5xl;
+    margin-bottom: $spacing-6;
+  }
+  
+  // Extra large: Maximum impact
+  @include xl {
+    font-size: $font-size-6xl;
+  }
+  
+  // Animation
+  animation: heroTextSlideUp 0.6s ease-out 0.2s backwards;
+}
+
+.hero-banner__description {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-relaxed;
+  color: $color-neutral-200;
+  margin: 0 0 $spacing-6;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  
+  // Tablet: Larger description
+  @include md {
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-7;
+  }
+  
+  // Desktop: Full-sized description
+  @include lg {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-8;
+  }
+  
+  // Animation
+  animation: heroTextSlideUp 0.6s ease-out 0.4s backwards;
+}
+
+// ----------------------------------------------------------------------------
+// Call-to-Action Button
+// ----------------------------------------------------------------------------
+.hero-banner__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: $spacing-6;
+  
+  // Animation
+  animation: heroTextSlideUp 0.6s ease-out 0.6s backwards;
+}
+
+.hero-banner__button {
+  // Inherit button styles from _buttons.scss
+  // Additional hero-specific overrides
+  font-size: $font-size-base;
+  padding: $spacing-3 $spacing-6;
+  min-width: 160px;
+  
+  // Tablet: Larger button
+  @include md {
+    font-size: $font-size-lg;
+    padding: $spacing-4 $spacing-8;
+    min-width: 180px;
+  }
+  
+  // Desktop: Full-sized button
+  @include lg {
+    font-size: $font-size-lg;
+    padding: $spacing-4 $spacing-10;
+    min-width: 200px;
+  }
+  
+  // Enhanced shadow for depth on dark background
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  
+  &:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// ============================================================================
+// Animations
+// ============================================================================
+
+@keyframes heroImageFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroTextSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================================================
+// Reduced Motion (Accessibility)
+// ============================================================================
+@media (prefers-reduced-motion: reduce) {
+  .hero-banner__image,
+  .hero-banner__title,
+  .hero-banner__description,
+  .hero-banner__cta {
+    animation: none;
+  }
+  
+  .hero-banner__button {
+    transition: none;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+}

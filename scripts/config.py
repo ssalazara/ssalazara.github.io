@@ -32,11 +32,12 @@ LOCALE_MAPPING: dict[str, str] = {
     'es': 'es'      # Spanish stays the same
 }
 
-# Content type IDs
-CONTENT_TYPE_BLOG_POST: str = 'blogTemplate'
+# Content type IDs (must match Contentful exactly)
+CONTENT_TYPE_BLOG_POST: str = 'blogPage'  # Changed from blogTemplate
 CONTENT_TYPE_PROFILE: str = 'profile'
 CONTENT_TYPE_HEADER: str = 'orHeader'
-CONTENT_TYPE_FOOTER: str = 'orFooter'
+CONTENT_TYPE_FOOTER: str = 'footer'  # Changed from orFooter
+CONTENT_TYPE_HOMEPAGE: str = 'homePage'
 
 
 # ============================================================================
