@@ -52,6 +52,7 @@ jobs:
           CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
           CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.CONTENTFUL_PREVIEW_TOKEN }}
           CONTENTFUL_MODE: preview
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           python scripts/contentful_to_jekyll.py
       
