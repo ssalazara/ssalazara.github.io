@@ -1,0 +1,29 @@
+{% comment %}
+  Featured Projects Component
+  Displays a grid of featured projects with titles, descriptions, and links.
+  Data source: Contentful Projects Grid (componentProjectsGrid content type)
+  Usage: {% include components/featured-projects.html projects=block %}
+{% endcomment %}
+
+{% assign projects_data = include.projects %}
+
+{% if projects_data and projects_data.title and projects_data.items %}
+<section class="featured-projects" aria-label="Featured Projects">
+  <h2 class="featured-projects__title">{{ projects_data.title }}</h2>
+  <div class="featured-projects__grid">
+    {% for project in projects_data.items %}
+      <a href="{{ project.url }}" class="featured-projects__card"
+         {% if project.external %}target="_blank" rel="noopener noreferrer"{% endif %}>
+        {% if project.image_url %}
+          <img src="{{ project.image_url }}" alt="{{ project.title }}" class="featured-projects__card-image" loading="lazy">
+        {% endif %}
+        <div class="featured-projects__card-content">
+          <h3 class="featured-projects__card-title">{{ project.title }}</h3>
+          <p class="featured-projects__card-description">{{ project.description }}</p>
+          <span class="featured-projects__card-link">View Project →</span>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

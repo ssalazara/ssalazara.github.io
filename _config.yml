@@ -1,8 +1,9 @@
 # Site settings
-title: Simon Salazar
+title: Simon Salazar Albornoz
+logo: /assets/images/ssa-logo.svg
 email: simon@example.com
 description: >-
-  Personal portfolio and blog by Simon Salazar.
+  Personal portfolio and blog by Simon Salazar Albornoz.
   Exploring software engineering, product development, and technology.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ssalazara.github.io" # the base hostname & protocol for your site

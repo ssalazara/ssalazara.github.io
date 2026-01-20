@@ -1,0 +1,124 @@
+// ============================================================================
+// HERO SECTION COMPONENT
+// Horizontal layout: Content (left) + Image (right)
+// ============================================================================
+
+.hero-section {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-8;
+  padding: $spacing-12 $container-padding-mobile;
+  background: linear-gradient(
+    180deg,
+    $color-neutral-50 0%,
+    $color-neutral-0 100%
+  );
+  min-height: 60vh;
+  
+  @include md {
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-12;
+    padding: $spacing-16 $container-padding-tablet;
+  }
+  
+  @include lg {
+    gap: $spacing-16;
+    padding: $spacing-20 $container-padding-desktop;
+  }
+
+  // ----------------------------------------------------------------------------
+  // Content Section (left side) - 50% width
+  // ----------------------------------------------------------------------------
+  &__content {
+    flex: 0 0 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+    text-align: left;
+    
+    @include md {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+
+  // ----------------------------------------------------------------------------
+  // Headline - Small greeting (reduced size)
+  // ----------------------------------------------------------------------------
+  &__headline {
+    font-family: $font-family-heading;
+    font-size: $font-size-2xl; // Reduced from 4xl
+    font-weight: $font-weight-semibold; // Reduced from bold
+    color: $color-text-primary;
+    margin: 0;
+    line-height: $line-height-tight;
+    
+    @include md {
+      font-size: $font-size-3xl; // Reduced from 5xl
+    }
+    
+    @include lg {
+      font-size: $font-size-4xl; // Reduced from 6xl
+    }
+  }
+
+  // ----------------------------------------------------------------------------
+  // Subheadline - Main focus (description) - allows ~50 words
+  // ----------------------------------------------------------------------------
+  &__subheadline {
+    font-family: $font-family-base;
+    font-size: $font-size-lg; // Reduced for better proportion
+    font-weight: $font-weight-normal;
+    color: $color-text-primary; // Changed from secondary to primary for emphasis
+    margin: 0;
+    line-height: $line-height-relaxed;
+    max-width: 100%;
+    
+    @include md {
+      font-size: $font-size-xl; // Reduced from 2xl
+    }
+    
+    @include lg {
+      font-size: $font-size-2xl;
+      line-height: 1.6;
+    }
+  }
+
+  // ----------------------------------------------------------------------------
+  // CTA Button - Medium size (reduced from large)
+  // ----------------------------------------------------------------------------
+  &__cta {
+    @include button-base;
+    @include button-md; // Changed from button-lg
+    @include button-primary;
+    margin-top: $spacing-2; // Reduced spacing
+    align-self: flex-start;
+  }
+
+  // ----------------------------------------------------------------------------
+  // Image (right side) - Exactly 50% width
+  // ----------------------------------------------------------------------------
+  &__image {
+    flex: 0 0 100%;
+    width: 100%;
+    height: auto;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-lg;
+    object-fit: cover;
+    
+    @include md {
+      flex: 0 0 50%;
+      max-width: 50%;
+      max-height: 500px;
+    }
+    
+    @include lg {
+      max-height: 600px;
+    }
+    
+    @include reduce-motion;
+  }
+}

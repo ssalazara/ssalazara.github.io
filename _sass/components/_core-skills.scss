@@ -1,0 +1,135 @@
+// ============================================================================
+// CORE SKILLS COMPONENT
+// Displays skill pills in a centered, responsive layout
+// ============================================================================
+
+.core-skills {
+  padding: $spacing-12 $spacing-4;
+  background-color: $color-bg-secondary;
+  
+  @include md {
+    padding: $spacing-16 $spacing-8;
+  }
+  
+  @include lg {
+    padding: $spacing-20 $spacing-16;
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Container
+  // ----------------------------------------------------------------------------
+  &__container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Title
+  // ----------------------------------------------------------------------------
+  &__title {
+    font-family: $font-family-heading;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-8 0;
+    
+    @include md {
+      font-size: $font-size-4xl;
+      margin-bottom: $spacing-10;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Skills Grid
+  // ----------------------------------------------------------------------------
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Skill Pill
+  // ----------------------------------------------------------------------------
+  &__pill {
+    display: inline-block;
+    padding: $spacing-3 $spacing-6;
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background-color: $color-bg-surface;
+    border: 1px solid $color-border-light;
+    border-radius: $radius-full;
+    cursor: pointer;
+    transition: all $transition-base;
+    white-space: nowrap;
+    
+    @include hover {
+      background-color: $color-primary-50;
+      border-color: $color-primary-500;
+      color: $color-primary-700;
+    }
+    
+    @include focus-visible {
+      outline: 3px solid $color-primary-500;
+      outline-offset: 2px;
+    }
+    
+    @include reduce-motion;
+    
+    // Active state (if clickable)
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
+  // Variants
+  // ----------------------------------------------------------------------------
+  
+  // Compact variant (smaller pills)
+  &--compact {
+    .core-skills__pill {
+      padding: $spacing-2 $spacing-4;
+      font-size: $font-size-sm;
+    }
+  }
+  
+  // Large variant (bigger pills)
+  &--large {
+    .core-skills__pill {
+      padding: $spacing-4 $spacing-8;
+      font-size: $font-size-lg;
+    }
+  }
+  
+  // Dark variant
+  &--dark {
+    background-color: $color-neutral-900;
+    
+    .core-skills__title {
+      color: $color-text-inverse;
+    }
+    
+    .core-skills__pill {
+      background-color: $color-neutral-800;
+      border-color: $color-neutral-700;
+      color: $color-neutral-200;
+      
+      @include hover {
+        background-color: $color-primary-900;
+        border-color: $color-primary-600;
+        color: $color-primary-100;
+      }
+    }
+  }
+  
+  // No background variant
+  &--transparent {
+    background-color: transparent;
+  }
+}

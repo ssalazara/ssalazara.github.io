@@ -86,12 +86,14 @@
           {
             "linkContentType": [
               "heroBanner",
+              "componentSkillsList",
+              "componentProjectsGrid",
               "componentRichText",
               "textWithImage",
               "componentCarousel",
               "componentQuote"
             ],
-            "message": "Add Hero Banners, Rich Text, Text with Image, Carousels, or Quotes"
+            "message": "Add Hero Banners, Skills Lists, Projects Grids, Rich Text, Text with Image, Carousels, or Quotes"
           }
         ]
       },
@@ -104,7 +106,7 @@
       ],
       "disabled": false,
       "omitted": false,
-      "helpText": "Build your page by adding content blocks. Drag to reorder. Hero Banner typically goes first"
+      "helpText": "Build your page by adding content blocks. Drag to reorder. Typical portfolio-first layout: Hero Banner → Skills List → Projects Grid"
     },
     {
       "id": "footer",

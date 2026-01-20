@@ -1,0 +1,95 @@
+{
+  "name": "🧬 Project Card",
+  "description": "Atom component: Single project card with image, title, description, and link. Used within Projects Grid.",
+  "displayField": "title",
+  "fields": [
+    {
+      "id": "title",
+      "name": "Project Title",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 60 },
+          "message": "Keep project title under 60 characters"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Name of the project (e.g., 'My Personal Profile', 'E-Commerce Platform')"
+    },
+    {
+      "id": "description",
+      "name": "Project Description",
+      "type": "Text",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 200 },
+          "message": "Keep description under 200 characters for card readability"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Brief description of the project (max 200 characters)"
+    },
+    {
+      "id": "image",
+      "name": "Project Image",
+      "type": "Link",
+      "linkType": "Asset",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "linkMimetypeGroup": ["image"],
+          "message": "Must be an image file"
+        },
+        {
+          "assetFileSize": {
+            "max": 1048576
+          },
+          "message": "Image should be under 1MB for fast loading"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Project screenshot or hero image. Recommended: 800x450px (16:9 ratio), under 1MB"
+    },
+    {
+      "id": "url",
+      "name": "Project URL",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$|^#$",
+            "flags": null,
+            "message": "Enter a valid URL or use '#' for coming soon projects"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Link to project (live site, GitHub, case study). Use '#' if not yet available"
+    },
+    {
+      "id": "external",
+      "name": "External Link",
+      "type": "Boolean",
+      "localized": false,
+      "required": false,
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Check if this links to an external site (opens in new tab). Leave unchecked for internal pages"
+    }
+  ],
+  "sys": {
+    "id": "componentProjectCard",
+    "type": "ContentType"
+  }
+}

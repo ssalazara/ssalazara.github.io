@@ -16,13 +16,25 @@ layout: default
 
 <div class="home-page">
   
-  {% comment %} Render dynamic content blocks from Contentful {% endcomment %}
+  {% comment %} Dynamic Homepage Layout - Renders Content from Contentful {% endcomment %}
   {% if homepage.blocks %}
     {% for block in homepage.blocks %}
       
       {% comment %} Hero Banner Block {% endcomment %}
       {% if block.type == 'heroBanner' %}
-        {% include components/hero-banner.html hero=block %}
+        {% include components/hero-section.html hero=block %}
+      {% endif %}
+      
+      {% comment %} Skills List Block - REMOVED PER USER REQUEST {% endcomment %}
+      {% comment %}
+      {% if block.type == 'skillsList' %}
+        {% include components/core-skills.html skills=block %}
+      {% endif %}
+      {% endcomment %}
+      
+      {% comment %} Projects Grid Block {% endcomment %}
+      {% if block.type == 'projectsGrid' %}
+        {% include components/featured-projects.html projects=block %}
       {% endif %}
       
       {% comment %} Rich Text Block (placeholder for future) {% endcomment %}
@@ -46,24 +58,13 @@ layout: default
       {% endif %}
       
     {% endfor %}
+  {% else %}
+    {% comment %} Fallback: Show placeholder if no Contentful data available {% endcomment %}
+    <section class="hero-section">
+      <h1 class="hero-section__headline">Welcome</h1>
+      <p class="hero-section__subheadline">Content is being prepared in Contentful CMS.</p>
+    </section>
   {% endif %}
-  
-  {% comment %} Fallback: Show hardcoded profile + blog carousel if no homepage data {% endcomment %}
-  {% unless homepage %}
-    <!-- Profile Section (appears first on homepage) -->
-    <section class="profile-section" aria-label="About Simon">
-      <div class="container">
-        {% include components/profile-card.html %}
-      </div>
-    </section>
-
-    <!-- Blog Carousel Section (latest posts) -->
-    <section class="blog-carousel-section" aria-label="Latest Blog Posts">
-      <div class="container">
-        {% include components/blog-carousel.html %}
-      </div>
-    </section>
-  {% endunless %}
 
   <!-- Additional homepage content can go here -->
   <div class="home-content">

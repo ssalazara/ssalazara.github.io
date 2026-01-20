@@ -83,3 +83,54 @@ class TestBlogPostTransformer:
         assert 'seo_title' in frontmatter  # snake_case
         assert 'publishDate' not in frontmatter  # Not camelCase
         assert 'featuredImage' not in frontmatter  # Not camelCase
+    
+    def test_featured_image_cdn_url(self):
+        """Test that featured image is a CDN URL, not downloaded."""
+        # Arrange
+        mock_client = Mock()
+        transformer = BlogPostTransformer(mock_client, locale='en')
+        cdn_url = 'https://images.ctfassets.net/space/test-image.jpg'
+        mock_entry = create_mock_blog_post(locale='en', with_seo=True)
+        mock_entry.fields.return_value['image'].url.return_value = cdn_url
+        
+        # Act
+        result = transformer.transform_single(mock_entry)
+        
+        # Assert
+        assert result['frontmatter']['featured_image'] == cdn_url
+        assert result['frontmatter']['featured_image'].startswith('https://')
+    
+    def test_rich_text_conversion(self):
+        """Test that RichText converts to Markdown correctly."""
+        # Arrange
+        mock_client = Mock()
+        transformer = BlogPostTransformer(mock_client, locale='en')
+        mock_entry = create_mock_blog_post(locale='en', with_seo=True)
+        
+        # Act
+        result = transformer.transform_single(mock_entry)
+        
+        # Assert
+        assert result['body'] is not None
+        assert len(result['body']) > 0
+        assert isinstance(result['body'], str)
+    
+    def test_seo_fields_missing_raises_error(self):
+        """Test that transformation fails when SEO fields are incomplete."""
+        # Arrange
+        mock_client = Mock()
+        transformer = BlogPostTransformer(mock_client, locale='en')
+        
+        # Create SEO entry with missing required fields
+        mock_seo = Mock()
+        mock_seo.id = 'seo-incomplete'
+        mock_seo.fields.return_value = {
+            'title': 'SEO Title',
+            # Missing 'description' field
+        }
+        
+        mock_entry = create_mock_blog_post(locale='en', with_seo=True, seo=mock_seo)
+        
+        # Act & Assert
+        with pytest.raises(ValueError):
+            transformer.transform_single(mock_entry)

@@ -1,0 +1,19 @@
+{% comment %}
+  Core Skills Component
+  Displays a list of core skills as interactive pill-shaped tags.
+  Data source: Contentful Skills List (componentSkillsList content type)
+  Usage: {% include components/core-skills.html skills=block %}
+{% endcomment %}
+
+{% assign skills_data = include.skills %}
+
+{% if skills_data and skills_data.title and skills_data.items %}
+<section class="core-skills" aria-label="Core Skills">
+  <h2 class="core-skills__title">{{ skills_data.title }}</h2>
+  <div class="core-skills__grid">
+    {% for skill in skills_data.items %}
+      <span class="core-skills__skill-tag">{{ skill }}</span>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

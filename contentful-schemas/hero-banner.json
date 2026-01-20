@@ -36,19 +36,19 @@
     },
     {
       "id": "description",
-      "name": "Subheading",
+      "name": "Description",
       "type": "Text",
       "localized": true,
-      "required": false,
+      "required": true,
       "validations": [
         {
-          "size": { "max": 250 },
-          "message": "Keep subheading under 250 characters for optimal readability"
+          "size": { "min": 50, "max": 400 },
+          "message": "Description should be 50-400 characters (approximately 50-60 words)"
         }
       ],
       "disabled": false,
       "omitted": false,
-      "helpText": "Supporting text below the headline. Clarifies the value proposition (max 250 characters)"
+      "helpText": "Main description text - THIS IS THE FOCUS. Write at least 50 words to clearly communicate your message. Recommended: 50-60 words (250-400 characters)"
     },
     {
       "id": "ctaLabel",

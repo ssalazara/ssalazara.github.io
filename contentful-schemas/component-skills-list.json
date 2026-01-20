@@ -1,0 +1,66 @@
+{
+  "name": "🧩 Skills List",
+  "description": "Molecule component: Displays a collection of skills/technologies as interactive tags. Perfect for showcasing core competencies.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 100 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Descriptive name for editors only (e.g., 'Technical Skills', 'Core Competencies')"
+    },
+    {
+      "id": "title",
+      "name": "Section Title",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": [
+        {
+          "size": { "max": 60 }
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "Title displayed above skills (e.g., 'Core Skills', 'What I Do')"
+    },
+    {
+      "id": "skills",
+      "name": "Skills",
+      "type": "Array",
+      "localized": true,
+      "required": true,
+      "items": {
+        "type": "Symbol",
+        "validations": [
+          {
+            "size": { "max": 50 },
+            "message": "Each skill should be under 50 characters"
+          }
+        ]
+      },
+      "validations": [
+        {
+          "size": { "min": 1, "max": 12 },
+          "message": "Add 1-12 skills for optimal display"
+        }
+      ],
+      "disabled": false,
+      "omitted": false,
+      "helpText": "List of skills to display. Each skill becomes a tag (recommended: 4-8 skills)"
+    }
+  ],
+  "sys": {
+    "id": "componentSkillsList",
+    "type": "ContentType"
+  }
+}

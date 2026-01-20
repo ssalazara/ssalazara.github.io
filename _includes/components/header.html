@@ -1,80 +1,117 @@
 {% comment %}
   Header Component
   Main site navigation with logo, menu items, and language switcher
-  Locale-aware: pulls navigation from _data/header-{locale}.yml
+  Standardized to Design System v1.0 classes
 {% endcomment %}
 
 {% assign current_locale = page.lang | default: site.default_lang | default: 'en' %}
 {% assign header_key = 'header-' | append: current_locale %}
 {% assign header = site.data[header_key] %}
 
-<header class="site-header" role="banner">
-  <nav class="site-nav container" aria-label="Main navigation">
+<header class="header" role="banner">
+  <div class="header__container">
     
-    <!-- Logo / Site Title -->
-    <div class="site-nav__brand">
-      <a href="{{ '/' | relative_url }}" class="site-nav__logo" aria-label="Home">
-        <span class="site-nav__logo-text">{{ site.title | default: 'Simon Salazar' }}</span>
-      </a>
+    <!-- Logo / Brand -->
+    <a href="{{ '/' | relative_url }}" class="header__logo" aria-label="Home">
+      {% if site.logo %}
+        <img src="{{ site.logo | relative_url }}" alt="{{ site.title }}" class="header__logo-image">
+      {% else %}
+        <span class="header__logo-text">{{ site.title | default: 'Simon Salazar' }}</span>
+      {% endif %}
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="header__nav" aria-label="Main navigation">
+      <ul class="header__nav-list">
+        {% if header.menu_items %}
+          {% for item in header.menu_items %}
+            <li class="header__nav-item">
+              <a 
+                href="{{ item.url | relative_url }}" 
+                class="header__nav-link {% if page.url == item.url %}is-active{% endif %}"
+                {% if item.external %}target="_blank" rel="noopener noreferrer"{% endif %}
+              >
+                {{ item.label }}
+              </a>
+            </li>
+          {% endfor %}
+        {% else %}
+          <li class="header__nav-item">
+            <a href="{{ '/' | relative_url }}" class="header__nav-link {% if page.url == '/' or page.url == '/index.html' %}is-active{% endif %}">
+              {% if current_locale == 'es' %}Inicio{% else %}Home{% endif %}
+            </a>
+          </li>
+          <li class="header__nav-item">
+            <a href="{{ '/' | append: current_locale | append: '/blog/' | relative_url }}" class="header__nav-link {% if page.layout == 'blog-archive' %}is-active{% endif %}">
+              Blog
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <!-- Actions (Language Switcher) -->
+    <div class="header__actions">
+      <div class="header__lang-switcher">
+        {% if current_locale == 'es' %}
+          <span class="header__lang-btn is-active">ES</span>
+          <a href="{{ '/' | relative_url }}" class="header__lang-btn">EN</a>
+        {% else %}
+          <a href="{{ '/es' | relative_url }}" class="header__lang-btn">ES</a>
+          <span class="header__lang-btn is-active">EN</span>
+        {% endif %}
+      </div>
     </div>
 
     <!-- Mobile Menu Toggle -->
     <button 
-      class="site-nav__toggle" 
+      class="header__menu-toggle" 
       aria-label="Toggle navigation menu"
       aria-expanded="false"
-      aria-controls="main-menu"
+      aria-controls="mobile-menu"
       type="button"
+      onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'false' ? 'true' : 'false'); document.getElementById('mobile-menu').classList.toggle('is-open');"
     >
-      <span class="hamburger">
-        <span class="hamburger__line"></span>
-        <span class="hamburger__line"></span>
-        <span class="hamburger__line"></span>
-      </span>
+      <svg class="header__menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg class="header__menu-icon-close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
     </button>
 
-    <!-- Navigation Menu -->
-    <div class="site-nav__menu" id="main-menu">
-      
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="header__mobile-menu" id="mobile-menu">
+    <ul class="header__mobile-nav">
       {% if header.menu_items %}
-      <ul class="nav-menu">
         {% for item in header.menu_items %}
-          <li class="nav-menu__item">
+          <li>
             <a 
               href="{{ item.url | relative_url }}" 
-              class="nav-menu__link {% if page.url == item.url %}nav-menu__link--active{% endif %}"
-              {% if item.external %}
-                target="_blank"
-                rel="noopener noreferrer"
-              {% endif %}
+              class="header__mobile-nav-link {% if page.url == item.url %}is-active{% endif %}"
             >
               {{ item.label }}
             </a>
           </li>
         {% endfor %}
-      </ul>
       {% else %}
-        <!-- Fallback navigation if header data not available -->
-        <ul class="nav-menu">
-          <li class="nav-menu__item">
-            <a href="{{ '/' | relative_url }}" class="nav-menu__link {% if page.url == '/' or page.url == '/index.html' %}nav-menu__link--active{% endif %}">
-              {% if current_locale == 'es' %}Inicio{% else %}Home{% endif %}
-            </a>
-          </li>
-          <li class="nav-menu__item">
-            <a href="{{ '/' | append: current_locale | append: '/blog/' | relative_url }}" class="nav-menu__link {% if page.layout == 'blog-archive' %}nav-menu__link--active{% endif %}">
-              {% if current_locale == 'es' %}Blog{% else %}Blog{% endif %}
-            </a>
-          </li>
-        </ul>
+        <li>
+          <a href="{{ '/' | relative_url }}" class="header__mobile-nav-link {% if page.url == '/' or page.url == '/index.html' %}is-active{% endif %}">
+            {% if current_locale == 'es' %}Inicio{% else %}Home{% endif %}
+          </a>
+        </li>
+        <li>
+          <a href="{{ '/' | append: current_locale | append: '/blog/' | relative_url }}" class="header__mobile-nav-link {% if page.layout == 'blog-archive' %}is-active{% endif %}">
+            Blog
+          </a>
+        </li>
       {% endif %}
+    </ul>
+  </div>
 
-      <!-- Language Switcher -->
-      <div class="site-nav__lang">
-        {% include components/language-switcher.html %}
-      </div>
-
-    </div>
-
-  </nav>
 </header>
+
+<!-- Mobile Menu Backdrop -->
+<div class="header-backdrop" onclick="document.getElementById('mobile-menu').classList.remove('is-open'); document.querySelector('.header__menu-toggle').setAttribute('aria-expanded', 'false');"></div>

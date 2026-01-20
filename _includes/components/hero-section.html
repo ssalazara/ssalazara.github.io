@@ -1,0 +1,25 @@
+{% comment %}
+  Hero Section Component
+  Horizontal layout: Content (left) + Image (right)
+  Data source: Contentful Hero Banner (heroBanner content type)
+  Usage: {% include components/hero-section.html hero=block %}
+{% endcomment %}
+
+{% assign hero_data = include.hero %}
+
+{% if hero_data %}
+<section class="hero-section" aria-label="Welcome">
+  <div class="hero-section__content">
+    <h1 class="hero-section__headline">{{ hero_data.title | default: "Hello, World!" }}</h1>
+    <p class="hero-section__subheadline">{{ hero_data.description | default: "Personal website intended as a learning project." }}</p>
+    {% if hero_data.cta_label and hero_data.cta_url %}
+      <a href="{{ hero_data.cta_url }}" class="hero-section__cta">
+        {{ hero_data.cta_label }}
+      </a>
+    {% endif %}
+  </div>
+  {% if hero_data.image_url %}
+    <img src="{{ hero_data.image_url }}" alt="{{ hero_data.title | default: 'Hero Image' }}" class="hero-section__image" loading="eager">
+  {% endif %}
+</section>
+{% endif %}

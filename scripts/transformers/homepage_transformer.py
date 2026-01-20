@@ -52,6 +52,10 @@ class HomepageTransformer(BaseTransformer):
             # Transform based on block type
             if content_type_id == 'heroBanner':
                 return self._transform_hero_banner(block_entry, fields)
+            elif content_type_id == 'componentSkillsList':
+                return self._transform_skills_list(block_entry, fields)
+            elif content_type_id == 'componentProjectsGrid':
+                return self._transform_projects_grid(block_entry, fields)
             elif content_type_id == 'componentRichText':
                 return self._transform_rich_text(block_entry, fields)
             elif content_type_id == 'textWithImage':
@@ -122,6 +126,98 @@ class HomepageTransformer(BaseTransformer):
         )
         
         return hero_data
+    
+    def _transform_skills_list(self, entry: Entry, fields: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Transform skills list block.
+        
+        Args:
+            entry: Contentful Entry
+            fields: Entry fields dictionary
+        
+        Returns:
+            Skills list data dictionary
+        """
+        skills_data = {
+            'type': 'skillsList',
+            'name': fields.get('name', ''),
+            'title': fields.get('title', ''),
+            'items': fields.get('skills', [])
+        }
+        
+        # Remove empty optional fields
+        skills_data = {k: v for k, v in skills_data.items() if v or k == 'type'}
+        
+        logger.info(
+            f"✅ SKILLS_LIST_TRANSFORMED "
+            f"entry_id={entry.id} "
+            f"skills_count={len(fields.get('skills', []))}"
+        )
+        
+        return skills_data
+    
+    def _transform_projects_grid(self, entry: Entry, fields: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Transform projects grid block.
+        
+        Args:
+            entry: Contentful Entry
+            fields: Entry fields dictionary
+        
+        Returns:
+            Projects grid data dictionary
+        """
+        # Resolve project cards
+        project_cards_entries = self.resolve_reference_array(entry, 'projects')
+        projects = []
+        
+        for project_entry in project_cards_entries:
+            try:
+                project_fields = project_entry.fields()
+                
+                # Extract image URL
+                image_url = ''
+                image_asset = project_fields.get('image')
+                if image_asset:
+                    image_url = self.get_asset_url(image_asset)
+                
+                project_data = {
+                    'title': project_fields.get('title', ''),
+                    'description': project_fields.get('description', ''),
+                    'url': project_fields.get('url', '#'),
+                    'image_url': image_url,
+                    'external': project_fields.get('external', False)
+                }
+                
+                # Remove empty optional fields except external (boolean)
+                project_data = {k: v for k, v in project_data.items() if v or k == 'external'}
+                
+                projects.append(project_data)
+                
+            except Exception as e:
+                logger.error(
+                    f"❌ PROJECT_CARD_TRANSFORM_FAILED "
+                    f"entry_id={project_entry.id} "
+                    f"error={str(e)}"
+                )
+        
+        projects_grid_data = {
+            'type': 'projectsGrid',
+            'name': fields.get('name', ''),
+            'title': fields.get('title', ''),
+            'items': projects
+        }
+        
+        # Remove empty optional fields
+        projects_grid_data = {k: v for k, v in projects_grid_data.items() if v or k == 'type'}
+        
+        logger.info(
+            f"✅ PROJECTS_GRID_TRANSFORMED "
+            f"entry_id={entry.id} "
+            f"projects_count={len(projects)}"
+        )
+        
+        return projects_grid_data
     
     def _transform_rich_text(self, entry: Entry, fields: Dict[str, Any]) -> Dict[str, Any]:
         """

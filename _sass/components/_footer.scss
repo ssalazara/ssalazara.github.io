@@ -27,6 +27,7 @@
     display: grid;
     gap: $spacing-8;
     margin-bottom: $spacing-8;
+    align-items: start; // Align all grid items to top
     
     // Mobile: 1 column
     grid-template-columns: 1fr;
@@ -62,12 +63,29 @@
     font-weight: $font-weight-bold;
     color: $color-neutral-0;
     text-decoration: none;
+    line-height: $line-height-snug;
+    margin: 0;
+    transition: $transition-colors;
     
-    img {
-      height: 32px;
-      width: auto;
-      filter: brightness(0) invert(1); // Make logo white
+    @include hover {
+      color: $color-primary-400;
     }
+  }
+  
+  &__logo-image {
+    height: 40px;
+    width: auto;
+    display: block;
+    color: $color-neutral-0; // SVG will use currentColor
+    
+    @include md {
+      height: 48px;
+    }
+  }
+  
+  &__logo-text {
+    // Text styling when logo is shown
+    display: inline-block;
   }
   
   &__description {
@@ -125,14 +143,21 @@
     color: $color-neutral-0;
     text-transform: uppercase;
     letter-spacing: $letter-spacing-wide;
-    margin-bottom: $spacing-2;
+    margin: 0 0 $spacing-4 0; // Increased bottom margin for better spacing
+    padding-top: $spacing-1; // Add top padding to align with brand
+    line-height: $line-height-snug;
   }
   
   &__nav {
     @include list-reset;
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // 2 columns for horizontal layout
+    gap: $spacing-3 $spacing-8; // Row gap and column gap
+    
+    // Optional: adjust for mobile if needed
+    @media (max-width: 320px) {
+      grid-template-columns: 1fr; // Stack on very small screens
+    }
   }
   
   &__nav-link {
