@@ -17,9 +17,39 @@ blocks:
   cta_label: Learn More
   cta_url: https://ssalazara.github.io/blog
   image_url: https://images.ctfassets.net/co4wdyhrijid/4up5jv1LoTwDxLLIgseDN7/47c7ca2edc374d796742d6865ef77f7b/medusa.png
+- type: quote
+  name: Homepage > Quote of myself
+  quote: This is an amazing quote that represent all the feelings regarding this site.
+  author: Simon Salazar Albornoz
+  role: Specialist
+  image_url: https://images.ctfassets.net/co4wdyhrijid/6AEjWiz6KMYa4aMrsudak6/9ff129fd93a0c429f4d1500ae349bd3b/simon.png
 - type: textWithImage
   name: Homepage > Panda Image
   title: Panda experience
   description: Lorem ipsum
   image_url: https://images.ctfassets.net/co4wdyhrijid/4UXSPK3Sl4B8Mse0RKd1Et/99b8ddafaab7365f12edcb4b95647aca/panda.png
   image_on_right: false
+- type: carousel
+  name: Homepage > Carousel
+  title: Featured Entries
+  cards:
+  - title: Rosetta Bridge
+    description: Part of the winning team at the Apply Digital hackathon in July 2025.
+      Rosetta Bridge is an agent-based solution that utilizes a JSON object to generate
+      user-friendly documentation based on the specified requirements.
+    image_url: https://images.ctfassets.net/co4wdyhrijid/4HmrOj2fzJTTMO5nWJPJeK/21cc67a6995f78daa234a87244852fb3/rosetta.png
+    url: https://ssalazara.github.io/blog/rosetta-bridge
+    url_label: Read more
+  - title: BMad Method Experience
+    description: Personal website development using the BMad method and AI agent assistance
+      to set up the site on GitHub Pages, Contentful, and Jekyll.
+    image_url: https://images.ctfassets.net/co4wdyhrijid/2N8Zf69HCWPHmgZoT44zhX/e7316ffe1f7f85ad67e89154100954df/compressed_Gemini_Generated_Image_ftfns3ftfns3ftfn.png
+    url: https://ssalazara.github.io/blog/bmad-method-experience
+    url_label: Read more
+  - title: 'Sunny-2: Using Copernicus Data'
+    description: sunny-2 is a solar diagnostic platform that tells you how much energy
+      solar panels can generate at your location, using real satellite data — not
+      generic averages.
+    image_url: https://images.ctfassets.net/co4wdyhrijid/17h4TXbQwzVEFX4Z6MLpTM/98546d140ce0315ee8302b375ab66c14/Gemini_Generated_Image_ihn7bzihn7bzihn7_1_.png
+    url: https://ssalazara.github.io/blog/sunny-2
+    url_label: Read more
