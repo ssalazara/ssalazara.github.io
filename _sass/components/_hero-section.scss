@@ -1,48 +1,51 @@
 // ============================================================================
 // HERO SECTION COMPONENT
-// Horizontal layout: Content (left) + Image (right)
+// Grid layout aligned with Text-with-Image component
 // ============================================================================
 
 .hero-section {
-  @include container;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: $spacing-8;
-  padding: $spacing-12 $container-padding-mobile;
   background: linear-gradient(
     180deg,
     $color-neutral-50 0%,
     $color-neutral-0 100%
   );
+  padding: $spacing-12 0;
   min-height: 60vh;
-  
-  @include md {
-    flex-direction: row;
-    align-items: center;
-    gap: $spacing-12;
-    padding: $spacing-16 $container-padding-tablet;
-  }
+  display: flex;
+  align-items: center;
   
   @include lg {
-    gap: $spacing-16;
-    padding: $spacing-20 $container-padding-desktop;
+    padding: $spacing-16 0;
+  }
+  
+  // Container with grid layout (matches text-with-image)
+  &__container {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-8;
+    align-items: center;
+    padding: 0 $container-padding-mobile;
+    
+    @include md {
+      grid-template-columns: 1fr 1fr;
+      gap: $spacing-12;
+      padding: 0 $container-padding-tablet;
+    }
+    
+    @include lg {
+      gap: $spacing-16;
+      padding: 0 $container-padding-desktop;
+    }
   }
 
   // ----------------------------------------------------------------------------
-  // Content Section (left side) - 50% width
+  // Content Section (left side)
   // ----------------------------------------------------------------------------
   &__content {
-    flex: 0 0 100%;
     display: flex;
     flex-direction: column;
     gap: $spacing-5;
-    text-align: left;
-    
-    @include md {
-      flex: 0 0 50%;
-      max-width: 50%;
-    }
   }
 
   // ----------------------------------------------------------------------------
@@ -99,21 +102,16 @@
   }
 
   // ----------------------------------------------------------------------------
-  // Image (right side) - Exactly 50% width
+  // Image (right side) - Matches text-with-image styling
   // ----------------------------------------------------------------------------
   &__image {
-    flex: 0 0 100%;
     width: 100%;
     height: auto;
+    max-height: 500px;
     border-radius: $radius-lg;
     box-shadow: $shadow-lg;
     object-fit: cover;
-    
-    @include md {
-      flex: 0 0 50%;
-      max-width: 50%;
-      max-height: 500px;
-    }
+    display: block;
     
     @include lg {
       max-height: 600px;

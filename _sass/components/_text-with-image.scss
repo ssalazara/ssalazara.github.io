@@ -1,48 +1,78 @@
-// Text with Image Component
-// Two-column layout with flexible image positioning
+// ============================================================================
+// TEXT WITH IMAGE COMPONENT
+// Two-column layout aligned with Hero Section
+// ============================================================================
 
 .text-with-image {
-  padding: 4rem 0;
-  background-color: var(--color-bg-secondary, #f8f9fa);
+  padding: $spacing-12 0;
+  background-color: $color-bg-secondary;
+  
+  @include lg {
+    padding: $spacing-16 0;
+  }
   
   &__container {
     @include container;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: $spacing-8;
     align-items: center;
+    padding: 0 $container-padding-mobile;
     
-    @media (min-width: 768px) {
+    @include md {
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      gap: $spacing-12;
+      padding: 0 $container-padding-tablet;
+    }
+    
+    @include lg {
+      gap: $spacing-16;
+      padding: 0 $container-padding-desktop;
     }
   }
   
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: $spacing-5;
   }
   
   &__title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-text-primary, #1a202c);
-    line-height: 1.2;
+    font-family: $font-family-heading;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    line-height: $line-height-tight;
     margin: 0;
     
-    @media (min-width: 768px) {
-      font-size: 2.5rem;
+    @include md {
+      font-size: $font-size-3xl;
+    }
+    
+    @include lg {
+      font-size: $font-size-4xl;
     }
   }
   
   &__description {
-    font-size: 1.125rem;
-    line-height: 1.7;
-    color: var(--color-text-secondary, #4a5568);
+    font-family: $font-family-base;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-normal;
+    color: $color-text-primary;
+    line-height: $line-height-relaxed;
+    margin: 0;
+    
+    @include md {
+      font-size: $font-size-xl;
+    }
+    
+    @include lg {
+      font-size: $font-size-2xl;
+      line-height: 1.6;
+    }
     
     p {
-      margin-bottom: 1rem;
+      margin-bottom: $spacing-4;
       
       &:last-child {
         margin-bottom: 0;
@@ -50,37 +80,42 @@
     }
     
     a {
-      color: var(--color-primary, #3b82f6);
+      color: $color-text-link;
       text-decoration: underline;
       
       &:hover {
+        color: $color-text-link-hover;
         text-decoration: none;
       }
     }
     
     ul, ol {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
+      margin-left: $spacing-6;
+      margin-bottom: $spacing-4;
     }
     
     strong {
-      font-weight: 600;
-      color: var(--color-text-primary, #1a202c);
+      font-weight: $font-weight-semibold;
+      color: $color-text-primary;
     }
   }
   
   &__image {
     width: 100%;
-    border-radius: 8px;
+    border-radius: $radius-lg;
     overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
-                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: $shadow-lg;
     
     img {
       width: 100%;
       height: auto;
+      max-height: 500px;
       display: block;
       object-fit: cover;
+      
+      @include lg {
+        max-height: 600px;
+      }
     }
   }
   
