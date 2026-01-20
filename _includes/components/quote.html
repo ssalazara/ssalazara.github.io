@@ -1,0 +1,41 @@
+{% comment %}
+  Quote Component
+  Displays a testimonial or quote with author attribution
+  Supports optional author photo
+{% endcomment %}
+
+<section class="quote">
+  <div class="quote__container">
+    
+    <div class="quote__content">
+      {% if include.block.quote %}
+        <blockquote class="quote__text">
+          "{{ include.block.quote }}"
+        </blockquote>
+      {% endif %}
+      
+      <div class="quote__attribution">
+        {% if include.block.image_url %}
+          <div class="quote__author-photo">
+            <img 
+              src="{{ include.block.image_url }}" 
+              alt="{{ include.block.author | default: 'Author' }}"
+              loading="lazy"
+            >
+          </div>
+        {% endif %}
+        
+        <div class="quote__author-info">
+          {% if include.block.author %}
+            <cite class="quote__author-name">{{ include.block.author }}</cite>
+          {% endif %}
+          
+          {% if include.block.role %}
+            <span class="quote__author-role">{{ include.block.role }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>

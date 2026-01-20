@@ -314,24 +314,41 @@ class HomepageTransformer(BaseTransformer):
     
     def _transform_quote(self, entry: Entry, fields: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Transform quote block (placeholder for future implementation).
+        Transform quote block.
         
         Args:
             entry: Contentful Entry
             fields: Entry fields dictionary
         
         Returns:
-            Placeholder data dictionary
+            Quote data dictionary
         """
-        logger.warning(
-            f"⚠️ QUOTE_NOT_IMPLEMENTED "
-            f"entry_id={entry.id}"
-        )
-        return {
+        # Extract author photo asset
+        image_url = ''
+        image_asset = fields.get('image')
+        if image_asset:
+            image_url = self.get_asset_url(image_asset)
+        
+        quote_data = {
             'type': 'quote',
-            'entry_id': entry.id,
-            'placeholder': True
+            'name': fields.get('name', ''),
+            'quote': fields.get('quote', ''),
+            'author': fields.get('author', ''),
+            'role': fields.get('role', ''),
+            'image_url': image_url
         }
+        
+        # Remove empty optional fields
+        quote_data = {k: v for k, v in quote_data.items() if v or k == 'type'}
+        
+        logger.info(
+            f"✅ QUOTE_TRANSFORMED "
+            f"entry_id={entry.id} "
+            f"has_image={bool(image_url)} "
+            f"has_author={bool(fields.get('author'))}"
+        )
+        
+        return quote_data
     
     def _extract_text_from_rich_text(self, rich_text_obj: Any) -> str:
         """
