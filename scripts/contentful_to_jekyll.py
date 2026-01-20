@@ -209,34 +209,9 @@ def process_locale(
             logger.error(f"❌ PROFILE_WRITE_FAILED: {str(e)}")
             stats['failed'] += 1
     
-    # Transform and write header (use Jekyll locale for filename)
-    logger.info(f"🔝 Transforming header...")
-    headers = header_transformer.transform_all()
-    stats['total_entries'] += len(headers)
-    
-    if headers:
-        try:
-            data_writer.write_data_file(headers[0], 'header', jekyll_locale)
-            stats['successful'] += 1
-        except Exception as e:
-            logger.error(f"❌ HEADER_WRITE_FAILED: {str(e)}")
-            stats['failed'] += 1
-    
-    # Transform and write footer (use Jekyll locale for filename)
-    logger.info(f"🔽 Transforming footer...")
-    footers = footer_transformer.transform_all()
-    stats['total_entries'] += len(footers)
-    
-    if footers:
-        try:
-            data_writer.write_data_file(footers[0], 'footer', jekyll_locale)
-            stats['successful'] += 1
-        except Exception as e:
-            logger.error(f"❌ FOOTER_WRITE_FAILED: {str(e)}")
-            stats['failed'] += 1
-    
     # Transform and write homepage (use Jekyll locale for filename)
-    logger.info(f"🏠 Transforming homepage...")
+    # Homepage contains nested Header and Footer references
+    logger.info(f"🏠 Transforming homepage (includes header & footer)...")
     homepages = homepage_transformer.transform_all()
     stats['total_entries'] += len(homepages)
     
@@ -246,6 +221,28 @@ def process_locale(
             stats['successful'] += 1
         except Exception as e:
             logger.error(f"❌ HOMEPAGE_WRITE_FAILED: {str(e)}")
+            stats['failed'] += 1
+        
+        # Extract and write header from homepage
+        try:
+            header_data = homepage_transformer.get_header_data()
+            data_writer.write_data_file(header_data, 'header', jekyll_locale)
+            logger.info(f"✅ HEADER_WRITTEN from homepage")
+            stats['successful'] += 1
+            stats['total_entries'] += 1
+        except Exception as e:
+            logger.error(f"❌ HEADER_WRITE_FAILED: {str(e)}")
+            stats['failed'] += 1
+        
+        # Extract and write footer from homepage
+        try:
+            footer_data = homepage_transformer.get_footer_data()
+            data_writer.write_data_file(footer_data, 'footer', jekyll_locale)
+            logger.info(f"✅ FOOTER_WRITTEN from homepage")
+            stats['successful'] += 1
+            stats['total_entries'] += 1
+        except Exception as e:
+            logger.error(f"❌ FOOTER_WRITE_FAILED: {str(e)}")
             stats['failed'] += 1
     
     return stats

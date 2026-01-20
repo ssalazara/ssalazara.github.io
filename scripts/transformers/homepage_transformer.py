@@ -3,11 +3,12 @@ Homepage transformer for Contentful homePage content type.
 Transforms homepage entries with dynamic blocks to Jekyll YAML data files.
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Set
 from contentful.entry import Entry
 
 from scripts.transformers.base_transformer import BaseTransformer
 from scripts.config import logger, CONTENT_TYPE_HOMEPAGE
+from scripts.writers.data_writer import DataWriter
 
 
 class HomepageTransformer(BaseTransformer):
@@ -30,6 +31,8 @@ class HomepageTransformer(BaseTransformer):
         """
         super().__init__(client, locale)
         self.content_type = CONTENT_TYPE_HOMEPAGE
+        self.header_data = None
+        self.footer_data = None
     
     def _transform_block(self, block_entry: Entry) -> Dict[str, Any]:
         """
@@ -303,6 +306,190 @@ class HomepageTransformer(BaseTransformer):
             'placeholder': True
         }
     
+    def _resolve_menu_items(
+        self,
+        menu_entries: List[Entry],
+        visited: Set[str]
+    ) -> List[Dict[str, Any]]:
+        """
+        Resolve menu item entries with circular reference protection.
+        
+        Args:
+            menu_entries: List of menu item entries
+            visited: Set of visited entry IDs
+        
+        Returns:
+            List of menu item dictionaries
+        """
+        menu_items = []
+        
+        for menu_entry in menu_entries:
+            # Circular reference protection
+            if menu_entry.id in visited:
+                logger.warning(
+                    f"⚠️ CIRCULAR_REFERENCE_DETECTED "
+                    f"entry_id={menu_entry.id} "
+                    f"skipping"
+                )
+                continue
+            
+            visited.add(menu_entry.id)
+            
+            try:
+                menu_fields = menu_entry.fields()
+                
+                label = menu_fields.get('label', '')  # Localized
+                url = menu_fields.get('url', '')
+                
+                if label and url:
+                    menu_items.append({
+                        'label': label,
+                        'url': url,
+                        'external': url.startswith('http')
+                    })
+            except Exception as e:
+                logger.warning(
+                    f"⚠️ MENU_ITEM_FAILED "
+                    f"entry_id={menu_entry.id} "
+                    f"error={str(e)}"
+                )
+        
+        return menu_items
+    
+    def _extract_header(self, homepage_entry: Entry) -> Dict[str, Any]:
+        """
+        Extract header data from homepage entry.
+        
+        Args:
+            homepage_entry: Homepage entry containing header reference
+        
+        Returns:
+            Header data dictionary
+        """
+        fields = homepage_entry.fields()
+        header_ref = fields.get('header')
+        
+        if not header_ref:
+            logger.warning(f"⚠️ NO_HEADER_REFERENCE in homepage")
+            return {'brand_url': '/'}
+        
+        try:
+            header_fields = header_ref.fields()
+            
+            # Extract brand (note: SDK converts camelCase to snake_case)
+            brand_url = header_fields.get('brand_url', '/')
+            brand_logo_url = ''
+            brand_image = header_fields.get('brand_image')
+            if brand_image:
+                brand_logo_url = self.get_asset_url(brand_image)
+            
+            # Resolve menu items with circular reference tracking
+            # Note: Contentful SDK converts camelCase to snake_case
+            visited_ids: Set[str] = set()
+            menu_entries = self.resolve_reference_array(header_ref, 'menu_items')
+            menu_items = self._resolve_menu_items(menu_entries, visited_ids)
+            
+            # Resolve top links (if present)
+            visited_ids_top: Set[str] = set()
+            top_link_entries = self.resolve_reference_array(header_ref, 'top_links')
+            top_links = self._resolve_menu_items(top_link_entries, visited_ids_top)
+            
+            # Build header data structure
+            header_data = {
+                'brand_url': brand_url,
+                'brand_logo_url': brand_logo_url,
+                'menu_items': menu_items,
+                'top_links': top_links
+            }
+            
+            # Remove empty fields
+            header_data = {
+                k: v for k, v in header_data.items()
+                if v
+            }
+            
+            logger.info(
+                f"✅ HEADER_EXTRACTED "
+                f"entry_id={header_ref.id} "
+                f"menu_items_count={len(menu_items)}"
+            )
+            
+            return header_data
+            
+        except Exception as e:
+            logger.error(
+                f"❌ HEADER_EXTRACTION_FAILED "
+                f"error={str(e)}"
+            )
+            return {'brand_url': '/'}
+    
+    def _extract_footer(self, homepage_entry: Entry) -> Dict[str, Any]:
+        """
+        Extract footer data from homepage entry.
+        
+        Args:
+            homepage_entry: Homepage entry containing footer reference
+        
+        Returns:
+            Footer data dictionary
+        """
+        fields = homepage_entry.fields()
+        footer_ref = fields.get('footer')
+        
+        if not footer_ref:
+            logger.warning(f"⚠️ NO_FOOTER_REFERENCE in homepage")
+            return {'brand_url': '/'}
+        
+        try:
+            footer_fields = footer_ref.fields()
+            
+            # Extract brand (note: SDK converts camelCase to snake_case)
+            brand_url = footer_fields.get('brand_url', '/')
+            brand_logo_url = ''
+            brand_image = footer_fields.get('brand_image')
+            if brand_image:
+                brand_logo_url = self.get_asset_url(brand_image)
+            
+            # Extract description and copyright
+            description = footer_fields.get('description', '')
+            copyright_text = footer_fields.get('copyright', '')
+            
+            # Resolve menu items with circular reference tracking
+            # Note: Contentful SDK converts camelCase to snake_case
+            visited_ids: Set[str] = set()
+            menu_entries = self.resolve_reference_array(footer_ref, 'menu_items')
+            menu_items = self._resolve_menu_items(menu_entries, visited_ids)
+            
+            # Build footer data structure
+            footer_data = {
+                'brand_url': brand_url,
+                'brand_logo_url': brand_logo_url,
+                'description': description,
+                'copyright': copyright_text,
+                'nav_links': menu_items  # Using nav_links to match footer template expectations
+            }
+            
+            # Remove empty fields
+            footer_data = {
+                k: v for k, v in footer_data.items()
+                if v
+            }
+            
+            logger.info(
+                f"✅ FOOTER_EXTRACTED "
+                f"entry_id={footer_ref.id} "
+                f"menu_items_count={len(menu_items)}"
+            )
+            
+            return footer_data
+            
+        except Exception as e:
+            logger.error(
+                f"❌ FOOTER_EXTRACTION_FAILED "
+                f"error={str(e)}"
+            )
+            return {'brand_url': '/'}
+    
     def transform_single(self, entry: Entry) -> Dict[str, Any]:
         """
         Transform a single homepage entry.
@@ -318,6 +505,10 @@ class HomepageTransformer(BaseTransformer):
         # Extract basic fields
         name = fields.get('name', '')
         url = fields.get('url', '/')
+        
+        # Extract header and footer (store for later writing to separate files)
+        self.header_data = self._extract_header(entry)
+        self.footer_data = self._extract_footer(entry)
         
         # Resolve blocks array
         block_entries = self.resolve_reference_array(entry, 'blocks')
@@ -350,6 +541,14 @@ class HomepageTransformer(BaseTransformer):
         
         return homepage_data
     
+    def get_header_data(self) -> Dict[str, Any]:
+        """Get extracted header data."""
+        return self.header_data or {'brand_url': '/'}
+    
+    def get_footer_data(self) -> Dict[str, Any]:
+        """Get extracted footer data."""
+        return self.footer_data or {'brand_url': '/'}
+    
     def transform_all(self) -> List[Dict[str, Any]]:
         """
         Transform homepage entry (singleton).
@@ -366,7 +565,7 @@ class HomepageTransformer(BaseTransformer):
             entries = self.client.get_entries(
                 content_type=self.content_type,
                 locale=self.locale,
-                include=2  # Include blocks and their references
+                include=10  # Deep include for header/footer menu items + blocks
             )
             
             if not entries:
