@@ -293,24 +293,69 @@ class HomepageTransformer(BaseTransformer):
     
     def _transform_carousel(self, entry: Entry, fields: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Transform carousel block (placeholder for future implementation).
+        Transform carousel block with nested card entries.
         
         Args:
             entry: Contentful Entry
             fields: Entry fields dictionary
         
         Returns:
-            Placeholder data dictionary
+            Carousel data dictionary with resolved cards
         """
-        logger.warning(
-            f"⚠️ CAROUSEL_NOT_IMPLEMENTED "
-            f"entry_id={entry.id}"
-        )
-        return {
+        # Resolve card entries
+        card_entries = self.resolve_reference_array(entry, 'cards')
+        cards = []
+        
+        for card_entry in card_entries:
+            try:
+                card_fields = card_entry.fields()
+                
+                # Extract image URL
+                image_url = ''
+                image_asset = card_fields.get('image')
+                if image_asset:
+                    image_url = self.get_asset_url(image_asset)
+                
+                card_data = {
+                    'title': card_fields.get('title', ''),
+                    'description': card_fields.get('description', ''),
+                    'image_url': image_url,
+                    'url': card_fields.get('url', ''),
+                    'url_label': card_fields.get('url_label', '')
+                }
+                
+                # Remove empty optional fields
+                card_data = {k: v for k, v in card_data.items() if v}
+                
+                cards.append(card_data)
+                
+            except Exception as e:
+                logger.error(
+                    f"❌ CARD_TRANSFORM_FAILED "
+                    f"entry_id={card_entry.id} "
+                    f"error={str(e)}"
+                )
+        
+        carousel_data = {
             'type': 'carousel',
-            'entry_id': entry.id,
-            'placeholder': True
+            'name': fields.get('name', ''),
+            'title': fields.get('title', ''),
+            'cards': cards
         }
+        
+        # Remove empty optional fields except cards array
+        carousel_data = {
+            k: v for k, v in carousel_data.items() 
+            if v or k in ['type', 'cards']
+        }
+        
+        logger.info(
+            f"✅ CAROUSEL_TRANSFORMED "
+            f"entry_id={entry.id} "
+            f"cards_count={len(cards)}"
+        )
+        
+        return carousel_data
     
     def _transform_quote(self, entry: Entry, fields: Dict[str, Any]) -> Dict[str, Any]:
         """

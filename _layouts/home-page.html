@@ -47,9 +47,9 @@ layout: default
         {% include components/text-with-image.html block=block %}
       {% endif %}
       
-      {% comment %} Carousel Block (placeholder for future) {% endcomment %}
+      {% comment %} Carousel Block {% endcomment %}
       {% if block.type == 'carousel' %}
-        {% comment %} TODO: Implement carousel component {% endcomment %}
+        {% include components/carousel.html block=block %}
       {% endif %}
       
       {% comment %} Quote Block {% endcomment %}

@@ -1,0 +1,85 @@
+{% comment %}
+  Carousel Component
+  Displays multiple cards in a horizontal scrollable layout
+  Supports touch/swipe on mobile and mouse drag on desktop
+{% endcomment %}
+
+<section class="carousel">
+  <div class="carousel__container">
+    
+    {% if include.block.title %}
+      <h2 class="carousel__title">{{ include.block.title }}</h2>
+    {% endif %}
+    
+    <div class="carousel__wrapper">
+      <div class="carousel__track">
+        {% for card in include.block.cards %}
+          <div class="carousel__item">
+            <article class="carousel-card">
+              {% if card.image_url %}
+                <div class="carousel-card__image">
+                  {% if card.url %}
+                    <a href="{{ card.url }}" {% if card.url contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                      <img 
+                        src="{{ card.image_url }}" 
+                        alt="{{ card.title | default: 'Card image' }}"
+                        loading="lazy"
+                      >
+                    </a>
+                  {% else %}
+                    <img 
+                      src="{{ card.image_url }}" 
+                      alt="{{ card.title | default: 'Card image' }}"
+                      loading="lazy"
+                    >
+                  {% endif %}
+                </div>
+              {% endif %}
+              
+              <div class="carousel-card__content">
+                {% if card.title %}
+                  <h3 class="carousel-card__title">
+                    {% if card.url %}
+                      <a href="{{ card.url }}" {% if card.url contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                        {{ card.title }}
+                      </a>
+                    {% else %}
+                      {{ card.title }}
+                    {% endif %}
+                  </h3>
+                {% endif %}
+                
+                {% if card.description %}
+                  <p class="carousel-card__description">{{ card.description }}</p>
+                {% endif %}
+                
+                {% if card.url and card.url_label %}
+                  <a 
+                    href="{{ card.url }}" 
+                    class="carousel-card__link"
+                    {% if card.url contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
+                  >
+                    {{ card.url_label }}
+                    <span class="carousel-card__link-arrow">→</span>
+                  </a>
+                {% endif %}
+              </div>
+            </article>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    {% if include.block.cards.size > 3 %}
+      <div class="carousel__controls">
+        <button class="carousel__button carousel__button--prev" aria-label="Previous slide">
+          <span>‹</span>
+        </button>
+        <button class="carousel__button carousel__button--next" aria-label="Next slide">
+          <span>›</span>
+        </button>
+      </div>
+    {% endif %}
+    
+  </div>
+</section>

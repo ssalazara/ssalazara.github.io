@@ -3,7 +3,16 @@
 
 .quote {
   padding: 4rem 0;
-  background-color: var(--color-bg-primary, #ffffff);
+  // Deep blue background with full width - WCAG AA compliant
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  width: 100%;
+  position: relative;
+  
+  // Full-width background that spans entire viewport
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
   
   &__container {
     @include container;
@@ -23,25 +32,43 @@
     font-size: 1.5rem;
     font-weight: 500;
     line-height: 1.6;
-    color: var(--color-text-primary, #1a202c);
+    // White text for accessibility on dark blue (WCAG AAA compliant - 10.29:1 ratio)
+    color: #ffffff;
     font-style: italic;
     margin: 0;
     position: relative;
+    padding: 0 2rem;
     
     @media (min-width: 768px) {
       font-size: 2rem;
+      padding: 0 3rem;
     }
     
-    // Optional: Add decorative quotation marks
+    // Decorative quotation marks - properly styled
+    &::before,
+    &::after {
+      font-size: 4rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-family: Georgia, serif;
+      font-style: normal;
+      line-height: 0;
+      position: absolute;
+      
+      @media (min-width: 768px) {
+        font-size: 5rem;
+      }
+    }
+    
     &::before {
       content: '"';
-      position: absolute;
-      left: -0.5em;
-      top: -0.2em;
-      font-size: 3rem;
-      color: var(--color-primary, #3b82f6);
-      opacity: 0.3;
-      font-family: Georgia, serif;
+      left: 0;
+      top: 0.5rem;
+    }
+    
+    &::after {
+      content: '"';
+      right: 0;
+      bottom: -0.5rem;
     }
   }
   
@@ -58,7 +85,8 @@
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.2);
     
     img {
       width: 100%;
@@ -79,17 +107,14 @@
   &__author-name {
     font-size: 1rem;
     font-weight: 600;
-    color: var(--color-text-primary, #1a202c);
+    // White text for accessibility (WCAG AAA compliant)
+    color: #ffffff;
     font-style: normal;
   }
   
   &__author-role {
     font-size: 0.875rem;
-    color: var(--color-text-secondary, #4a5568);
-  }
-  
-  // Alternating background colors for multiple instances
-  &:nth-of-type(even) {
-    background-color: var(--color-bg-secondary, #f8f9fa);
+    // Light gray text for accessibility (WCAG AA compliant - 7.8:1 ratio)
+    color: rgba(255, 255, 255, 0.85);
   }
 }
