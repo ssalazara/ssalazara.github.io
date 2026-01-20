@@ -5,9 +5,11 @@ A blog-first personal portfolio built with Jekyll, Contentful CMS, and GitHub Pa
 ## 📖 Documentation
 
 **Quick Start:**
-- 🎨 **Design System:** See [`DOCUMENTATION-INDEX.md`](DOCUMENTATION-INDEX.md) for all design documentation
-- 📚 **Storybook:** See [`STORYBOOK-QUICK-START.md`](STORYBOOK-QUICK-START.md) to run component library
-- 🏗️ **Architecture:** See [`_bmad-output/project-context.md`](_bmad-output/project-context.md) for critical implementation rules
+- 📚 **[Complete Documentation Index](docs/README.md)** - All guides, specs, and references
+- 🎨 **Design System:** See [`docs/design-system/`](docs/design-system/) for complete design documentation
+- 🏗️ **Architecture:** See [`docs/architecture.md`](docs/architecture.md) for system design
+- 🔧 **Setup:** See [`docs/setup-guides/`](docs/setup-guides/) for all setup guides
+- 📖 **Storybook:** See [`docs/storybook/`](docs/storybook/) for component library guides
 
 ## 🎯 Project Status
 
@@ -269,9 +271,9 @@ Generated site will be in `_site/` directory.
 - 300+ design tokens defined in `_sass/_variables.scss`
 
 **Design Resources:**
-- 📘 Full Spec: [`design-system.md`](_bmad-output/planning-artifacts/design-system.md)
-- 📗 Implementation Guide: [`design-system-implementation-guide.md`](_bmad-output/planning-artifacts/design-system-implementation-guide.md)
-- 📊 Token Reference: [`design-tokens-reference.md`](_bmad-output/planning-artifacts/design-tokens-reference.md)
+- 📘 Full Spec: [`design-system.md`](docs/design-system/design-system.md)
+- 📗 Implementation Guide: [`design-system-implementation-guide.md`](docs/design-system/design-system-implementation-guide.md)
+- 📊 Token Reference: [`design-tokens-reference.md`](docs/design-system/design-tokens-reference.md)
 
 ## 📚 Storybook (Component Library)
 
@@ -299,8 +301,8 @@ npm run dev
 - Components: Buttons, Cards, Forms
 - Full documentation with examples
 
-**Quick Start:** [`STORYBOOK-QUICK-START.md`](STORYBOOK-QUICK-START.md)  
-**Full Guide:** [`STORYBOOK-SETUP.md`](STORYBOOK-SETUP.md)
+**Quick Start:** [`docs/storybook/STORYBOOK-QUICK-START.md`](docs/storybook/STORYBOOK-QUICK-START.md)  
+**Full Guide:** [`docs/storybook/STORYBOOK-SETUP.md`](docs/storybook/STORYBOOK-SETUP.md)
 
 ## ✨ Features (Epic 4 Complete)
 
@@ -460,15 +462,15 @@ Python script monitors and logs build performance:
 
 ## 📚 Complete Documentation
 
-**See [`DOCUMENTATION-INDEX.md`](DOCUMENTATION-INDEX.md) for complete documentation index** (19 essential documents)
+**See [`docs/README.md`](docs/README.md) for complete documentation index**
 
 **Key Documents:**
-- **Design System:** `_bmad-output/planning-artifacts/design-system.md`
-- **Architecture:** `_bmad-output/planning-artifacts/architecture.md`
-- **PRD:** `_bmad-output/planning-artifacts/prd.md`
-- **Project Context:** `_bmad-output/project-context.md` (critical implementation rules)
-- **Contentful Setup:** `_bmad-output/CONTENTFUL-GITHUB-SETUP-GUIDE.md`
-- **Storybook:** `STORYBOOK-SETUP.md`
+- **Design System:** [`docs/design-system/design-system.md`](docs/design-system/design-system.md)
+- **Architecture:** [`docs/architecture.md`](docs/architecture.md)
+- **Project Context:** [`docs/project-context.md`](docs/project-context.md) (critical implementation rules)
+- **Setup Guide:** [`docs/setup-guides/SETUP-INSTRUCTIONS.md`](docs/setup-guides/SETUP-INSTRUCTIONS.md)
+- **Contentful Setup:** [`docs/setup-guides/CONTENTFUL-GITHUB-SETUP-GUIDE.md`](docs/setup-guides/CONTENTFUL-GITHUB-SETUP-GUIDE.md)
+- **Storybook:** [`docs/storybook/STORYBOOK-SETUP.md`](docs/storybook/STORYBOOK-SETUP.md)
 
 ## 📄 License
 

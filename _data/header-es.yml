@@ -5,9 +5,9 @@
 brand_url: https://ssalazara.github.io/
 brand_logo_url: https://images.ctfassets.net/co4wdyhrijid/1QNeLC9stPaDP1ePAplszM/489b1c7c042ef6b63e80c442679bce01/Captura_de_pantalla_2026-01-19_a_la_s__4.19.49â__p.m..png
 menu_items:
-- label: Nav Item
-  url: https://ssalazara.github.io/simon
-  external: true
-- label: Nav Item
-  url: https://ssalazara.github.io/simon
-  external: true
+- label: Home
+  url: https://ssalazara.github.io/
+  external: false
+- label: Blog
+  url: https://ssalazara.github.io/blog/
+  external: false

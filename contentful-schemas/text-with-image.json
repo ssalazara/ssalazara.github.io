@@ -21,6 +21,7 @@
       "id": "title",
       "name": "Heading",
       "type": "Symbol",
+      "localized": true,
       "required": false,
       "validations": [
         {
@@ -35,6 +36,7 @@
       "id": "description",
       "name": "Body Text",
       "type": "RichText",
+      "localized": true,
       "required": false,
       "validations": [
         {

@@ -21,6 +21,7 @@
       "id": "title",
       "name": "Section Title",
       "type": "Symbol",
+      "localized": true,
       "required": false,
       "validations": [
         {

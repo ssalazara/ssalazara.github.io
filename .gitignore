@@ -93,9 +93,21 @@ _posts/
 _data/profile-*.yml
 _data/navigation-*.yml
 _data/footer-*.yml
+_data/header-*.yml
+_data/homepage-*.yml
 
 # Keep example files
 !_data/*.example
+
+# ============================================================================
+# DEVELOPMENT ARTIFACTS
+# ============================================================================
+# BMAD workflow system (not part of final solution)
+_bmad/
+_bmad-output/
+
+# Test files
+test_*.html
 
 # ============================================================================
 # MACOS

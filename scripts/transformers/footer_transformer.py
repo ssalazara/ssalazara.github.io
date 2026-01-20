@@ -63,12 +63,13 @@ class FooterTransformer(BaseTransformer):
                 
                 label = menu_fields.get('label', '')  # Localized
                 url = menu_fields.get('url', '')
+                open_in_new_tab = menu_fields.get('openInNewTab', False)
                 
                 if label and url:
                     menu_items.append({
                         'label': label,
                         'url': url,
-                        'external': url.startswith('http')
+                        'external': open_in_new_tab
                     })
             except Exception as e:
                 logger.warning(

@@ -21,6 +21,7 @@
       "id": "quote",
       "name": "Quote Text",
       "type": "Text",
+      "localized": true,
       "required": true,
       "validations": [
         {
