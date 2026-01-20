@@ -1,0 +1,124 @@
+// Text with Image Component
+// Two-column layout with flexible image positioning
+
+.text-with-image {
+  padding: 4rem 0;
+  background-color: var(--color-bg-secondary, #f8f9fa);
+  
+  &__container {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+  }
+  
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-primary, #1a202c);
+    line-height: 1.2;
+    margin: 0;
+    
+    @media (min-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+  
+  &__description {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary, #4a5568);
+    
+    p {
+      margin-bottom: 1rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    a {
+      color: var(--color-primary, #3b82f6);
+      text-decoration: underline;
+      
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    strong {
+      font-weight: 600;
+      color: var(--color-text-primary, #1a202c);
+    }
+  }
+  
+  &__image {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+  }
+  
+  // Image position variations
+  &--image-left {
+    .text-with-image__container {
+      @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+  
+  &--image-right {
+    .text-with-image__container {
+      @media (min-width: 768px) {
+        .text-with-image__content {
+          order: 1;
+        }
+        
+        .text-with-image__image {
+          order: 2;
+        }
+      }
+    }
+    
+    @media (max-width: 767px) {
+      .text-with-image__image {
+        order: 1;
+      }
+      
+      .text-with-image__content {
+        order: 2;
+      }
+    }
+  }
+  
+  // Alternating background colors for multiple instances
+  &:nth-of-type(even) {
+    background-color: var(--color-bg-primary, #ffffff);
+  }
+}

@@ -42,9 +42,9 @@ layout: default
         {% comment %} TODO: Implement rich text component {% endcomment %}
       {% endif %}
       
-      {% comment %} Text with Image Block (placeholder for future) {% endcomment %}
+      {% comment %} Text with Image Block {% endcomment %}
       {% if block.type == 'textWithImage' %}
-        {% comment %} TODO: Implement text-with-image component {% endcomment %}
+        {% include components/text-with-image.html block=block %}
       {% endif %}
       
       {% comment %} Carousel Block (placeholder for future) {% endcomment %}

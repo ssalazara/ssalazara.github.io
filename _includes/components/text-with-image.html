@@ -1,0 +1,38 @@
+{% comment %}
+  Text with Image Component
+  Two-column layout with text and image
+  Supports left/right image positioning
+{% endcomment %}
+
+{% assign image_position = 'left' %}
+{% if include.block.image_on_right %}
+  {% assign image_position = 'right' %}
+{% endif %}
+
+<section class="text-with-image text-with-image--image-{{ image_position }}">
+  <div class="text-with-image__container">
+    
+    <div class="text-with-image__content">
+      {% if include.block.title %}
+        <h2 class="text-with-image__title">{{ include.block.title }}</h2>
+      {% endif %}
+      
+      {% if include.block.description %}
+        <div class="text-with-image__description">
+          {{ include.block.description | markdownify }}
+        </div>
+      {% endif %}
+    </div>
+    
+    {% if include.block.image_url %}
+      <div class="text-with-image__image">
+        <img 
+          src="{{ include.block.image_url }}" 
+          alt="{{ include.block.title | default: 'Image' }}"
+          loading="lazy"
+        >
+      </div>
+    {% endif %}
+    
+  </div>
+</section>

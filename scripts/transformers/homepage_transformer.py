@@ -245,24 +245,51 @@ class HomepageTransformer(BaseTransformer):
     
     def _transform_text_with_image(self, entry: Entry, fields: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Transform text-with-image block (placeholder for future implementation).
+        Transform text-with-image block.
         
         Args:
             entry: Contentful Entry
             fields: Entry fields dictionary
         
         Returns:
-            Placeholder data dictionary
+            Text with image data dictionary
         """
-        logger.warning(
-            f"⚠️ TEXT_WITH_IMAGE_NOT_IMPLEMENTED "
-            f"entry_id={entry.id}"
-        )
-        return {
+        # Extract image asset
+        image_url = ''
+        image_asset = fields.get('image')
+        if image_asset:
+            image_url = self.get_asset_url(image_asset)
+        
+        # Extract rich text description
+        description_text = ''
+        description_rich_text = fields.get('description')
+        if description_rich_text:
+            # Extract plain text from Contentful rich text structure
+            description_text = self._extract_text_from_rich_text(description_rich_text)
+        
+        text_with_image_data = {
             'type': 'textWithImage',
-            'entry_id': entry.id,
-            'placeholder': True
+            'name': fields.get('name', ''),
+            'title': fields.get('title', ''),
+            'description': description_text,
+            'image_url': image_url,
+            'image_on_right': fields.get('image_on_right', False)
         }
+        
+        # Remove empty optional fields except booleans
+        text_with_image_data = {
+            k: v for k, v in text_with_image_data.items() 
+            if v or k in ['type', 'image_on_right']
+        }
+        
+        logger.info(
+            f"✅ TEXT_WITH_IMAGE_TRANSFORMED "
+            f"entry_id={entry.id} "
+            f"has_image={bool(image_url)} "
+            f"has_title={bool(fields.get('title'))}"
+        )
+        
+        return text_with_image_data
     
     def _transform_carousel(self, entry: Entry, fields: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -305,6 +332,62 @@ class HomepageTransformer(BaseTransformer):
             'entry_id': entry.id,
             'placeholder': True
         }
+    
+    def _extract_text_from_rich_text(self, rich_text_obj: Any) -> str:
+        """
+        Extract plain text from Contentful rich text structure.
+        
+        Args:
+            rich_text_obj: Contentful rich text object
+        
+        Returns:
+            Plain text string with paragraphs separated by newlines
+        """
+        if not rich_text_obj:
+            return ''
+        
+        try:
+            # Rich text is a nested structure with content array
+            content_items = []
+            
+            # Handle dict-like structure
+            if hasattr(rich_text_obj, 'get'):
+                content = rich_text_obj.get('content', [])
+            elif hasattr(rich_text_obj, '__getitem__'):
+                content = rich_text_obj.get('content', [])
+            else:
+                # Try to access as attribute
+                content = getattr(rich_text_obj, 'content', [])
+            
+            for node in content:
+                if hasattr(node, 'get') or hasattr(node, '__getitem__'):
+                    node_type = node.get('nodeType', '') if hasattr(node, 'get') else node['nodeType']
+                    
+                    if node_type == 'paragraph':
+                        # Extract text from paragraph content
+                        para_content = node.get('content', []) if hasattr(node, 'get') else node['content']
+                        para_text = []
+                        
+                        for text_node in para_content:
+                            if hasattr(text_node, 'get'):
+                                if text_node.get('nodeType') == 'text':
+                                    para_text.append(text_node.get('value', ''))
+                            elif hasattr(text_node, '__getitem__'):
+                                if text_node['nodeType'] == 'text':
+                                    para_text.append(text_node['value'])
+                        
+                        if para_text:
+                            content_items.append(''.join(para_text))
+            
+            return '\n\n'.join(content_items)
+            
+        except Exception as e:
+            logger.warning(
+                f"⚠️ RICH_TEXT_EXTRACTION_FAILED "
+                f"error={str(e)} "
+                f"returning_empty_string"
+            )
+            return ''
     
     def _resolve_menu_items(
         self,

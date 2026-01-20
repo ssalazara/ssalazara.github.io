@@ -17,5 +17,8 @@ blocks:
   cta_url: https://ssalazara.github.io/blog
   image_url: https://images.ctfassets.net/co4wdyhrijid/4up5jv1LoTwDxLLIgseDN7/47c7ca2edc374d796742d6865ef77f7b/medusa.png
 - type: textWithImage
-  entry_id: 5olunzbcGjpLywqw0xlaPu
-  placeholder: true
+  name: Homepage > Panda Image
+  title: Panda experience
+  description: Lorem ipsum
+  image_url: https://images.ctfassets.net/co4wdyhrijid/4UXSPK3Sl4B8Mse0RKd1Et/99b8ddafaab7365f12edcb4b95647aca/panda.png
+  image_on_right: true
