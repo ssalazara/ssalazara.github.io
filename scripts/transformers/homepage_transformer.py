@@ -267,13 +267,16 @@ class HomepageTransformer(BaseTransformer):
             # Extract plain text from Contentful rich text structure
             description_text = self._extract_text_from_rich_text(description_rich_text)
         
+        # Get imageOnRight field (camelCase from Contentful, may also be snake_case)
+        image_on_right = fields.get('imageOnRight', fields.get('image_on_right', False))
+        
         text_with_image_data = {
             'type': 'textWithImage',
             'name': fields.get('name', ''),
             'title': fields.get('title', ''),
             'description': description_text,
             'image_url': image_url,
-            'image_on_right': fields.get('image_on_right', False)
+            'image_on_right': image_on_right
         }
         
         # Remove empty optional fields except booleans

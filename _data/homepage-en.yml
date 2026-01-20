@@ -22,4 +22,4 @@ blocks:
   title: Panda experience
   description: Lorem ipsum
   image_url: https://images.ctfassets.net/co4wdyhrijid/4UXSPK3Sl4B8Mse0RKd1Et/99b8ddafaab7365f12edcb4b95647aca/panda.png
-  image_on_right: true
+  image_on_right: false

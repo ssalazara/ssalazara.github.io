@@ -120,37 +120,25 @@
   }
   
   // Image position variations
+  // Default HTML order: content first, then image
+  
+  // Image on LEFT: Reverse order (image first, content second)
   &--image-left {
     .text-with-image__container {
       @media (min-width: 768px) {
-        grid-template-columns: 1fr 1fr;
+        .text-with-image__image {
+          order: -1; // Put image first (left)
+        }
+        
+        .text-with-image__content {
+          order: 1; // Put content second (right)
+        }
       }
     }
   }
   
-  &--image-right {
-    .text-with-image__container {
-      @media (min-width: 768px) {
-        .text-with-image__content {
-          order: 1;
-        }
-        
-        .text-with-image__image {
-          order: 2;
-        }
-      }
-    }
-    
-    @media (max-width: 767px) {
-      .text-with-image__image {
-        order: 1;
-      }
-      
-      .text-with-image__content {
-        order: 2;
-      }
-    }
-  }
+  // Image on RIGHT: Default order (content first/left, image second/right)
+  // No ordering needed - natural grid flow handles this
   
   // Alternating background colors for multiple instances
   &:nth-of-type(even) {
