@@ -474,7 +474,18 @@ Python script monitors and logs build performance:
 
 ## 📄 License
 
-[To be determined]
+This project uses a **dual-license structure**:
+
+### Code & Templates (MIT License)
+The website code, Jekyll templates, Python scripts, design system, and technical implementation are licensed under the **[MIT License](LICENSE)**. You're free to:
+- ✅ Use, modify, and distribute the code
+- ✅ Use it in commercial projects
+- ✅ Learn from and adapt the implementation
+
+### Personal Content (All Rights Reserved)
+Blog posts, profile information, personal images, and written content are **Copyright © 2026 Simon Salazar**. See [LICENSE-CONTENT.md](LICENSE-CONTENT.md) for details.
+
+**In short:** Feel free to use the code to build your own site, but please don't copy my personal content! 😊
 
 ---
 
