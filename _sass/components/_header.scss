@@ -18,6 +18,62 @@
   }
   
   // ----------------------------------------------------------------------------
+  // Top Bar (Utility Links)
+  // ----------------------------------------------------------------------------
+  &__top-bar {
+    background-color: $color-neutral-900;
+    color: $color-text-inverse;
+    border-bottom: 1px solid $color-neutral-800;
+  }
+  
+  &__top-container {
+    @include container;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: $spacing-2;
+    padding-bottom: $spacing-2;
+  }
+  
+  &__top-links {
+    @include list-reset;
+    display: flex;
+    align-items: center;
+    gap: $spacing-6;
+    
+    @include sm {
+      gap: $spacing-8;
+    }
+  }
+  
+  &__top-item {
+    // Individual top link item
+  }
+  
+  &__top-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-normal;
+    color: $color-neutral-300;
+    text-decoration: none;
+    transition: $transition-colors;
+    
+    @include hover {
+      color: $color-neutral-0;
+    }
+    
+    @include focus-visible;
+    
+    // External link icon
+    &[target="_blank"]::after {
+      content: "↗";
+      margin-left: $spacing-1;
+      font-size: 0.875em;
+      opacity: 0.7;
+    }
+  }
+  
+  // ----------------------------------------------------------------------------
   // Header Container
   // ----------------------------------------------------------------------------
   &__container {

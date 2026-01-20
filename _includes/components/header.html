@@ -9,6 +9,28 @@
 {% assign header = site.data[header_key] %}
 
 <header class="header" role="banner">
+  
+  <!-- Top Bar (Utility Links) -->
+  {% if header.top_links and header.top_links.size > 0 %}
+  <div class="header__top-bar">
+    <div class="header__top-container">
+      <ul class="header__top-links">
+        {% for link in header.top_links %}
+          <li class="header__top-item">
+            <a 
+              href="{{ link.url | relative_url }}" 
+              class="header__top-link"
+              {% if link.external %}target="_blank" rel="noopener noreferrer"{% endif %}
+            >
+              {{ link.label }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
   <div class="header__container">
     
     <!-- Logo / Brand -->
