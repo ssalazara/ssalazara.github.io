@@ -13,6 +13,11 @@
   text-decoration: none;
   color: inherit;
   
+  // Enhanced hover state with border highlight
+  @include hover {
+    border-color: $color-border-default;
+  }
+  
   // Card image
   &__image {
     width: 100%;
