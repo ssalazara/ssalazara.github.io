@@ -9,7 +9,7 @@
 
 {% comment %} Get posts in same locale, excluding current post {% endcomment %}
 {% assign locale_posts = site.posts | where: "lang", current_locale %}
-{% assign other_posts = locale_posts | where_exp: "post", "post.url != page.url" %}
+{% assign other_posts = locale_posts | where_exp: "post", "post.slug != page.slug" %}
 
 {% comment %} Try to find related posts by category {% endcomment %}
 {% assign related_posts = "" | split: "" %}
@@ -29,7 +29,7 @@
   {% for post in recent_posts %}
     {% assign is_duplicate = false %}
     {% for related in related_posts %}
-      {% if related.url == post.url %}
+      {% if related.slug == post.slug %}
         {% assign is_duplicate = true %}
         {% break %}
       {% endif %}

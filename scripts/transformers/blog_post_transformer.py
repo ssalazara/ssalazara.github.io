@@ -8,7 +8,7 @@ from contentful.entry import Entry
 
 from scripts.transformers.base_transformer import BaseTransformer
 from scripts.converters.markdown_converter import RichTextConverter
-from scripts.config import logger, CONTENT_TYPE_BLOG_POST
+from scripts.config import logger, CONTENT_TYPE_BLOG_POST, get_jekyll_locale
 
 
 class BlogPostTransformer(BaseTransformer):
@@ -94,7 +94,9 @@ class BlogPostTransformer(BaseTransformer):
         slug = fields.get('url', '')
         title = fields.get('title', '')
         excerpt = fields.get('description', '')
-        category = fields.get('label', '')
+        # Note: Removed 'category' - Jekyll uses directory name (_posts/en/ → category 'en')
+        # The 'label' field is stored separately if needed for display
+        label = fields.get('label', '')
         author = fields.get('author', '')
         publish_date = fields.get('publishDate', '')  # ISO 8601, no transformation
         
@@ -138,14 +140,19 @@ class BlogPostTransformer(BaseTransformer):
         canonical_url = seo_fields.get('canonicalUrl', '')
         no_index = seo_fields.get('noIndex', False)
         
+        # Get Jekyll locale for URLs
+        jekyll_locale = get_jekyll_locale(self.locale)
+        
         # Build frontmatter dictionary (all snake_case)
         frontmatter = {
             'layout': 'post-layout',
-            'locale': self.locale,
+            'lang': jekyll_locale,  # Map en-US → en, es → es
+            'locale': self.locale,  # Keep original for reference
+            'categories': [jekyll_locale],  # For Jekyll permalink: /en/blog/slug/ or /es/blog/slug/
             'slug': slug,
             'title': title,
             'excerpt': excerpt,
-            'category': category,
+            'label': label,  # Display label (e.g., "Technology") - NOT used for URLs
             'author': author,
             'publish_date': publish_date,  # ISO 8601 preserved
             'featured_image': featured_image,

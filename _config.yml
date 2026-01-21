@@ -34,11 +34,9 @@ sass:
   style: compressed  # Minify CSS in production
   sass_dir: _sass
 
-# Collections
-collections:
-  posts:
-    output: true
-    permalink: /:lang/blog/:slug/
+# Permalink structure for blog posts
+# Uses :categories which Jekyll auto-assigns from directory (_posts/en/ → category 'en')
+permalink: /:categories/blog/:slug/
 
 # Defaults
 defaults:
