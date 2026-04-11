@@ -52,11 +52,10 @@
     </span>
   </span>
 
-  <!-- Category Badge -->
-  {% if page.category %}
+  {% if page.label %}
   <span class="post-byline__item post-byline__category">
-    <span class="badge badge--{{ page.category | slugify }}">
-      {{ page.category }}
+    <span class="badge badge--{{ page.label | slugify }}">
+      {{ page.label }}
     </span>
   </span>
   {% endif %}

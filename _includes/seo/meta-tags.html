@@ -5,18 +5,22 @@
 {% endcomment %}
 
 {% assign current_locale = page.lang | default: site.default_lang | default: 'en' %}
-{% assign base_url = site.url | default: 'https://simonsalazar.github.io' %}
+{% assign base_url = site.url | default: 'https://ssalazara.github.io' %}
 {% assign page_url = base_url | append: page.url %}
 
-{% comment %} Page title {% endcomment %}
-{% if page.title %}
+{% comment %} Page title: prefer seo_title from Contentful, then page.title {% endcomment %}
+{% if page.seo_title %}
+  {% assign page_title = page.seo_title %}
+{% elsif page.title %}
   {% assign page_title = page.title | append: ' | ' | append: site.title %}
 {% else %}
   {% assign page_title = site.title %}
 {% endif %}
 
-{% comment %} Page description {% endcomment %}
-{% if page.excerpt %}
+{% comment %} Page description: prefer seo_description, then excerpt {% endcomment %}
+{% if page.seo_description %}
+  {% assign page_description = page.seo_description | truncate: 160 %}
+{% elsif page.excerpt %}
   {% assign page_description = page.excerpt | strip_html | strip_newlines | truncate: 160 %}
 {% elsif page.description %}
   {% assign page_description = page.description | truncate: 160 %}
@@ -24,8 +28,13 @@
   {% assign page_description = site.description | truncate: 160 %}
 {% endif %}
 
-{% comment %} Page image (for social sharing) {% endcomment %}
-{% if page.featured_image %}
+{% comment %} Page image: prefer og_image from Contentful SEO, then featured_image {% endcomment %}
+{% if page.og_image %}
+  {% assign page_image = page.og_image %}
+  {% unless page_image contains 'http' %}
+    {% assign page_image = base_url | append: page_image %}
+  {% endunless %}
+{% elsif page.featured_image %}
   {% assign page_image = page.featured_image %}
   {% unless page_image contains 'http' %}
     {% assign page_image = base_url | append: page_image %}
@@ -46,8 +55,8 @@
 <meta property="article:modified_time" content="{{ page.last_modified_date | date_to_xmlschema }}" />
 {% endif %}
 <meta property="article:author" content="{{ page.author | default: site.title }}" />
-{% if page.category %}
-<meta property="article:section" content="{{ page.category }}" />
+{% if page.label %}
+<meta property="article:section" content="{{ page.label }}" />
 {% endif %}
 {% if page.tags %}
   {% for tag in page.tags %}
@@ -70,10 +79,18 @@
 <meta name="twitter:image" content="{{ page_image }}" />
 
 <!-- Canonical URL -->
+{% if page.canonical_url %}
+<link rel="canonical" href="{{ page.canonical_url }}" />
+{% else %}
 <link rel="canonical" href="{{ page_url }}" />
+{% endif %}
 
 <!-- Additional SEO -->
+{% if page.no_index %}
+<meta name="robots" content="noindex, nofollow" />
+{% else %}
 <meta name="robots" content="index, follow" />
+{% endif %}
 <meta name="language" content="{{ current_locale }}" />
 {% if page.author %}
 <meta name="author" content="{{ page.author }}" />

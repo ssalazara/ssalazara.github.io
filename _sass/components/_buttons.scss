@@ -164,3 +164,20 @@
     transform: rotate(360deg);
   }
 }
+
+// BEM-style aliases used by Liquid templates
+.btn--primary {
+  @extend .btn-primary;
+}
+
+.btn--secondary {
+  @extend .btn-secondary;
+}
+
+.btn--ghost {
+  @extend .btn-ghost;
+}
+
+.btn--large {
+  @extend .btn-lg;
+}

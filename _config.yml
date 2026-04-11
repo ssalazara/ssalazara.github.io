@@ -35,8 +35,8 @@ sass:
   sass_dir: _sass
 
 # Permalink structure for blog posts
-# Uses :categories which Jekyll auto-assigns from directory (_posts/en/ → category 'en')
-permalink: /:categories/blog/:slug/
+# Generates /blog/:slug/ for all posts regardless of locale folder
+permalink: /blog/:slug/
 
 # Defaults
 defaults:

@@ -13,7 +13,18 @@
   
   <!-- Hreflang tags for multi-language SEO -->
   {% include seo/hreflang-tags.html %}
-  
+
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.ctfassets.net data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Google Fonts: Inter, Merriweather, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ '/feed.xml' | relative_url }}">
   
@@ -23,9 +34,13 @@
 
 <body class="{{ page.layout }} {% if page.lang %}lang-{{ page.lang }}{% endif %}">
 
+  <a href="#main-content" class="skip-link">
+    {% if page.lang == 'es' %}Saltar al contenido principal{% else %}Skip to main content{% endif %}
+  </a>
+
   {% include components/header.html %}
 
-  <main class="page-content" aria-label="Content">
+  <main id="main-content" class="page-content" aria-label="Content">
     {{ content }}
   </main>
 

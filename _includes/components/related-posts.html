@@ -14,10 +14,9 @@
 {% comment %} Try to find related posts by category {% endcomment %}
 {% assign related_posts = "" | split: "" %}
 
-{% if page.category %}
-  {% comment %} Get posts with same category {% endcomment %}
-  {% assign category_posts = other_posts | where: "category", page.category %}
-  {% assign related_posts = category_posts | slice: 0, max_related %}
+{% if page.label %}
+  {% assign label_posts = other_posts | where: "label", page.label %}
+  {% assign related_posts = label_posts | slice: 0, max_related %}
 {% endif %}
 
 {% comment %} If not enough related posts by category, fill with recent posts {% endcomment %}
@@ -68,7 +67,7 @@
 
   <!-- Back to Archive Link -->
   <div class="related-posts__footer">
-    <a href="{{ '/' | append: current_locale | append: '/blog/' | relative_url }}" class="btn btn--secondary">
+    <a href="{{ '/blog/' | relative_url }}" class="btn btn--secondary">
       {% if current_locale == 'es' %}
         Ver Todos los Artículos →
       {% else %}

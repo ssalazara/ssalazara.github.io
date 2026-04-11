@@ -15,12 +15,12 @@
 
 {% if include.post %}
   {% assign post = include.post %}
+  {% assign card_locale = post.lang | default: page.lang | default: site.default_lang | default: 'en' %}
   
   <article class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
     
-    <a href="{{ post.url | relative_url }}" class="post-card__link" aria-label="Read: {{ post.title }}">
+    <a href="{{ post.url | relative_url }}" class="post-card__link" aria-label="{% if card_locale == 'es' %}Leer: {{ post.title }}{% else %}Read: {{ post.title }}{% endif %}">
       
-      <!-- Featured Image -->
       {% if post.featured_image %}
       <div class="post-card__image">
         <img 
@@ -31,20 +31,18 @@
           class="post-card__img"
         />
         
-        <!-- Category Badge (overlaid on image) -->
-        {% if post.category %}
-        <span class="post-card__badge badge badge--{{ post.category | slugify }}">
-          {{ post.category }}
+        {% if post.label %}
+        <span class="post-card__badge badge badge--{{ post.label | slugify }}">
+          {{ post.label }}
         </span>
         {% endif %}
       </div>
       {% else %}
-        <!-- Placeholder if no featured image -->
         <div class="post-card__image post-card__image--placeholder">
           <div class="post-card__placeholder-content">
-            {% if post.category %}
-            <span class="post-card__badge badge badge--{{ post.category | slugify }}">
-              {{ post.category }}
+            {% if post.label %}
+            <span class="post-card__badge badge badge--{{ post.label | slugify }}">
+              {{ post.label }}
             </span>
             {% endif %}
           </div>
@@ -53,12 +51,10 @@
 
       <div class="post-card__content">
         
-        <!-- Post Title -->
         <h3 class="post-card__title" itemprop="headline">
           {{ post.title | escape }}
         </h3>
 
-        <!-- Publish Date -->
         {% if post.publish_date or post.date %}
         <time 
           class="post-card__date" 
@@ -69,7 +65,6 @@
         </time>
         {% endif %}
 
-        <!-- Excerpt (truncated to 150 chars) -->
         {% if post.excerpt %}
           {% assign excerpt_text = post.excerpt | strip_html | truncate: 150, "..." %}
           <p class="post-card__excerpt" itemprop="description">
@@ -77,9 +72,8 @@
           </p>
         {% endif %}
 
-        <!-- Read More CTA -->
         <span class="post-card__cta">
-          Read More 
+          {% if card_locale == 'es' %}Leer Más{% else %}Read More{% endif %}
           <svg class="post-card__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
           </svg>
@@ -87,7 +81,6 @@
 
       </div>
 
-      <!-- Hidden metadata for screen readers -->
       <meta itemprop="author" content="{{ site.title }}">
       {% if post.lang %}
       <meta itemprop="inLanguage" content="{{ post.lang }}">
@@ -98,8 +91,7 @@
   </article>
 
 {% else %}
-  <!-- Error state if post not provided -->
-  <div class="post-card post-card--error">
+  <div class="post-card post-card--error" role="alert">
     <p>Post data not available</p>
   </div>
 {% endif %}

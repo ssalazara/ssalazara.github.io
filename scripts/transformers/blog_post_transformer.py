@@ -144,17 +144,18 @@ class BlogPostTransformer(BaseTransformer):
         jekyll_locale = get_jekyll_locale(self.locale)
         
         # Build frontmatter dictionary (all snake_case)
+        # Note: No 'categories' — permalink /blog/:slug/ is locale-independent.
+        # Language is tracked via 'lang' for template logic and filtering.
         frontmatter = {
             'layout': 'post-layout',
-            'lang': jekyll_locale,  # Map en-US → en, es → es
-            'locale': self.locale,  # Keep original for reference
-            'categories': [jekyll_locale],  # For Jekyll permalink: /en/blog/slug/ or /es/blog/slug/
+            'lang': jekyll_locale,
+            'locale': self.locale,
             'slug': slug,
             'title': title,
             'excerpt': excerpt,
-            'label': label,  # Display label (e.g., "Technology") - NOT used for URLs
+            'label': label,
             'author': author,
-            'publish_date': publish_date,  # ISO 8601 preserved
+            'publish_date': publish_date,
             'featured_image': featured_image,
             'seo_title': seo_title,
             'seo_description': seo_description,

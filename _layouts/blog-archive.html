@@ -24,21 +24,13 @@ layout: default
             </a>
           </li>
           <li class="breadcrumb__item breadcrumb__item--active" aria-current="page">
-            {% if current_locale == 'es' %}
-              Archivo del Blog
-            {% else %}
-              Blog Archive
-            {% endif %}
+            Blog
           </li>
         </ol>
       </nav>
 
       <h1 class="blog-archive__title">
-        {% if current_locale == 'es' %}
-          Archivo del Blog
-        {% else %}
-          Blog Archive
-        {% endif %}
+        Blog
       </h1>
       
       {% if locale_posts.size > 0 %}

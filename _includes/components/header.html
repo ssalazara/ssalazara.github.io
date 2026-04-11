@@ -64,7 +64,7 @@
             </a>
           </li>
           <li class="header__nav-item">
-            <a href="{{ '/' | append: current_locale | append: '/blog/' | relative_url }}" class="header__nav-link {% if page.layout == 'blog-archive' %}is-active{% endif %}">
+            <a href="{{ '/blog/' | relative_url }}" class="header__nav-link {% if page.layout == 'blog-archive' or page.layout == 'post-layout' %}is-active{% endif %}">
               Blog
             </a>
           </li>
@@ -92,12 +92,11 @@
       aria-expanded="false"
       aria-controls="mobile-menu"
       type="button"
-      onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'false' ? 'true' : 'false'); document.getElementById('mobile-menu').classList.toggle('is-open');"
     >
-      <svg class="header__menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg class="header__menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
-      <svg class="header__menu-icon-close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg class="header__menu-icon-close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
@@ -125,7 +124,7 @@
           </a>
         </li>
         <li>
-          <a href="{{ '/' | append: current_locale | append: '/blog/' | relative_url }}" class="header__mobile-nav-link {% if page.layout == 'blog-archive' %}is-active{% endif %}">
+          <a href="{{ '/blog/' | relative_url }}" class="header__mobile-nav-link {% if page.layout == 'blog-archive' or page.layout == 'post-layout' %}is-active{% endif %}">
             Blog
           </a>
         </li>
@@ -136,4 +135,4 @@
 </header>
 
 <!-- Mobile Menu Backdrop -->
-<div class="header-backdrop" onclick="document.getElementById('mobile-menu').classList.remove('is-open'); document.querySelector('.header__menu-toggle').setAttribute('aria-expanded', 'false');"></div>
+<div class="header-backdrop" aria-hidden="true"></div>

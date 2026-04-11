@@ -156,10 +156,12 @@ baseurl: "/simon"  # Cambiar de "" a "/simon"
 2. Agrega estos secrets:
 
 ```
-CONTENTFUL_SPACE_ID = co4wdyhrijid
-CONTENTFUL_ACCESS_TOKEN = 5WtbBRlNlDO9-rpEMs01AiKT_PQxU6j1dbPh9zeTogo
-CONTENTFUL_PREVIEW_TOKEN = 9pnndUO33gOF5G3SJ3Kb7jrjB8MwUBqzs1on87XUCI0
+CONTENTFUL_SPACE_ID = YOUR_SPACE_ID
+CONTENTFUL_ACCESS_TOKEN = YOUR_DELIVERY_API_TOKEN
+CONTENTFUL_PREVIEW_TOKEN = YOUR_PREVIEW_API_TOKEN
 ```
+
+> **IMPORTANT:** Never commit real API tokens to the repository. Get the actual values from Contentful > Settings > API keys.
 
 ### 5.5 Habilitar GitHub Pages
 

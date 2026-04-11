@@ -1,79 +1,92 @@
 /**
  * Main JavaScript for github-page
- * Handles mobile menu toggle, language preference, and accessibility
+ * Handles mobile menu, language preference, and accessibility enhancements
  */
 
 (function() {
   'use strict';
 
   // ============================================================================
-  // MOBILE MENU TOGGLE
+  // MOBILE MENU
   // ============================================================================
 
   function initMobileMenu() {
-    const toggle = document.querySelector('.site-nav__toggle');
-    const menu = document.querySelector('.site-nav__menu');
+    var toggle = document.querySelector('.header__menu-toggle');
+    var menu = document.getElementById('mobile-menu');
+    var backdrop = document.querySelector('.header-backdrop');
 
     if (!toggle || !menu) return;
 
+    function openMenu() {
+      toggle.setAttribute('aria-expanded', 'true');
+      menu.classList.add('is-open');
+      if (backdrop) backdrop.classList.add('is-visible');
+      document.body.style.overflow = 'hidden';
+      trapFocus(menu);
+    }
+
+    function closeMenu() {
+      toggle.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('is-open');
+      if (backdrop) backdrop.classList.remove('is-visible');
+      document.body.style.overflow = '';
+      toggle.focus();
+    }
+
     toggle.addEventListener('click', function() {
-      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-      
-      // Toggle ARIA state
-      toggle.setAttribute('aria-expanded', !isOpen);
-      
-      // Toggle menu visibility
-      menu.classList.toggle('is-open');
-
-      // Trap focus when menu is open
-      if (!isOpen) {
-        trapFocus(menu);
+      var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
       }
     });
 
-    // Close menu when clicking outside
+    if (backdrop) {
+      backdrop.addEventListener('click', closeMenu);
+    }
+
     document.addEventListener('click', function(event) {
-      if (!toggle.contains(event.target) && !menu.contains(event.target)) {
-        toggle.setAttribute('aria-expanded', 'false');
-        menu.classList.remove('is-open');
+      if (menu.classList.contains('is-open') &&
+          !toggle.contains(event.target) &&
+          !menu.contains(event.target) &&
+          (!backdrop || !backdrop.contains(event.target))) {
+        closeMenu();
       }
     });
 
-    // Close menu on Escape key
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape' && menu.classList.contains('is-open')) {
-        toggle.setAttribute('aria-expanded', 'false');
-        menu.classList.remove('is-open');
-        toggle.focus();
+        closeMenu();
       }
     });
   }
 
   // ============================================================================
-  // FOCUS TRAP (for mobile menu accessibility)
+  // FOCUS TRAP
   // ============================================================================
 
   function trapFocus(element) {
-    const focusableElements = element.querySelectorAll(
+    var focusableElements = element.querySelectorAll(
       'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
     );
-    
+
     if (focusableElements.length === 0) return;
 
-    const firstFocusable = focusableElements[0];
-    const lastFocusable = focusableElements[focusableElements.length - 1];
+    var firstFocusable = focusableElements[0];
+    var lastFocusable = focusableElements[focusableElements.length - 1];
+
+    firstFocusable.focus();
 
     element.addEventListener('keydown', function(event) {
       if (event.key !== 'Tab') return;
 
       if (event.shiftKey) {
-        // Shift + Tab
         if (document.activeElement === firstFocusable) {
           lastFocusable.focus();
           event.preventDefault();
         }
       } else {
-        // Tab
         if (document.activeElement === lastFocusable) {
           firstFocusable.focus();
           event.preventDefault();
@@ -83,61 +96,53 @@
   }
 
   // ============================================================================
-  // LANGUAGE PREFERENCE (localStorage)
+  // LANGUAGE PREFERENCE
   // ============================================================================
 
   function initLanguagePreference() {
-    const currentLang = document.documentElement.lang || 'en';
-    
-    // Store current language preference
-    if (localStorage) {
-      localStorage.setItem('preferredLanguage', currentLang);
-    }
+    if (!window.localStorage) return;
 
-    // Detect browser language on first visit (if no stored preference)
-    if (localStorage && !localStorage.getItem('preferredLanguage')) {
-      const browserLang = navigator.language || navigator.userLanguage;
-      const langCode = browserLang.split('-')[0]; // Get 'en' from 'en-US'
-      
-      // Redirect to appropriate language if different from current
-      if (langCode === 'es' && currentLang === 'en') {
-        const currentPath = window.location.pathname;
-        const newPath = currentPath.replace('/en/', '/es/').replace(/^\/$/, '/es/');
+    var currentLang = document.documentElement.lang || 'en';
+    var storedLang = localStorage.getItem('preferredLanguage');
+
+    if (!storedLang) {
+      var browserLang = (navigator.language || '').split('-')[0];
+
+      if (browserLang === 'es' && currentLang === 'en') {
+        localStorage.setItem('preferredLanguage', 'es');
+        var currentPath = window.location.pathname;
+        var newPath = '/es' + (currentPath === '/' ? '/' : currentPath);
         window.location.href = newPath;
+        return;
       }
     }
+
+    localStorage.setItem('preferredLanguage', currentLang);
   }
 
   // ============================================================================
-  // LAZY LOADING IMAGES (enhanced)
+  // LAZY LOADING FALLBACK
   // ============================================================================
 
   function initLazyLoading() {
-    // Modern browsers support native lazy loading
-    // This is just a fallback for older browsers
-    if ('loading' in HTMLImageElement.prototype) {
-      return; // Native lazy loading is supported
-    }
+    if ('loading' in HTMLImageElement.prototype) return;
 
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    
+    var images = document.querySelectorAll('img[loading="lazy"]');
+
     if ('IntersectionObserver' in window) {
-      const imageObserver = new IntersectionObserver(function(entries, observer) {
+      var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
-            const img = entry.target;
+            var img = entry.target;
             img.src = img.dataset.src || img.src;
             img.classList.add('loaded');
-            imageObserver.unobserve(img);
+            observer.unobserve(img);
           }
         });
       });
 
-      images.forEach(function(img) {
-        imageObserver.observe(img);
-      });
+      images.forEach(function(img) { observer.observe(img); });
     } else {
-      // Fallback for browsers without IntersectionObserver
       images.forEach(function(img) {
         img.src = img.dataset.src || img.src;
       });
@@ -145,49 +150,43 @@
   }
 
   // ============================================================================
-  // SMOOTH SCROLL FOR ANCHOR LINKS
+  // SMOOTH SCROLL
   // ============================================================================
 
   function initSmoothScroll() {
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    
+    var anchorLinks = document.querySelectorAll('a[href^="#"]');
+
     anchorLinks.forEach(function(link) {
       link.addEventListener('click', function(event) {
-        const targetId = link.getAttribute('href');
-        
+        var targetId = link.getAttribute('href');
         if (targetId === '#') return;
 
-        const targetElement = document.querySelector(targetId);
-        
+        var targetElement = document.querySelector(targetId);
         if (targetElement) {
           event.preventDefault();
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-          
-          // Update focus for accessibility
-          targetElement.focus();
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          targetElement.setAttribute('tabindex', '-1');
+          targetElement.focus({ preventScroll: true });
         }
       });
     });
   }
 
   // ============================================================================
-  // INITIALIZE ON DOM READY
+  // INIT
   // ============================================================================
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
 
   function init() {
     initMobileMenu();
     initLanguagePreference();
     initLazyLoading();
     initSmoothScroll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 
 })();
