@@ -7,44 +7,41 @@ layout: default
 
 <div class="blog-archive">
   
-  <!-- Page Header -->
-  <header class="blog-archive__header">
-    <div class="container">
-      
-      <!-- Breadcrumb Navigation -->
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <ol class="breadcrumb__list">
-          <li class="breadcrumb__item">
-            <a href="{{ '/' | relative_url }}" class="breadcrumb__link">
-              {% if current_locale == 'es' %}
-                Inicio
-              {% else %}
-                Home
-              {% endif %}
-            </a>
-          </li>
-          <li class="breadcrumb__item breadcrumb__item--active" aria-current="page">
-            Blog
-          </li>
-        </ol>
-      </nav>
+  {% assign blog_page_data = site.data["blog-page-" | append: current_locale] | default: site.data["blog-page-en"] %}
 
-      <h1 class="blog-archive__title">
-        Blog
-      </h1>
-      
-      {% if locale_posts.size > 0 %}
-      <p class="blog-archive__subtitle">
-        {% if current_locale == 'es' %}
-          {{ locale_posts.size }} {% if locale_posts.size == 1 %}artículo{% else %}artículos{% endif %} publicados
-        {% else %}
-          {{ locale_posts.size }} {% if locale_posts.size == 1 %}post{% else %}posts{% endif %} published
-        {% endif %}
-      </p>
+  {% if blog_page_data.hero %}
+    <section class="blog-archive__hero">
+      {% if blog_page_data.hero.image_url and blog_page_data.hero.image_url != "" %}
+        {% include components/hero-banner.html hero=blog_page_data.hero %}
+      {% else %}
+        <div class="blog-archive__hero-minimal">
+          <div class="container">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+              <ol class="breadcrumb__list">
+                <li class="breadcrumb__item">
+                  <a href="{{ '/' | relative_url }}" class="breadcrumb__link">
+                    {% if current_locale == 'es' %}Inicio{% else %}Home{% endif %}
+                  </a>
+                </li>
+                <li class="breadcrumb__item breadcrumb__item--active" aria-current="page">
+                  Blog
+                </li>
+              </ol>
+            </nav>
+            <h1 class="blog-archive__title">{{ blog_page_data.hero.title | default: "Blog" }}</h1>
+            {% if blog_page_data.hero.description %}
+              <p class="blog-archive__description">{{ blog_page_data.hero.description }}</p>
+            {% endif %}
+            {% if locale_posts.size > 0 %}
+              <p class="blog-archive__subtitle">
+                {{ locale_posts.size }} {% if current_locale == 'es' %}{% if locale_posts.size == 1 %}artículo{% else %}artículos{% endif %}{% else %}{% if locale_posts.size == 1 %}post{% else %}posts{% endif %}{% endif %} published
+              </p>
+            {% endif %}
+          </div>
+        </div>
       {% endif %}
-
-    </div>
-  </header>
+    </section>
+  {% endif %}
 
   <!-- Posts Grid -->
   <section class="blog-archive__content">

@@ -1,0 +1,47 @@
+// ============================================================================
+// BREADCRUMB COMPONENT
+// Design System v1.0 — Navigation breadcrumb
+// ============================================================================
+
+.breadcrumb {
+  margin-bottom: $spacing-4;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    color: $color-text-tertiary;
+
+    &:not(:last-child)::after {
+      content: '/';
+      color: $color-neutral-300;
+      font-weight: $font-weight-normal;
+    }
+
+    &--active {
+      color: $color-text-secondary;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  &__link {
+    color: $color-text-tertiary;
+    text-decoration: none;
+    transition: $transition-colors;
+
+    @include hover {
+      color: $color-text-link;
+    }
+  }
+}

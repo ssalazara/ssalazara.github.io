@@ -1,0 +1,85 @@
+// ============================================================================
+// POST BYLINE COMPONENT
+// Design System v1.0 — Author, date, reading time, and category metadata
+// ============================================================================
+
+.post-byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-4;
+  margin-bottom: $spacing-6;
+
+  @include md {
+    gap: $spacing-6;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    color: $color-text-tertiary;
+    font-family: $font-family-base;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: $icon-size-sm;
+    height: $icon-size-sm;
+    color: $color-text-tertiary;
+  }
+
+  &__author {
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+  }
+
+  &__category {
+    font-weight: $font-weight-medium;
+  }
+}
+
+// Badge component (used for category labels)
+.badge {
+  display: inline-block;
+  padding: $spacing-1 $spacing-3;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-full;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  background-color: $color-bg-secondary;
+  color: $color-text-secondary;
+
+  &--technology {
+    background-color: $color-primary-50;
+    color: $color-primary-700;
+  }
+
+  &--design {
+    background-color: #fdf4ff;
+    color: #7e22ce;
+  }
+
+  &--business {
+    background-color: $color-success-50;
+    color: $color-success-600;
+  }
+
+  &--lifestyle {
+    background-color: $color-warning-50;
+    color: $color-warning-600;
+  }
+
+  &--updates {
+    background-color: $color-info-50;
+    color: $color-info-600;
+  }
+
+  &--news {
+    background-color: $color-error-50;
+    color: $color-error-600;
+  }
+}

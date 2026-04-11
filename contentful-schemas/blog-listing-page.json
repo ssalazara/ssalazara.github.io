@@ -1,0 +1,52 @@
+{
+  "name": "📋 Blog Listing Page",
+  "description": "Configuration for the /blog/ archive page. Hero, SEO metadata, and introductory text.",
+  "displayField": "name",
+  "sys": { "id": "blogListingPage" },
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "helpText": "For editors only. E.g. 'Blog Listing Page'"
+    },
+    {
+      "id": "seo",
+      "name": "SEO Metadata",
+      "type": "Link",
+      "linkType": "Entry",
+      "localized": false,
+      "required": true,
+      "validations": [{ "linkContentType": ["seo"] }],
+      "helpText": "SEO title, description, and OG image for the /blog/ URL"
+    },
+    {
+      "id": "hero",
+      "name": "Hero Banner",
+      "type": "Link",
+      "linkType": "Entry",
+      "localized": false,
+      "required": false,
+      "validations": [{ "linkContentType": ["heroBanner"] }],
+      "helpText": "Optional hero. If omitted, renders a minimal header with title and description."
+    },
+    {
+      "id": "title",
+      "name": "Page Title",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "helpText": "H1 for the blog listing page. E.g. 'Blog' or 'Articles'"
+    },
+    {
+      "id": "description",
+      "name": "Page Description",
+      "type": "Text",
+      "localized": true,
+      "required": false,
+      "helpText": "Subtitle shown below title. Describe what readers will find."
+    }
+  ]
+}

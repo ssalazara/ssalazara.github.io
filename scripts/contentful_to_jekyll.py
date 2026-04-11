@@ -23,6 +23,7 @@ from scripts.contentful_client.client import ContentfulClient
 
 # Import transformers
 from scripts.transformers.blog_post_transformer import BlogPostTransformer
+from scripts.transformers.blog_listing_page_transformer import BlogListingPageTransformer
 from scripts.transformers.profile_transformer import ProfileTransformer
 from scripts.transformers.header_transformer import HeaderTransformer
 from scripts.transformers.footer_transformer import FooterTransformer
@@ -177,6 +178,7 @@ def process_locale(
     
     # Initialize transformers for this locale
     blog_transformer = BlogPostTransformer(client, locale)
+    blog_listing_transformer = BlogListingPageTransformer(client, locale)
     profile_transformer = ProfileTransformer(client, locale)
     header_transformer = HeaderTransformer(client, locale)
     footer_transformer = FooterTransformer(client, locale)
@@ -195,6 +197,19 @@ def process_locale(
         except Exception as e:
             logger.error(f"❌ BLOG_POSTS_WRITE_FAILED: {str(e)}")
             stats['failed'] += len(blog_posts)
+    
+    # Transform and write blog listing page (→ _data/blog-page-{locale}.yml)
+    logger.info(f"📋 Transforming blog listing page...")
+    blog_listing_pages = blog_listing_transformer.transform_all()
+    stats['total_entries'] += len(blog_listing_pages)
+    
+    if blog_listing_pages:
+        try:
+            data_writer.write_data_file(blog_listing_pages[0], 'blog-page', jekyll_locale)
+            stats['successful'] += 1
+        except Exception as e:
+            logger.error(f"❌ BLOG_LISTING_PAGE_WRITE_FAILED: {str(e)}")
+            stats['failed'] += 1
     
     # Transform and write profile (use Jekyll locale for filename)
     logger.info(f"👤 Transforming profile...")

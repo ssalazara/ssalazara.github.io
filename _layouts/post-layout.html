@@ -6,39 +6,34 @@ layout: default
 {% include helpers/blog-archive-path.html locale=current_locale %}
 
 <article class="post-layout" itemscope itemtype="https://schema.org/BlogPosting">
-  
+
+  {% if page.featured_image %}
+  <div class="post-layout__hero">
+    <div class="post-layout__hero-image"
+         style="background-image: url('{{ page.featured_image }}?w=1400&fm=webp&q=85');"
+         role="img"
+         aria-label="{{ page.featured_image_alt | default: page.title | escape }}">
+    </div>
+    <div class="post-layout__hero-overlay">
+      <div class="container container--narrow">
+        {% if page.label %}
+        <span class="badge badge--{{ page.label | slugify }} post-layout__label">{{ page.label }}</span>
+        {% endif %}
+        <h1 class="post-layout__title" itemprop="headline">{{ page.title | escape }}</h1>
+        {% include components/post-byline.html %}
+      </div>
+    </div>
+  </div>
+  {% else %}
   <header class="post-layout__header">
     <div class="container container--narrow">
-      
-      <!-- Post Title -->
-      <h1 class="post-layout__title" itemprop="headline">
-        {{ page.title | escape }}
-      </h1>
-
-      <!-- Post Byline (author, date, reading time, category) -->
+      {% if page.label %}
+      <span class="badge badge--{{ page.label | slugify }} post-layout__label">{{ page.label }}</span>
+      {% endif %}
+      <h1 class="post-layout__title" itemprop="headline">{{ page.title | escape }}</h1>
       {% include components/post-byline.html %}
-
     </div>
   </header>
-
-  <!-- Featured Image -->
-  {% if page.featured_image %}
-  <div class="post-layout__featured-image">
-    <figure class="post-figure">
-      <img 
-        src="{{ page.featured_image }}?w=1200&fm=webp&q=85" 
-        alt="{{ page.featured_image_alt | default: page.title | escape }}"
-        itemprop="image"
-        class="post-figure__img"
-        loading="eager"
-      />
-      {% if page.featured_image_caption %}
-      <figcaption class="post-figure__caption">
-        {{ page.featured_image_caption }}
-      </figcaption>
-      {% endif %}
-    </figure>
-  </div>
   {% endif %}
 
   <!-- Post Content -->

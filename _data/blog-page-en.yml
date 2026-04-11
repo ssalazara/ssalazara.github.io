@@ -1,0 +1,6 @@
+# Blog listing page data (English)
+# Edit this file to update the blog page hero content
+hero:
+  title: "Blog"
+  description: "Notes, experiments, and deep dives into web development, product design, and the technologies shaping how we build the web."
+  image_url: ""  # Optional: add a Contentful image URL here if desired

@@ -107,34 +107,86 @@
   }
   
   // ----------------------------------------------------------------------------
-  // Featured Image
+  // Post Hero (full-width featured image as background)
   // ----------------------------------------------------------------------------
-  &__featured-image {
+  &__hero {
+    position: relative;
     width: 100%;
-    max-width: $container-lg;
-    margin: 0 auto $spacing-12;
-    border-radius: $radius-xl;
+    min-height: 480px;
     overflow: hidden;
-    box-shadow: $shadow-lg;
-    
+    background-color: $color-neutral-900;
+    margin-bottom: $spacing-12;
+
     @include md {
-      margin-bottom: $spacing-16;
+      min-height: 560px;
     }
-    
-    img {
-      width: 100%;
-      height: auto;
-      display: block;
+
+    @include lg {
+      min-height: 640px;
     }
-    
-    &-caption {
-      padding: $spacing-3 $spacing-4;
-      font-size: $font-size-sm;
-      color: $color-text-tertiary;
+  }
+
+  &__hero-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.15) 100%
+      );
+      z-index: 2;
+    }
+  }
+
+  &__hero-overlay {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: flex-end;
+    min-height: inherit;
+    padding: $spacing-12 $spacing-4 $spacing-10;
+
+    @include md {
+      padding: $spacing-16 $spacing-6 $spacing-12;
+    }
+
+    .container--narrow {
       text-align: center;
-      background-color: $color-bg-secondary;
-      font-style: italic;
     }
+
+    .post-layout__title {
+      color: $color-text-inverse;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .post-byline {
+      color: $color-neutral-200;
+    }
+
+    .post-byline__item,
+    .post-byline__icon {
+      color: $color-neutral-300;
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    margin-bottom: $spacing-4;
+  }
+
+  // Legacy fallback (hidden — replaced by hero)
+  &__featured-image {
+    display: none;
   }
   
   // ----------------------------------------------------------------------------

@@ -106,6 +106,33 @@ class BlogPostTransformer(BaseTransformer):
         if image_asset:
             featured_image = self.get_asset_url(image_asset)
         
+        # Extract hero banner reference (optional field)
+        hero_banner_data = {}
+        hero_banner_ref = self.resolve_reference(entry, 'hero_banner')
+        if hero_banner_ref:
+            try:
+                hb_fields = hero_banner_ref.fields()
+                hb_image_url = ''
+                hb_image = hb_fields.get('image')
+                if hb_image:
+                    hb_image_url = self.get_asset_url(hb_image)
+                
+                hero_banner_data = {
+                    'title': hb_fields.get('title', title),
+                    'description': hb_fields.get('description', ''),
+                    'cta_label': hb_fields.get('cta_label', ''),
+                    'cta_url': hb_fields.get('cta_url', ''),
+                    'image_url': hb_image_url or featured_image
+                }
+                logger.info(f"✅ HERO_BANNER_RESOLVED entry_id={entry.id}")
+            except Exception as e:
+                logger.warning(f"⚠️ HERO_BANNER_FAILED entry_id={entry.id} error={str(e)}")
+        else:
+            if featured_image:
+                hero_banner_data = {
+                    'image_url': featured_image
+                }
+        
         # Extract and convert Rich Text body
         body_markdown = ''
         rich_text_body = fields.get('text')
@@ -157,6 +184,7 @@ class BlogPostTransformer(BaseTransformer):
             'author': author,
             'publish_date': publish_date,
             'featured_image': featured_image,
+            'hero_banner': hero_banner_data,
             'seo_title': seo_title,
             'seo_description': seo_description,
             'seo_keywords': seo_keywords,
