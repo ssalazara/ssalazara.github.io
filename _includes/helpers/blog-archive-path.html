@@ -1,0 +1,11 @@
+{% comment %}
+  Sets blog_archive_path to '/blog/' (English) or '/es/blog/' (Spanish).
+  Usage: {% include helpers/blog-archive-path.html locale=current_locale %}
+  Relies on Jekyll: assigns from includes are visible in the parent template.
+{% endcomment %}
+{% assign _blog_loc = include.locale | default: site.default_lang | default: 'en' %}
+{% if _blog_loc == 'es' %}
+  {% assign blog_archive_path = '/es/blog/' %}
+{% else %}
+  {% assign blog_archive_path = '/blog/' %}
+{% endif %}

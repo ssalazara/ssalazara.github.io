@@ -34,11 +34,8 @@ sass:
   style: compressed  # Minify CSS in production
   sass_dir: _sass
 
-# Permalink structure for blog posts
-# Generates /blog/:slug/ for all posts regardless of locale folder
-permalink: /blog/:slug/
-
-# Defaults
+# Post permalinks: scoped by folder so EN and ES can share the same Contentful slug
+# without colliding (English default has no /en/ prefix; Spanish uses /es/blog/).
 defaults:
   - scope:
       path: ""
@@ -51,11 +48,13 @@ defaults:
       type: "posts"
     values:
       lang: "en"
+      permalink: "/blog/:slug/"
   - scope:
       path: "_posts/es"
       type: "posts"
     values:
       lang: "es"
+      permalink: "/es/blog/:slug/"
 
 # Localization
 languages: ["en", "es"]

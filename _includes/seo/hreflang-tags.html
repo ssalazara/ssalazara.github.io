@@ -1,26 +1,29 @@
 {% comment %}
-  Hreflang Tags Component
-  Generates alternate language tags for SEO
-  Helps search engines show correct language version to users
+  Alternate language links for SEO.
+  Blog: EN posts live at /blog/:slug/, ES at /es/blog/:slug/ (same slug, no URL collision).
 {% endcomment %}
 
 {% assign current_locale = page.lang | default: site.default_lang | default: 'en' %}
 {% assign base_url = site.url | default: 'https://ssalazara.github.io' %}
 
-{% comment %} Determine current path without locale {% endcomment %}
-{% assign current_path = page.url | remove_first: '/' | remove_first: 'en' | remove_first: 'es' %}
+{% assign en_url = base_url | append: page.url %}
+{% assign es_url = base_url | append: page.url %}
 
-{% comment %} Build absolute URLs for each language {% endcomment %}
-{% assign en_url = base_url | append: '/en' | append: current_path %}
-{% assign es_url = base_url | append: '/es' | append: current_path %}
-
-{% comment %} For homepage, handle special case {% endcomment %}
-{% if page.url == '/' or page.url == '/index.html' %}
+{% if page.layout == 'post-layout' %}
+  {% assign en_url = base_url | append: '/blog/' | append: page.slug | append: '/' %}
+  {% assign es_url = base_url | append: '/es/blog/' | append: page.slug | append: '/' %}
+{% elsif page.layout == 'blog-archive' %}
+  {% assign en_url = base_url | append: '/blog/' %}
+  {% assign es_url = base_url | append: '/es/blog/' %}
+{% elsif page.url == '/' or page.url == '/index.html' %}
   {% assign en_url = base_url | append: '/' %}
   {% assign es_url = base_url | append: '/es/' %}
 {% elsif page.url == '/es/' or page.url == '/es/index.html' %}
   {% assign en_url = base_url | append: '/' %}
   {% assign es_url = base_url | append: '/es/' %}
+{% else %}
+  {% assign en_url = base_url | append: page.url %}
+  {% assign es_url = base_url | append: page.url %}
 {% endif %}
 
 <!-- Hreflang tags for multi-language SEO -->

@@ -3,6 +3,7 @@ layout: default
 ---
 
 {% assign current_locale = page.lang | default: site.default_lang | default: 'en' %}
+{% include helpers/blog-archive-path.html locale=current_locale %}
 
 <article class="post-layout" itemscope itemtype="https://schema.org/BlogPosting">
   
@@ -77,7 +78,7 @@ layout: default
 
       <!-- Back to Archive Link -->
       <div class="post-footer-nav">
-        <a href="{{ '/blog/' | relative_url }}" class="btn btn--secondary">
+        <a href="{{ blog_archive_path | relative_url }}" class="btn btn--secondary">
           {% if current_locale == 'es' %}
             ← Volver al Archivo
           {% else %}
