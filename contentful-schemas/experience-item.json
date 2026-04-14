@@ -1,0 +1,76 @@
+{
+  "name": "🧬 Experience Item",
+  "description": "Atomic component: A single work experience entry with company, role, and dates. Used in Timeline molecules.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "company",
+      "name": "Company",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "role",
+      "name": "Role / Position",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "startDate",
+      "name": "Start Date",
+      "type": "Date",
+      "localized": false,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "endDate",
+      "name": "End Date",
+      "type": "Date",
+      "localized": false,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "description",
+      "name": "Description",
+      "type": "Text",
+      "localized": true,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "companyLogo",
+      "name": "Company Logo",
+      "type": "Link",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "linkType": "Asset"
+    },
+    {
+      "id": "companyUrl",
+      "name": "Company URL",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": []
+    }
+  ],
+  "sys": {
+    "id": "experienceItem",
+    "type": "ContentType"
+  }
+}

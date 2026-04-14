@@ -1,0 +1,40 @@
+{
+  "name": "🧩 Timeline",
+  "description": "Molecular component: An ordered list of Experience or Education items displayed chronologically. Used in CV and About pages.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "title",
+      "name": "Title",
+      "type": "Symbol",
+      "localized": true,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "items",
+      "name": "Items",
+      "type": "Array",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "items": {
+        "type": "Link",
+        "validations": [],
+        "linkType": "Entry"
+      }
+    }
+  ],
+  "sys": {
+    "id": "timeline",
+    "type": "ContentType"
+  }
+}

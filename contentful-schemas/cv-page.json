@@ -1,0 +1,67 @@
+{
+  "name": "📄 CV / About Page",
+  "description": "Template: Dedicated CV or About page. Composes Timeline, Skills Group, Stats Bar, and Contact Section organisms for a full professional profile.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "url",
+      "name": "URL Slug",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "seo",
+      "name": "SEO Metadata",
+      "type": "Link",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "linkType": "Entry"
+    },
+    {
+      "id": "header",
+      "name": "Header",
+      "type": "Link",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "linkType": "Entry"
+    },
+    {
+      "id": "blocks",
+      "name": "Content Blocks",
+      "type": "Array",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "items": {
+        "type": "Link",
+        "validations": [],
+        "linkType": "Entry"
+      }
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "type": "Link",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "linkType": "Entry"
+    }
+  ],
+  "sys": {
+    "id": "cvPage",
+    "type": "ContentType"
+  }
+}

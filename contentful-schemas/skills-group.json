@@ -1,0 +1,40 @@
+{
+  "name": "🧩 Skills Group",
+  "description": "Molecular component: A categorized group of Skill Tags. Multiple groups compose a full skills section.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "category",
+      "name": "Category",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "skills",
+      "name": "Skills",
+      "type": "Array",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "items": {
+        "type": "Link",
+        "validations": [],
+        "linkType": "Entry"
+      }
+    }
+  ],
+  "sys": {
+    "id": "skillsGroup",
+    "type": "ContentType"
+  }
+}

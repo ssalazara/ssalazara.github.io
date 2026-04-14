@@ -1,0 +1,76 @@
+{
+  "name": "🧬 Education Item",
+  "description": "Atomic component: A single education entry with institution, degree, and dates. Used in Timeline molecules.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "institution",
+      "name": "Institution",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "degree",
+      "name": "Degree",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "field",
+      "name": "Field of Study",
+      "type": "Symbol",
+      "localized": true,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "startDate",
+      "name": "Start Date",
+      "type": "Date",
+      "localized": false,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "endDate",
+      "name": "End Date",
+      "type": "Date",
+      "localized": false,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "description",
+      "name": "Description",
+      "type": "Text",
+      "localized": true,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "institutionLogo",
+      "name": "Institution Logo",
+      "type": "Link",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "linkType": "Asset"
+    }
+  ],
+  "sys": {
+    "id": "educationItem",
+    "type": "ContentType"
+  }
+}

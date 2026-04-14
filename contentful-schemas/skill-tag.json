@@ -1,0 +1,51 @@
+{
+  "name": "🧬 Skill Tag",
+  "description": "Atomic component: A single skill or technology tag with category and proficiency level. Used in Skills Group molecules.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "label",
+      "name": "Label",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "category",
+      "name": "Category",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "level",
+      "name": "Proficiency",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "icon",
+      "name": "Icon",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": []
+    }
+  ],
+  "sys": {
+    "id": "skillTag",
+    "type": "ContentType"
+  }
+}

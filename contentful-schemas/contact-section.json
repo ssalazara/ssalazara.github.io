@@ -1,0 +1,72 @@
+{
+  "name": "🦠 Contact Section",
+  "description": "Organism component: Full contact section with title, description, email, CTA and social links. Used at the bottom of CV and About pages.",
+  "displayField": "name",
+  "fields": [
+    {
+      "id": "name",
+      "name": "Internal Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "title",
+      "name": "Title",
+      "type": "Symbol",
+      "localized": true,
+      "required": true,
+      "validations": []
+    },
+    {
+      "id": "description",
+      "name": "Description",
+      "type": "Text",
+      "localized": true,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "email",
+      "name": "Email",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "ctaLabel",
+      "name": "CTA Label",
+      "type": "Symbol",
+      "localized": true,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "ctaUrl",
+      "name": "CTA URL",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": []
+    },
+    {
+      "id": "socialLinks",
+      "name": "Social Links",
+      "type": "Array",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "items": {
+        "type": "Link",
+        "validations": [],
+        "linkType": "Entry"
+      }
+    }
+  ],
+  "sys": {
+    "id": "contactSection",
+    "type": "ContentType"
+  }
+}
