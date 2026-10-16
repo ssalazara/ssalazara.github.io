@@ -24,6 +24,13 @@ Welcome to the Simon Salazar Portfolio & Blog documentation. This directory cont
 - **[Architecture](architecture.md)** - Technical architecture and system design
 - **[Project Context](project-context.md)** - Critical implementation rules and patterns
 
+### Content Strategy
+- **[Content Strategy](content-strategy.md)** - Editorial strategy, content types, publication workflow, Q4 plan
+
+### Audit & Process
+- **[Audit Plan](audit/audit-plan.md)** - Site audit plan (v3)
+- **[Audit Findings](audit/findings/)** - Detailed findings by area
+
 ## 📁 Directory Structure
 
 ```
@@ -31,6 +38,7 @@ docs/
 ├── README.md                           # This file
 ├── architecture.md                     # System architecture
 ├── project-context.md                  # Critical implementation context
+├── content-strategy.md                 # Editorial strategy & content plan
 │
 ├── setup-guides/                       # All setup and configuration guides
 │   ├── SETUP-INSTRUCTIONS.md
@@ -44,9 +52,15 @@ docs/
 │   ├── design-system-implementation-guide.md
 │   └── design-tokens-reference.md
 │
-└── storybook/                          # Storybook documentation
-    ├── STORYBOOK-QUICK-START.md
-    └── STORYBOOK-SETUP.md
+├── storybook/                          # Storybook documentation
+│   ├── STORYBOOK-QUICK-START.md
+│   └── STORYBOOK-SETUP.md
+│
+└── audit/                              # Audit artifacts (not shipped to site)
+    ├── audit-plan.md
+    ├── CLEANUP-SUMMARY.md
+    └── findings/
+        └── step-1-security.md
 ```
 
 ## 🎯 Where to Start
@@ -57,7 +71,8 @@ docs/
 3. Check [Project Context](project-context.md) for critical rules
 
 **Need to create content?**
-1. See [Contentful Blog Post Guide](setup-guides/CONTENTFUL-BLOG-POST-GUIDE.md)
+1. See [Content Strategy](content-strategy.md) for editorial guidelines
+2. See [Contentful Blog Post Guide](setup-guides/CONTENTFUL-BLOG-POST-GUIDE.md)
 
 **Working on design/UI?**
 1. Review [Design System](design-system/design-system.md)

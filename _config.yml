@@ -1,15 +1,18 @@
 # Site settings
 title: Simon Salazar Albornoz
 logo: /assets/images/ssa-logo.svg
-email: simon@example.com
+# TODO: Replace with real email or remove if not needed publicly
+# email: simon@example.com
 description: >-
   Personal portfolio and blog by Simon Salazar Albornoz.
   Exploring software engineering, product development, and technology.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ssalazara.github.io" # the base hostname & protocol for your site
-twitter_username: simonsalazar
-github_username:  simonsalazar
-linkedin_username: simonsalazar
+# TODO: Update twitter_username with real X/Twitter handle or remove
+# twitter_username: simonsalazar
+github_username:  ssalazara
+# TODO: Update linkedin_username with real LinkedIn slug or remove
+# linkedin_username: simonsalazar
 
 # Build settings
 markdown: kramdown
@@ -74,6 +77,8 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
-  - _bmad/
-  - _bmad-output/
   - contentful-schemas/
+  - audit-plan.md
+  - audit-findings/
+  - CLEANUP-SUMMARY.md
+  - docs/audit/
